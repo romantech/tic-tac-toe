@@ -10,12 +10,8 @@ interface SquareProps {
 
 const Square = ({ value, onClick, className }: SquareProps) => {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={clsx('size-16 border-b-2 border-r-2 text-2xl', className)}
-    >
-      {value}
+    <button type="button" onClick={onClick} className={clsx('border-b-2 border-r-2', className)}>
+      {value ?? '\u00A0'}
     </button>
   );
 };
@@ -28,7 +24,12 @@ interface BoardProps {
 
 export default function Board({ board, handleClick, className }: BoardProps) {
   return (
-    <div className={clsx('grid w-fit border-l-2 border-t-2', className)}>
+    <div
+      className={clsx(
+        'grid aspect-square w-11/12 rounded border-l-2 border-t-2 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12',
+        className,
+      )}
+    >
       {board.map((square, i) => (
         <Square key={i} value={square} onClick={() => handleClick(i)} />
       ))}

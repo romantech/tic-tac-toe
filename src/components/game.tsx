@@ -4,12 +4,11 @@ import { Board } from '@/components';
 import { checkWin, getLastMove, getPlayer, Player, TBoard } from '@/lib';
 
 const boardConfigs = {
-  3: 'grid-cols-3',
-  4: 'grid-cols-4',
-  5: 'grid-cols-5',
-  6: 'grid-cols-6',
-  7: 'grid-cols-7',
-  8: 'grid-cols-8',
+  3: 'grid-cols-3 text-7xl lg:text-8xl',
+  4: 'grid-cols-4 text-6xl lg:text-7xl',
+  5: 'grid-cols-5 text-5xl lg:text-6xl',
+  6: 'grid-cols-6 text-4xl lg:text-5xl',
+  7: 'grid-cols-7 text-3xl lg:text-4xl',
 } as const;
 
 type BoardSizes = keyof typeof boardConfigs;
@@ -23,7 +22,7 @@ interface GameProps {
   firstPlayer?: Player;
 }
 
-export default function Game({ firstPlayer, size = 5, winCondition = 3 }: GameProps) {
+export default function Game({ firstPlayer, size = 3, winCondition = 3 }: GameProps) {
   const [board, setBoard] = useState<TBoard>(Array(size * size).fill(null));
 
   const winner = useRef<Player | null>(null);
@@ -61,7 +60,7 @@ export default function Game({ firstPlayer, size = 5, winCondition = 3 }: GamePr
   };
 
   return (
-    <div className="text-white">
+    <div className="mx-auto flex size-full flex-col items-center pt-20 text-slate-200 md:px-8">
       <Board board={board} handleClick={handleClick} className={boardConfigs[size]} />
       <button disabled={!history.current.length} onClick={onUndoClick}>
         Undo
