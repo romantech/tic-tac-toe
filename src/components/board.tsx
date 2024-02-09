@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import { clsx } from 'clsx';
 
 import { Square } from '@/components';
+import { Player, TBoard } from '@/lib';
+import { checkWin, getLastMove, getPlayer } from '@/lib/helpers';
 
 const boardConfigs = {
   3: 'grid-cols-3',
@@ -15,11 +17,6 @@ const boardConfigs = {
 
 type BoardSizes = keyof typeof boardConfigs;
 
-enum Player {
-  X = 'X', // first player
-  O = 'O', // second player
-}
-
 interface BoardProps {
   /** 보드 크기 */
   size?: BoardSizes;
@@ -29,17 +26,26 @@ interface BoardProps {
   firstPlayer?: Player;
 }
 
-export default function Board({ firstPlayer, size = 3, winCondition = 3 }: BoardProps) {
-  const [board, setBoard] = useState(Array(size * size).fill(null));
+export default function Board({ firstPlayer, size = 5, winCondition = 3 }: BoardProps) {
+  const [board, setBoard] = useState<TBoard>(Array(size * size).fill(null));
+
   const xIsNext = useRef(firstPlayer === Player.X);
+  const lastMove = useRef({ row: 0, col: 0 });
+
+  const player = getPlayer(xIsNext.current);
 
   const handleClick = (i: number) => {
     const newBoard = [...board];
     if (newBoard[i]) return;
 
-    newBoard[i] = xIsNext.current ? Player.X : Player.O;
+    newBoard[i] = player;
     setBoard(newBoard);
     xIsNext.current = !xIsNext.current;
+    lastMove.current = getLastMove(i, size);
+
+    const { row, col } = lastMove.current;
+    const winner = checkWin(newBoard, size, winCondition, row, col, player);
+    if (winner) console.log(`Winner: ${player}`);
   };
 
   return (

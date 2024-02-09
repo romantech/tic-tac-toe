@@ -11,7 +11,7 @@ const Square = ({ value, onClick, className }: SquareProps) => {
     <button
       type="button"
       onClick={onClick}
-      className={clsx('size-16 border-b-2 border-r-2', className)}
+      className={clsx('size-16 border-b-2 border-r-2 text-2xl', className)}
     >
       {value}
     </button>
