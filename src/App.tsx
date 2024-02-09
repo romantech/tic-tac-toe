@@ -1,7 +1,11 @@
-import { clsx } from 'clsx';
+import { Board } from '@/components';
 
 function App() {
-  return <h1 className={clsx({ 'text-red-500': true })}>Hello world!</h1>;
+  return (
+    <main className="h-screen w-screen bg-black p-4">
+      <Board />
+    </main>
+  );
 }
 
 export default App;
