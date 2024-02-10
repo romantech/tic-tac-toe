@@ -1,9 +1,8 @@
 import { useCallback, useState } from 'react';
 
-import { Player } from '@/lib';
+import { MAX_UNDO_COUNT, Player } from '@/lib';
 
-const MAX_COUNT = 3;
-const defaultValues = { [Player.X]: MAX_COUNT, [Player.O]: MAX_COUNT };
+const defaultValues = { [Player.X]: MAX_UNDO_COUNT, [Player.O]: MAX_UNDO_COUNT };
 export type UndoCounts = typeof defaultValues;
 
 export const useUndoCount = () => {
@@ -13,5 +12,9 @@ export const useUndoCount = () => {
     setUndoCounts((prev) => ({ ...prev, [player]: prev[player] - 1 }));
   }, []);
 
-  return { undoCounts, decrementCount };
+  const resetCount = useCallback(() => {
+    setUndoCounts(defaultValues);
+  }, []);
+
+  return { undoCounts, decrementCount, resetCount };
 };

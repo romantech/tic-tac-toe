@@ -8,7 +8,7 @@ export default function Game({
   winCondition = 3,
   firstPlayer = Player.X,
 }: GameOption) {
-  const { board, getCurrentPlayer, handlers, enableUndo, undoCounts } = useGame({
+  const { board, getCurrentPlayer, handlers, enableUndo, enableReset, undoCounts } = useGame({
     size,
     winCondition,
     firstPlayer,
@@ -19,7 +19,9 @@ export default function Game({
       <div className="flex gap-4">
         <section className="flex gap-4">
           <Button disabled>Home</Button>
-          <Button>Reset</Button>
+          <Button disabled={!enableReset} onClick={handlers.reset}>
+            Reset
+          </Button>
         </section>
         <Divider className="my-2" />
         <section className="flex gap-4">

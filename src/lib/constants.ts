@@ -21,3 +21,5 @@ export enum DefaultColors {
   X = '#FED766',
   O = '#9CFFD9',
 }
+
+export const MAX_UNDO_COUNT = 3;

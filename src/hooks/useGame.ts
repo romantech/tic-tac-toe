@@ -3,9 +3,11 @@ import { useCallback, useRef, useState } from 'react';
 import { useUndoCount } from '@/hooks/useUndoCount';
 import { BoardMark, checkWin, GameOption, getLastMove, getPlayerMark, Player, TBoard } from '@/lib';
 
+const getInitialBoard = (size: number) => Array(size * size).fill(null);
+
 export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'playersInfo'>) => {
-  const [board, setBoard] = useState<TBoard>(Array(size * size).fill(null));
-  const { undoCounts, decrementCount } = useUndoCount();
+  const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
+  const { undoCounts, decrementCount, resetCount } = useUndoCount();
 
   const winner = useRef<BoardMark>(null);
   const history = useRef<Array<number>>([]);
@@ -35,9 +37,9 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
     if (hasWin) winner.current = currentPlayer;
   };
 
-  const onUndoClick = () => {
+  const undo = () => {
     const lastIndex = history.current.at(-1);
-    if (!lastIndex || winner.current) return;
+    if (lastIndex === undefined || winner.current) return;
 
     history.current.pop();
     togglePlayer();
@@ -50,14 +52,24 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
     });
   };
 
-  const enableUndo = history.current.length > 0 && undoCounts[getCurrentPlayer(true)] > 0;
+  const reset = useCallback(() => {
+    setBoard(getInitialBoard(size));
+    resetCount();
+    winner.current = null;
+    history.current = [];
+    xIsNext.current = firstPlayer === Player.X;
+  }, [firstPlayer, resetCount, size]);
+
+  const isPlaying = history.current.length > 0;
+  const enableUndo = isPlaying && undoCounts[getCurrentPlayer(true)] > 0;
 
   return {
     board,
     getCurrentPlayer,
-    handlers: { board: onBoardClick, undo: onUndoClick },
+    handlers: { board: onBoardClick, undo, reset },
     winner: winner.current,
     undoCounts,
     enableUndo,
+    enableReset: isPlaying,
   };
 };
