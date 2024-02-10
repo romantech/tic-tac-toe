@@ -6,7 +6,7 @@ export const getLastMove = (i: number, size: number) => {
   return { row, col };
 };
 
-export const getPlayer = (xIsNext: boolean) => {
+export const getPlayerMark = (xIsNext: boolean) => {
   return xIsNext ? Player.X : Player.O;
 };
 

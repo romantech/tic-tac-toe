@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
 import { useUndoCount } from '@/hooks/useUndoCount';
-import { BoardMark, checkWin, GameOption, getLastMove, getPlayer, Player, TBoard } from '@/lib';
+import { BoardMark, checkWin, GameOption, getLastMove, getPlayerMark, Player, TBoard } from '@/lib';
 
 export const useGame = ({ size, winCondition, firstPlayer }: GameOption) => {
   const [board, setBoard] = useState<TBoard>(Array(size * size).fill(null));
@@ -11,46 +11,52 @@ export const useGame = ({ size, winCondition, firstPlayer }: GameOption) => {
   const history = useRef<Array<number>>([]);
   const xIsNext = useRef(firstPlayer === Player.X);
 
-  const currentPlayer = getPlayer(xIsNext.current);
-  const disableUndoButton = history.current.length === 0;
+  const getPlayer = useCallback((opposition = false) => {
+    return getPlayerMark(opposition ? !xIsNext.current : xIsNext.current);
+  }, []);
+
+  const togglePlayer = useCallback(() => {
+    xIsNext.current = !xIsNext.current;
+  }, []);
 
   const onBoardClick = (i: number) => {
     if (board[i] || winner.current) return;
 
     const newBoard = [...board];
-    newBoard[i] = currentPlayer;
+    newBoard[i] = getPlayer();
     setBoard(newBoard);
 
-    xIsNext.current = !xIsNext.current;
+    togglePlayer();
     history.current.push(i);
 
     const { row, col } = getLastMove(i, size);
-    const hasWin = checkWin(newBoard, size, winCondition, row, col, currentPlayer);
-    if (hasWin) winner.current = currentPlayer;
+    const hasWin = checkWin(newBoard, size, winCondition, row, col, getPlayer());
+    if (hasWin) winner.current = getPlayer();
   };
 
-  const onUndoClick = useCallback(() => {
+  const onUndoClick = () => {
     const lastIndex = history.current.at(-1);
     if (!lastIndex || winner.current) return;
 
     history.current.pop();
-    xIsNext.current = !xIsNext.current;
-    decrementCount(getPlayer(xIsNext.current));
+    togglePlayer();
+    decrementCount(getPlayer());
 
     setBoard((prev) => {
       const newBoard = [...prev];
       newBoard[lastIndex] = null;
       return newBoard;
     });
-  }, [decrementCount]);
+  };
+
+  const enableUndo = history.current.length > 0 && undoCounts[getPlayer(true)] > 0;
 
   return {
     board,
-    currentPlayer,
-    onBoardClick,
-    onUndoClick,
+    player: getPlayer(),
+    handlers: { board: onBoardClick, undo: onUndoClick },
     winner: winner.current,
     undoCounts,
-    disableUndoButton,
+    enableUndo,
   };
 };
