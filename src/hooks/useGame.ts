@@ -22,16 +22,17 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
   const onBoardClick = (i: number) => {
     if (board[i] || winner.current) return;
 
+    const currentPlayer = getCurrentPlayer();
     const newBoard = [...board];
-    newBoard[i] = getCurrentPlayer();
+    newBoard[i] = currentPlayer;
     setBoard(newBoard);
 
     togglePlayer();
     history.current.push(i);
 
     const { row, col } = getLastMove(i, size);
-    const hasWin = checkWin(newBoard, size, winCondition, row, col, getCurrentPlayer());
-    if (hasWin) winner.current = getCurrentPlayer();
+    const hasWin = checkWin(newBoard, size, winCondition, row, col, currentPlayer);
+    if (hasWin) winner.current = currentPlayer;
   };
 
   const onUndoClick = () => {
