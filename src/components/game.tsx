@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { Board } from '@/components';
+import { Board, TurnIndicator } from '@/components';
 import { checkWin, getLastMove, getPlayer, Player, TBoard } from '@/lib';
 
 const boardConfigs = {
@@ -60,8 +60,9 @@ export default function Game({ firstPlayer, size = 3, winCondition = 3 }: GamePr
   };
 
   return (
-    <div className="mx-auto flex size-full flex-col items-center pt-20 text-slate-200 md:px-8">
+    <div className="mx-auto flex size-full flex-col items-center gap-4 py-20 text-slate-200 md:px-8">
       <Board board={board} handleClick={handleClick} className={boardConfigs[size]} />
+      <TurnIndicator currentPlayer={player} />
       <button disabled={!history.current.length} onClick={onUndoClick}>
         Undo
       </button>
