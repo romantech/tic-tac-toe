@@ -62,7 +62,6 @@ const checkDirection = (
   deltaRow: number,
   deltaCol: number,
 ) => {
-  let count = 1;
   const winningIndices = [{ row, col }]; // 승리한 위치의 인덱스 저장
 
   // 한 방향으로 검사
@@ -79,7 +78,6 @@ const checkDirection = (
     if (getCell(board, size, currentRow, currentCol) !== player) break;
 
     winningIndices.push({ row: currentRow, col: currentCol });
-    count++;
   }
 
   // 반대 방향으로 검사
@@ -96,10 +94,9 @@ const checkDirection = (
     if (getCell(board, size, currentRow, currentCol) !== player) break;
 
     winningIndices.push({ row: currentRow, col: currentCol });
-    count++;
   }
 
-  return count >= winCondition ? winningIndices : null;
+  return winningIndices.length >= winCondition ? winningIndices : null;
 };
 
 const getLinearIndex = (row: number, col: number, size: number) => row * size + col;

@@ -17,7 +17,7 @@ export enum Player {
   O = 'O',
 }
 
-export enum DefaultColors {
+export enum DefaultColor {
   X = '#FED766',
   O = '#9CFFD9',
 }

@@ -1,16 +1,16 @@
 import { Game } from '@/components';
-import { DefaultColors, Player, PlayersInfo } from '@/lib';
+import { DefaultColor, Player, PlayersInfo } from '@/lib';
 
 const Dummy: PlayersInfo = {
   [Player.X]: {
     defaultMark: Player.X,
     customMark: '□',
-    color: DefaultColors.X,
+    color: DefaultColor.X,
   },
   [Player.O]: {
     defaultMark: Player.O,
     customMark: '△',
-    color: DefaultColors.O,
+    color: DefaultColor.O,
   },
 };
 

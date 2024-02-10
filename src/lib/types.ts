@@ -1,4 +1,4 @@
-import { BoardSize, DefaultColors, Player } from '@/lib/constants';
+import { BoardSize, DefaultColor, Player } from '@/lib/constants';
 
 export type BoardMark = Player | null;
 export type TBoard = BoardMark[];
@@ -6,7 +6,7 @@ export type TBoard = BoardMark[];
 export type PlayerInfo = {
   defaultMark: Player;
   customMark: string | Player;
-  color: string | DefaultColors;
+  color: string | DefaultColor;
 };
 
 export type Winner = {
