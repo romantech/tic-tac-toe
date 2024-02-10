@@ -53,7 +53,7 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
 
   return {
     board,
-    currentPlayer: getCurrentPlayer(),
+    getCurrentPlayer,
     handlers: { board: onBoardClick, undo: onUndoClick },
     winner: winner.current,
     undoCounts,

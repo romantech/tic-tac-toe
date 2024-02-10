@@ -15,7 +15,7 @@ export default function TurnIndicator({ currentPlayer, className, playersInfo }:
     >
       <div
         className={clsx(
-          'absolute inset-x-0 size-20 rounded transition-all duration-300 ease-in-out',
+          'absolute inset-x-0 size-20 rounded-lg transition-all duration-300 ease-in-out',
           currentPlayer === Player.X ? 'translate-x-0' : 'translate-x-full', // 자신 너비만큼 수평 이동
         )}
         style={{ backgroundColor: playersInfo[currentPlayer].color }}
