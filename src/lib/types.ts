@@ -5,4 +5,12 @@ export enum Player {
   O = 'O',
 }
 
-export type TBoard = (Player | null)[];
+export type BoardMark = Player | null;
+export type TBoard = BoardMark[];
+
+export type PlayerInfo = {
+  mark: string;
+  color: string;
+  isFirst: boolean;
+  undoCount: number;
+};
