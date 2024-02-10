@@ -12,8 +12,8 @@ interface UndoStatusProps {
 export default function UndoStatus({ playersInfo, undoCounts, className }: UndoStatusProps) {
   return (
     <div className={clsx('text-slate-500', className)}>
-      <Status mark={playersInfo[Player.X].customMark} count={undoCounts[Player.X]} />
-      <Status mark={playersInfo[Player.O].customMark} count={undoCounts[Player.O]} />
+      <Status mark={playersInfo[Player.X].mark} count={undoCounts[Player.X]} />
+      <Status mark={playersInfo[Player.O].mark} count={undoCounts[Player.O]} />
     </div>
   );
 }
@@ -25,9 +25,9 @@ interface StatusProps {
 
 const Status = ({ mark, count }: StatusProps) => {
   return (
-    <p className="flex items-center justify-center gap-2">
-      <span className="inline-block min-w-5 text-center text-xl">{mark}</span>
-      <span>{`Count : ${count}`}</span>
-    </p>
+    <div className="flex items-center justify-center gap-2">
+      <p className="min-w-5 text-center text-xl">{mark}</p>
+      <p className="w-[68px]">{`Count : ${count}`}</p>
+    </div>
   );
 };

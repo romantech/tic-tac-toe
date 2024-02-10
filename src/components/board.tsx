@@ -43,7 +43,7 @@ export default function Board({ board, handleClick, className, playersInfo, winn
       )}
     >
       {board.map((square, i) => {
-        const mark = square ? playersInfo[square].customMark : null;
+        const mark = square ? playersInfo[square].mark : null;
         const color = square ? playersInfo[square].color : 'transparent';
         const isHighlightIdx = winner.indices?.has(i);
 

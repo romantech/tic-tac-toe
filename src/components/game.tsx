@@ -22,15 +22,15 @@ export default function Game({
 
   return (
     <div className="mx-auto flex size-full flex-col items-center gap-4 py-20 text-slate-200 md:px-8">
-      <div className="flex gap-4">
-        <section className="flex gap-4">
+      <div className="flex max-h-14 gap-3">
+        <section className="flex gap-3">
           <Button onClick={() => onClick?.(ScreenType.Home)}>Home</Button>
           <Button disabled={!enableReset} onClick={handlers.reset}>
             Reset
           </Button>
         </section>
-        <Divider className="my-2" />
-        <section className="flex gap-4">
+        <Divider className="my-3" />
+        <section className="flex gap-3">
           <Button disabled={!enableUndo} onClick={handlers.undo}>
             Undo
           </Button>

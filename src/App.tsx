@@ -1,20 +1,7 @@
 import { useState } from 'react';
 
-import { Game, Home } from '@/components';
-import { DefaultColor, Player, PlayersInfo, ScreenType } from '@/lib';
-
-const Dummy: PlayersInfo = {
-  [Player.X]: {
-    defaultMark: Player.X,
-    customMark: '□',
-    color: DefaultColor.X,
-  },
-  [Player.O]: {
-    defaultMark: Player.O,
-    customMark: '△',
-    color: DefaultColor.O,
-  },
-};
+import { Game, Home, Settings } from '@/components';
+import { defaultPlayersInfo, Player, ScreenType } from '@/lib';
 
 function App() {
   const [screen, setScreen] = useState<ScreenType>(ScreenType.Home);
@@ -24,10 +11,13 @@ function App() {
       case ScreenType.Home: {
         return <Home onClick={setScreen} />;
       }
+      case ScreenType.Settings: {
+        return <Settings />;
+      }
       case ScreenType.Play: {
         return (
           <Game
-            playersInfo={Dummy}
+            playersInfo={defaultPlayersInfo}
             size={3}
             winCondition={3}
             firstPlayer={Player.X}

@@ -27,7 +27,7 @@ export default function TurnIndicator({ currentPlayer, className, playersInfo }:
             'text-slate-800': player === currentPlayer,
           })}
         >
-          {playersInfo[player].customMark}
+          {playersInfo[player].mark}
         </div>
       ))}
     </section>
