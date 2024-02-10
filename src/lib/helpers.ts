@@ -2,7 +2,7 @@ import { Player } from '@/lib/constants';
 
 import { TBoard } from './types';
 
-export const getLastMove = (i: number, size: number) => {
+export const getCoordinatesFromIdx = (i: number, size: number) => {
   const row = Math.floor(i / size);
   const col = i % size; // 항상 0 ~ (size - 1) 값 반환
   return { row, col };
@@ -31,9 +31,25 @@ export const checkWin = (
     { deltaRow: 1, deltaCol: -1 }, // 좌하 대각선
   ];
 
-  return directions.some(({ deltaRow, deltaCol }) => {
-    return checkDirection(board, size, lastRow, lastCol, winCondition, player, deltaRow, deltaCol);
-  });
+  for (const { deltaRow, deltaCol } of directions) {
+    const winningIndices = checkDirection(
+      board,
+      size,
+      lastRow,
+      lastCol,
+      winCondition,
+      player,
+      deltaRow,
+      deltaCol,
+    );
+    if (winningIndices) {
+      // 승리한 위치의 인덱스 배열 반환
+      const linearIndex = winningIndices.map(({ row, col }) => getLinearIndex(row, col, size));
+      return new Set(linearIndex);
+    }
+  }
+
+  return null;
 };
 
 const checkDirection = (
@@ -46,7 +62,8 @@ const checkDirection = (
   deltaRow: number,
   deltaCol: number,
 ) => {
-  let count = 1; // 현재 위치 포함
+  let count = 1;
+  const winningIndices = [{ row, col }]; // 승리한 위치의 인덱스 저장
 
   // 한 방향으로 검사
   for (let i = 1; i < winCondition; i++) {
@@ -57,7 +74,11 @@ const checkDirection = (
      * 우측 하단 대각선 : row -> 3, 4 | col -> 3, 4
      * 좌측 하단 대각선 : row -> 3, 4 | col -> 1, 0
      * */
-    if (getCell(board, size, row + i * deltaRow, col + i * deltaCol) !== player) break;
+    const currentRow = row + i * deltaRow;
+    const currentCol = col + i * deltaCol;
+    if (getCell(board, size, currentRow, currentCol) !== player) break;
+
+    winningIndices.push({ row: currentRow, col: currentCol });
     count++;
   }
 
@@ -70,19 +91,28 @@ const checkDirection = (
      * 좌측 상단 대각선 : row -> 1, 0 | col -> 1, 0
      * 우측 상단 대각선 : row -> 1, 0 | col -> 3, 4
      * */
-    if (getCell(board, size, row - i * deltaRow, col - i * deltaCol) !== player) break;
+    const currentRow = row - i * deltaRow;
+    const currentCol = col - i * deltaCol;
+    if (getCell(board, size, currentRow, currentCol) !== player) break;
+
+    winningIndices.push({ row: currentRow, col: currentCol });
     count++;
   }
 
-  return count >= winCondition;
+  return count >= winCondition ? winningIndices : null;
 };
+
+const getLinearIndex = (row: number, col: number, size: number) => row * size + col;
 
 /**
  * 2차원 보드를 기준으로한 row, col 값을 받아서 1차원 배열로 표현했을 때의 인덱스 반환
  * row * size = row 위치. e.g. 2(row) * 5(size) = 10 (3번째 행 첫번째 열)
  * 계산한 row 위치에서 col 더하면 해당 위치의 인덱스
  * */
-const getCell = (board: TBoard, size: number, row: number, col: number) => {
-  if (row >= 0 && row < size && col >= 0 && col < size) return board[row * size + col];
+export const getCell = (board: TBoard, size: number, row: number, col: number) => {
+  const linearIndex = getLinearIndex(row, col, size);
+  if (row >= 0 && row < size && col >= 0 && col < size) return board[linearIndex];
   return null;
 };
+
+export const getInitialBoard = (size: number) => Array(size * size).fill(null);

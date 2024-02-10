@@ -8,11 +8,12 @@ export default function Game({
   winCondition = 3,
   firstPlayer = Player.X,
 }: GameOption) {
-  const { board, getCurrentPlayer, handlers, enableUndo, enableReset, undoCounts } = useGame({
-    size,
-    winCondition,
-    firstPlayer,
-  });
+  const { board, getCurrentPlayer, handlers, enableUndo, enableReset, undoCounts, winner } =
+    useGame({
+      size,
+      winCondition,
+      firstPlayer,
+    });
 
   return (
     <div className="mx-auto flex size-full flex-col items-center gap-4 py-20 text-slate-200 md:px-8">
@@ -36,6 +37,7 @@ export default function Game({
         board={board}
         handleClick={handlers.board}
         className={boardConfigs[size]}
+        winner={winner}
       />
       <TurnIndicator currentPlayer={getCurrentPlayer()} playersInfo={playersInfo} />
     </div>

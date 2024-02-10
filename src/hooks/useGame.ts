@@ -1,15 +1,27 @@
 import { useCallback, useRef, useState } from 'react';
 
 import { useUndoCount } from '@/hooks/useUndoCount';
-import { BoardMark, checkWin, GameOption, getLastMove, getPlayerMark, Player, TBoard } from '@/lib';
+import {
+  checkWin,
+  GameOption,
+  getCoordinatesFromIdx,
+  getInitialBoard,
+  getPlayerMark,
+  Player,
+  TBoard,
+  Winner,
+} from '@/lib';
 
-const getInitialBoard = (size: number) => Array(size * size).fill(null);
+const defaultWinner: Winner = {
+  player: null,
+  indices: null,
+};
 
 export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'playersInfo'>) => {
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
   const { undoCounts, decrementCount, resetCount } = useUndoCount();
 
-  const winner = useRef<BoardMark>(null);
+  const winner = useRef(defaultWinner);
   const history = useRef<Array<number>>([]);
   const xIsNext = useRef(firstPlayer === Player.X);
 
@@ -22,24 +34,24 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
   }, []);
 
   const onBoardClick = (i: number) => {
-    if (board[i] || winner.current) return;
+    if (board[i] || winner.current.player) return;
 
-    const currentPlayer = getCurrentPlayer();
+    const player = getCurrentPlayer();
     const newBoard = [...board];
-    newBoard[i] = currentPlayer;
+    newBoard[i] = player;
     setBoard(newBoard);
 
-    togglePlayer();
     history.current.push(i);
+    const { row, col } = getCoordinatesFromIdx(i, size);
+    const indices = checkWin(newBoard, size, winCondition, row, col, player);
 
-    const { row, col } = getLastMove(i, size);
-    const hasWin = checkWin(newBoard, size, winCondition, row, col, currentPlayer);
-    if (hasWin) winner.current = currentPlayer;
+    if (indices) winner.current = { player, indices };
+    else togglePlayer();
   };
 
-  const undo = () => {
+  const undo = useCallback(() => {
     const lastIndex = history.current.at(-1);
-    if (lastIndex === undefined || winner.current) return;
+    if (lastIndex === undefined || winner.current.player) return;
 
     history.current.pop();
     togglePlayer();
@@ -50,12 +62,12 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
       newBoard[lastIndex] = null;
       return newBoard;
     });
-  };
+  }, [decrementCount, getCurrentPlayer, togglePlayer]);
 
   const reset = useCallback(() => {
     setBoard(getInitialBoard(size));
     resetCount();
-    winner.current = null;
+    winner.current = defaultWinner;
     history.current = [];
     xIsNext.current = firstPlayer === Player.X;
   }, [firstPlayer, resetCount, size]);

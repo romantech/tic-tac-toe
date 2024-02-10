@@ -9,6 +9,11 @@ export type PlayerInfo = {
   color: string | DefaultColors;
 };
 
+export type Winner = {
+  player: Player | null;
+  indices: Set<number> | null;
+};
+
 export type PlayersInfo = {
   [key in Player]: PlayerInfo;
 };

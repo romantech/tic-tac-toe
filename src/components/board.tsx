@@ -1,15 +1,16 @@
 import { clsx } from 'clsx';
 
-import { NBSP, PlayersInfo, TBoard } from '@/lib';
+import { NBSP, PlayersInfo, TBoard, Winner } from '@/lib';
 
 interface SquareProps {
   mark: string | null;
+  dim: boolean;
   onClick: () => void;
   color?: string;
   className?: string;
 }
 
-const Square = ({ mark, onClick, className, color }: SquareProps) => {
+const Square = ({ dim, mark, onClick, className, color }: SquareProps) => {
   return (
     <button
       style={{ color }}
@@ -18,7 +19,7 @@ const Square = ({ mark, onClick, className, color }: SquareProps) => {
       className={clsx('border-b-2 border-r-2', className)}
     >
       {/* layout shift 방지를 위해 논브레이크 스페이스를 기본값으로 지정 */}
-      {mark ?? NBSP}
+      <span className={clsx('inline-block', dim && 'opacity-30')}>{mark ?? NBSP}</span>
     </button>
   );
 };
@@ -28,9 +29,12 @@ interface BoardProps {
   handleClick: (i: number) => void;
   className?: string;
   playersInfo: PlayersInfo;
+  winner: Winner;
 }
 
-export default function Board({ board, handleClick, className, playersInfo }: BoardProps) {
+export default function Board({ board, handleClick, className, playersInfo, winner }: BoardProps) {
+  const hasWinner = Boolean(winner.player);
+
   return (
     <div
       className={clsx(
@@ -41,7 +45,18 @@ export default function Board({ board, handleClick, className, playersInfo }: Bo
       {board.map((square, i) => {
         const mark = square ? playersInfo[square].customMark : null;
         const color = square ? playersInfo[square].color : 'transparent';
-        return <Square color={color} key={i} mark={mark} onClick={() => handleClick(i)} />;
+        const isHighlightIdx = winner.indices?.has(i);
+
+        return (
+          <Square
+            className={clsx({ 'bg-slate-600': isHighlightIdx })}
+            dim={hasWinner && !isHighlightIdx}
+            color={color}
+            key={i}
+            mark={mark}
+            onClick={() => handleClick(i)}
+          />
+        );
       })}
     </div>
   );
