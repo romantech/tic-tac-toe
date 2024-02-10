@@ -1,18 +1,24 @@
 import { clsx } from 'clsx';
 
-import { TBoard } from '@/lib';
+import { NBSP, PlayersInfo, TBoard } from '@/lib';
 
 interface SquareProps {
-  value: string | null;
+  mark: string | null;
   onClick: () => void;
+  color?: string;
   className?: string;
 }
 
-const Square = ({ value, onClick, className }: SquareProps) => {
+const Square = ({ mark, onClick, className, color }: SquareProps) => {
   return (
-    <button type="button" onClick={onClick} className={clsx('border-b-2 border-r-2', className)}>
+    <button
+      style={{ color }}
+      type="button"
+      onClick={onClick}
+      className={clsx('border-b-2 border-r-2', className)}
+    >
       {/* layout shift 방지를 위해 논브레이크 스페이스를 기본값으로 지정 */}
-      {value ?? '\u00A0'}
+      {mark ?? NBSP}
     </button>
   );
 };
@@ -21,9 +27,10 @@ interface BoardProps {
   board: TBoard;
   handleClick: (i: number) => void;
   className?: string;
+  playersInfo: PlayersInfo;
 }
 
-export default function Board({ board, handleClick, className }: BoardProps) {
+export default function Board({ board, handleClick, className, playersInfo }: BoardProps) {
   return (
     <div
       className={clsx(
@@ -31,9 +38,11 @@ export default function Board({ board, handleClick, className }: BoardProps) {
         className,
       )}
     >
-      {board.map((square, i) => (
-        <Square key={i} value={square} onClick={() => handleClick(i)} />
-      ))}
+      {board.map((square, i) => {
+        const mark = square ? playersInfo[square].customMark : null;
+        const color = square ? playersInfo[square].color : 'transparent';
+        return <Square color={color} key={i} mark={mark} onClick={() => handleClick(i)} />;
+      })}
     </div>
   );
 }

@@ -1,27 +1,21 @@
-import { BoardSize } from '@/lib/constants';
-
-export enum Player {
-  /** first player */
-  X = 'X',
-  /** second player */
-  O = 'O',
-}
+import { BoardSize, DefaultColors, Player } from '@/lib/constants';
 
 export type BoardMark = Player | null;
 export type TBoard = BoardMark[];
 
 export type PlayerInfo = {
-  mark: Player;
-  customMark: string | null;
-  color: string | null;
+  defaultMark: Player;
+  customMark: string | Player;
+  color: string | DefaultColors;
+};
+
+export type PlayersInfo = {
+  [key in Player]: PlayerInfo;
 };
 
 export type GameOption = {
   size: BoardSize;
   winCondition: number;
   firstPlayer: Player;
-};
-
-export type Players = {
-  [key in Player]: PlayerInfo;
+  playersInfo: PlayersInfo;
 };

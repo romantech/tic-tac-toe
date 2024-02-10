@@ -1,4 +1,6 @@
-import { Player, TBoard } from './types';
+import { Player } from '@/lib/constants';
+
+import { TBoard } from './types';
 
 export const getLastMove = (i: number, size: number) => {
   const row = Math.floor(i / size);
