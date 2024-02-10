@@ -25,9 +25,9 @@ interface StatusProps {
 
 const Status = ({ mark, count }: StatusProps) => {
   return (
-    <h3 className="flex items-center justify-center gap-2">
-      <span className="inline-block min-w-4 text-xl">{mark}</span>
+    <p className="flex items-center justify-center gap-2">
+      <span className="inline-block min-w-5 text-center text-xl">{mark}</span>
       <span>{`Count : ${count}`}</span>
-    </h3>
+    </p>
   );
 };

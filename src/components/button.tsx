@@ -9,7 +9,7 @@ export default function Button({
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-      className={clsx('rounded-lg border-2 px-4 py-2 text-lg font-semibold', {
+      className={clsx('rounded-lg border-2 p-2 font-semibold', {
         'bg-slate-700 border-slate-500 text-slate-400 cursor-not-allowed': disabled,
       })}
       type="button"

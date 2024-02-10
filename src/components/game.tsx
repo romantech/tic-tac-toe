@@ -1,5 +1,4 @@
-import { Board, Button, TurnIndicator } from '@/components';
-import UndoStatus from '@/components/undo-status';
+import { Board, Button, Divider, TurnIndicator, UndoStatus } from '@/components';
 import { useGame } from '@/hooks';
 import { boardConfigs, GameOption, Player } from '@/lib';
 
@@ -18,7 +17,11 @@ export default function Game({
   return (
     <div className="mx-auto flex size-full flex-col items-center gap-4 py-20 text-slate-200 md:px-8">
       <div className="flex gap-4">
-        <Button disabled>Home</Button>
+        <section className="flex gap-4">
+          <Button disabled>Home</Button>
+          <Button>Reset</Button>
+        </section>
+        <Divider className="my-2" />
         <section className="flex gap-4">
           <Button disabled={!enableUndo} onClick={handlers.undo}>
             Undo
