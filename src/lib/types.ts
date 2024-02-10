@@ -24,3 +24,10 @@ export type GameOption = {
   firstPlayer: Player;
   playersInfo: PlayersInfo;
 };
+
+export enum ScreenType {
+  'Home',
+  'Play',
+  'History',
+  'Settings',
+}

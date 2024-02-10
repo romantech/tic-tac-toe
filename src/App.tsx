@@ -1,5 +1,7 @@
-import { Game } from '@/components';
-import { DefaultColor, Player, PlayersInfo } from '@/lib';
+import { useState } from 'react';
+
+import { Game, Home } from '@/components';
+import { DefaultColor, Player, PlayersInfo, ScreenType } from '@/lib';
 
 const Dummy: PlayersInfo = {
   [Player.X]: {
@@ -15,11 +17,31 @@ const Dummy: PlayersInfo = {
 };
 
 function App() {
-  return (
-    <main className="h-screen w-screen bg-slate-800">
-      <Game playersInfo={Dummy} size={3} winCondition={3} firstPlayer={Player.X} />
-    </main>
-  );
+  const [screen, setScreen] = useState<ScreenType>(ScreenType.Home);
+
+  const getScreen = (type: ScreenType) => {
+    switch (type) {
+      case ScreenType.Home: {
+        return <Home onClick={setScreen} />;
+      }
+      case ScreenType.Play: {
+        return (
+          <Game
+            playersInfo={Dummy}
+            size={3}
+            winCondition={3}
+            firstPlayer={Player.X}
+            onClick={setScreen}
+          />
+        );
+      }
+      default: {
+        return <></>;
+      }
+    }
+  };
+
+  return <main className="h-screen w-screen bg-slate-800">{getScreen(screen)}</main>;
 }
 
 export default App;
