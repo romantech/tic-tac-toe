@@ -1,4 +1,4 @@
-import { Button } from '@/components/index';
+import { Button } from '@/components';
 import { ScreenType } from '@/lib';
 
 export default function Home({ onClick }: { onClick: (type: ScreenType) => void }) {

@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { useUndoCount } from '@/hooks/useUndoCount';
+import { useUndoCount } from '@/hooks';
 import {
   checkWin,
   GameOption,

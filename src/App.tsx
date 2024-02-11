@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Game, Home, Settings } from '@/components';
 import { defaultPlayersInfo, Player, ScreenType } from '@/lib';
+import { Game, Home, Settings } from '@/pages';
 
 function App() {
   const [screen, setScreen] = useState<ScreenType>(ScreenType.Home);

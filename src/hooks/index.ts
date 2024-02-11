@@ -1,2 +1,2 @@
-export * from './useUndoCount';
-export * from './useGame';
+export * from './use-undo-count';
+export * from './use-game';
