@@ -16,7 +16,7 @@ export default function MarkTextInput({ name, className, ...inputProps }: MarkTe
       <input
         className={clsx(
           className,
-          'w-7 rounded-sm bg-slate-200 px-2 font-semibold text-slate-800 outline-slate-400',
+          'w-7 rounded-sm bg-slate-200 px-2 text-slate-800 outline-slate-400',
         )}
         type="text"
         maxLength={1}

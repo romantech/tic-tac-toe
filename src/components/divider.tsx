@@ -9,7 +9,7 @@ export default function Divider({ className, direction = 'vertical' }: DividerPr
   return (
     <div
       className={clsx(
-        'inline-block self-stretch bg-slate-600 opacity-90',
+        'inline-block self-stretch bg-slate-600 opacity-70',
         {
           'h-px min-w-full': direction === 'horizontal',
           'min-h-1 w-px': direction === 'vertical',

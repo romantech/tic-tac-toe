@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 import { clsx } from 'clsx';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
@@ -13,7 +13,19 @@ export default function WinConditionRange() {
   const { control, setValue } = useFormContext();
   const [boardSize, winCondition] = useWatch({ control, name: ['size', 'winCondition'] });
 
-  useEffect(() => {
+  /**
+   * useEffect 사용시(DOM 업데이트가 화면에 반영된 후 비동기적으로 실행) :
+   * 1. 외부에서 boardSize 값 변경됨 (3 -> 5)
+   * 2. 이전 winCondition 값(3)으로 페인트: rangeLabel 3에 대한 배경색 하이라이트 유지
+   * 3. 이펙트 실행 후 winCondition 업데이트 (3 -> 5)
+   * 4. 업데이트된 winCondition 값으로 다시 페인트: rangeLabel 배경색 하이라이트가 3에서 5로 변경되면서 깜빡임 발생
+   *
+   * useLayoutEffect 사용시(DOM 업데이트가 화면에 반영되기 전 동기적으로 실행) :
+   * 1. 외부에서 boardSize 값 변경됨 (3 -> 5)
+   * 2. 이펙트 실행 후 winCondition 업데이트 (3 -> 5)
+   * 3. 업데이트된 winCondition 값으로 페인트: rangeLabel 5에 대한 배경색 하이라이트가 바로 적용되므로 깜빡임 발생 안함
+   * */
+  useLayoutEffect(() => {
     setValue('winCondition', boardSize);
   }, [boardSize, setValue]);
 
@@ -31,9 +43,7 @@ export default function WinConditionRange() {
             type="range"
             min={BoardSize.Size3}
             max={boardSize}
-            onChange={({ target }) => {
-              onChange(+target.value);
-            }}
+            onChange={({ target }) => onChange(+target.value)}
             step={1}
             value={value}
             disabled={boardSize === BoardSize.Size3}

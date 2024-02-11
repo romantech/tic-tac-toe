@@ -2,7 +2,7 @@ import { DevTool } from '@hookform/devtools';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { Divider } from '@/components';
+import { Button, Divider } from '@/components';
 import { BoardSizeRadio, PlayerConfigsField, WinConditionRange } from '@/components/forms';
 import { BoardSize, defaultPlayerConfigs, GameOption, gameOptionSchema, Player } from '@/lib';
 
@@ -26,13 +26,13 @@ export default function Settings() {
   return (
     <div className="grid h-full place-content-center text-slate-200">
       <FormProvider {...methods}>
-        <form className="flex flex-col gap-6" onSubmit={methods.handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-8" onSubmit={methods.handleSubmit(onSubmit)}>
           <BoardSizeRadio />
           <Divider direction="horizontal" />
           <WinConditionRange />
           <Divider direction="horizontal" />
           <PlayerConfigsField />
-          <button type="submit">Play</button>
+          <Button type="submit">Play</Button>
           <DevTool control={methods.control} />
         </form>
       </FormProvider>

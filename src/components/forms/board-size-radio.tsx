@@ -24,7 +24,7 @@ export default function BoardSizeRadio() {
                   value={size}
                   checked={value === size}
                   onChange={({ target }) => onChange(+target.value)}
-                  className="size-5 cursor-pointer appearance-none rounded-full border-4 border-slate-500 bg-slate-100 transition-all checked:border-amber-600  checked:bg-primary"
+                  className="size-5 cursor-pointer appearance-none rounded-full border-2 border-slate-500 bg-slate-100 transition-all checked:border-4 checked:border-amber-600  checked:bg-primary"
                 />
                 <label className="cursor-pointer" htmlFor={`size-${size}`}>
                   {`${size}x${size}`}

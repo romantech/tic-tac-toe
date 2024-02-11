@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 
 import ColorPicker from '@/components/forms/color-picker';
-import { MarkTextInput } from '@/components/forms/index';
+import { FirstPlayerCheckbox, MarkTextInput } from '@/components/forms/index';
 import { Player } from '@/lib';
 
 interface PlayerConfigProps {
@@ -23,6 +23,7 @@ const PlayerConfig = ({ player, className }: PlayerConfigProps) => {
       <div className="flex w-full items-center gap-3 px-3">
         <MarkTextInput name={`playerConfigs.${player}.mark`} />
         <ColorPicker name={`playerConfigs.${player}.color`} />
+        <FirstPlayerCheckbox name={'firstPlayer'} player={player} />
       </div>
     </fieldset>
   );
