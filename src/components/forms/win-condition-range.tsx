@@ -37,7 +37,7 @@ export default function WinConditionRange() {
             step={1}
             value={value}
             disabled={boardSize === BoardSize.Size3}
-            className="accent-primary"
+            className="cursor-pointer accent-primary"
           />
         )}
       />

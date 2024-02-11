@@ -1,3 +1,5 @@
+import { InputHTMLAttributes } from 'react';
+
 import { BoardSize, Player } from '@/lib/constants';
 
 export type BoardMark = Player | null;
@@ -24,3 +26,5 @@ export type PlayerInfo = {
 export type PlayersInfo = {
   [key in Player]: PlayerInfo;
 };
+
+export type InputProps = InputHTMLAttributes<HTMLInputElement>;
