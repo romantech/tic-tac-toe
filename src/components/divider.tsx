@@ -1,9 +1,21 @@
 import { clsx } from 'clsx';
 
-export default function Divider({ className }: { className?: string }) {
+interface DividerProps {
+  className?: string;
+  direction?: 'horizontal' | 'vertical';
+}
+
+export default function Divider({ className, direction = 'vertical' }: DividerProps) {
   return (
     <div
-      className={clsx('inline-block min-h-1 w-px self-stretch bg-slate-600 opacity-90', className)}
+      className={clsx(
+        'inline-block self-stretch bg-slate-600 opacity-90',
+        {
+          'h-px min-w-full': direction === 'horizontal',
+          'min-h-1 w-px': direction === 'vertical',
+        },
+        className,
+      )}
     ></div>
   );
 }

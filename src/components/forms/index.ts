@@ -1,1 +1,2 @@
-export { default as SizeField } from './size-field';
+export { default as BoardSizeRadio } from './board-size-radio';
+export { default as WinConditionRange } from './win-condition-range';
