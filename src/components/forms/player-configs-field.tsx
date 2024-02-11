@@ -4,12 +4,12 @@ import ColorPicker from '@/components/forms/color-picker';
 import { MarkTextInput } from '@/components/forms/index';
 import { Player } from '@/lib';
 
-interface PlayerInfoFieldProps {
+interface PlayerConfigProps {
   player: Player;
   className?: string;
 }
 
-const PlayerInfo = ({ player, className }: PlayerInfoFieldProps) => {
+const PlayerConfig = ({ player, className }: PlayerConfigProps) => {
   return (
     <fieldset
       className={clsx(
@@ -21,23 +21,23 @@ const PlayerInfo = ({ player, className }: PlayerInfoFieldProps) => {
         {`Player ${player}`}
       </h3>
       <div className="flex w-full items-center gap-3 px-3">
-        <MarkTextInput name={`playersInfo.${player}.mark`} />
-        <ColorPicker name={`playersInfo.${player}.color`} />
+        <MarkTextInput name={`playerConfigs.${player}.mark`} />
+        <ColorPicker name={`playerConfigs.${player}.color`} />
       </div>
     </fieldset>
   );
 };
 
-interface PlayersInfoFormProps {
+interface PlayerConfigsFieldProps {
   className?: string;
 }
 
-export default function PlayersInfoField({ className }: PlayersInfoFormProps) {
+export default function PlayerConfigsField({ className }: PlayerConfigsFieldProps) {
   return (
     <div className={clsx('flex flex-col gap-2', className)}>
-      <h3 className="pb-1 text-2xl font-semibold uppercase">players info</h3>
-      <PlayerInfo player={Player.X} />
-      <PlayerInfo player={Player.O} />
+      <h3 className="pb-1 text-2xl font-semibold uppercase">player setting</h3>
+      <PlayerConfig player={Player.X} />
+      <PlayerConfig player={Player.O} />
     </div>
   );
 }

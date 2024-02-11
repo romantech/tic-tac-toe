@@ -8,7 +8,7 @@ interface GameProps extends GameOption {
 
 export default function Game({
   onClick,
-  playersInfo,
+  playerConfigs,
   size = 3,
   winCondition = 3,
   firstPlayer = Player.X,
@@ -34,17 +34,17 @@ export default function Game({
           <Button disabled={!enableUndo} onClick={handlers.undo}>
             Undo
           </Button>
-          <UndoStatus playersInfo={playersInfo} undoCounts={undoCounts} />
+          <UndoStatus playerConfigs={playerConfigs} undoCounts={undoCounts} />
         </section>
       </div>
       <Board
-        playersInfo={playersInfo}
+        playerConfigs={playerConfigs}
         board={board}
         handleClick={handlers.board}
         className={boardConfig[size]}
         winner={winner}
       />
-      <TurnIndicator currentPlayer={getCurrentPlayer()} playersInfo={playersInfo} />
+      <TurnIndicator currentPlayer={getCurrentPlayer()} playerConfigs={playerConfigs} />
     </div>
   );
 }

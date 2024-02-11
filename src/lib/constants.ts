@@ -1,4 +1,4 @@
-import { PlayersInfo } from '@/lib/types';
+import { PlayerConfigs } from '@/lib/types';
 
 export const NBSP = '\u00A0';
 export const MAX_UNDO_COUNT = 3;
@@ -40,7 +40,7 @@ export enum ScreenType {
   'Settings',
 }
 
-export const defaultPlayersInfo: PlayersInfo = {
+export const defaultPlayerConfigs: PlayerConfigs = {
   [Player.X]: {
     identifier: Player.X,
     mark: Player.X,

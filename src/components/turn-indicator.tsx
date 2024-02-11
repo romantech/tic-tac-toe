@@ -1,14 +1,14 @@
 import { clsx } from 'clsx';
 
-import { Player, PlayersInfo } from '@/lib';
+import { Player, PlayerConfigs } from '@/lib';
 
 interface TurnProps {
   currentPlayer: Player;
-  playersInfo: PlayersInfo;
+  playerConfigs: PlayerConfigs;
   className?: string;
 }
 
-export default function TurnIndicator({ currentPlayer, className, playersInfo }: TurnProps) {
+export default function TurnIndicator({ currentPlayer, className, playerConfigs }: TurnProps) {
   return (
     <section
       className={clsx('relative flex select-none text-6xl font-bold text-slate-500', className)}
@@ -18,7 +18,7 @@ export default function TurnIndicator({ currentPlayer, className, playersInfo }:
           'absolute inset-x-0 size-20 rounded-lg transition-all duration-300 ease-in-out',
           currentPlayer === Player.X ? 'translate-x-0' : 'translate-x-full', // 자신 너비만큼 수평 이동
         )}
-        style={{ backgroundColor: playersInfo[currentPlayer].color }}
+        style={{ backgroundColor: playerConfigs[currentPlayer].color }}
       />
       {Object.values(Player).map((player) => (
         <div
@@ -27,7 +27,7 @@ export default function TurnIndicator({ currentPlayer, className, playersInfo }:
             'text-slate-800': player === currentPlayer,
           })}
         >
-          {playersInfo[player].mark}
+          {playerConfigs[player].mark}
         </div>
       ))}
     </section>

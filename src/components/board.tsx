@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { NBSP, PlayersInfo, TBoard, Winner } from '@/lib';
+import { NBSP, PlayerConfigs, TBoard, Winner } from '@/lib';
 
 interface SquareProps {
   mark: string | null;
@@ -28,11 +28,17 @@ interface BoardProps {
   board: TBoard;
   handleClick: (i: number) => void;
   className?: string;
-  playersInfo: PlayersInfo;
+  playerConfigs: PlayerConfigs;
   winner: Winner;
 }
 
-export default function Board({ board, handleClick, className, playersInfo, winner }: BoardProps) {
+export default function Board({
+  board,
+  handleClick,
+  className,
+  playerConfigs,
+  winner,
+}: BoardProps) {
   const hasWinner = Boolean(winner.player);
 
   return (
@@ -43,8 +49,8 @@ export default function Board({ board, handleClick, className, playersInfo, winn
       )}
     >
       {board.map((square, i) => {
-        const mark = square ? playersInfo[square].mark : null;
-        const color = square ? playersInfo[square].color : 'transparent';
+        const mark = square ? playerConfigs[square].mark : null;
+        const color = square ? playerConfigs[square].color : 'transparent';
         const isHighlightIdx = winner.indices?.has(i);
 
         return (

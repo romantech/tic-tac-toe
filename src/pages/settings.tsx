@@ -3,19 +3,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Divider } from '@/components';
-import { BoardSizeRadio, PlayersInfoField, WinConditionRange } from '@/components/forms';
-import { BoardSize, defaultPlayersInfo, GameOption, gameSettingSchema, Player } from '@/lib';
+import { BoardSizeRadio, PlayerConfigsField, WinConditionRange } from '@/components/forms';
+import { BoardSize, defaultPlayerConfigs, GameOption, gameOptionSchema, Player } from '@/lib';
 
 const defaultValues: GameOption = {
   size: BoardSize.Size3,
   winCondition: BoardSize.Size3,
   firstPlayer: Player.X,
-  playersInfo: defaultPlayersInfo,
+  playerConfigs: defaultPlayerConfigs,
 };
 
 export default function Settings() {
   const methods = useForm<GameOption>({
-    resolver: zodResolver(gameSettingSchema),
+    resolver: zodResolver(gameOptionSchema),
     defaultValues,
   });
 
@@ -31,7 +31,7 @@ export default function Settings() {
           <Divider direction="horizontal" />
           <WinConditionRange />
           <Divider direction="horizontal" />
-          <PlayersInfoField />
+          <PlayerConfigsField />
           <button type="submit">Play</button>
           <DevTool control={methods.control} />
         </form>

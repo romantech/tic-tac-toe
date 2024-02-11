@@ -14,17 +14,17 @@ export type GameOption = {
   size: BoardSize;
   winCondition: BoardSize;
   firstPlayer: Player;
-  playersInfo: PlayersInfo;
+  playerConfigs: PlayerConfigs;
 };
 
-export type PlayerInfo = {
+export type PlayerConfig = {
   identifier: Player;
   mark: string;
   color: string;
 };
 
-export type PlayersInfo = {
-  [key in Player]: PlayerInfo;
+export type PlayerConfigs = {
+  [key in Player]: PlayerConfig;
 };
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;

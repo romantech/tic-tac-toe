@@ -17,7 +17,7 @@ const defaultWinner: Winner = {
   indices: null,
 };
 
-export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'playersInfo'>) => {
+export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'playerConfigs'>) => {
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
   const { undoCounts, decrementCount, resetCount } = useUndoCount();
 

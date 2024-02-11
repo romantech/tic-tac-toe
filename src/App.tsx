@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { defaultPlayersInfo, Player, ScreenType } from '@/lib';
+import { defaultPlayerConfigs, Player, ScreenType } from '@/lib';
 import { Game, Home, Settings } from '@/pages';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       case ScreenType.Play: {
         return (
           <Game
-            playersInfo={defaultPlayersInfo}
+            playerConfigs={defaultPlayerConfigs}
             size={3}
             winCondition={3}
             firstPlayer={Player.X}
