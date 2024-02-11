@@ -6,7 +6,7 @@ interface PlayerColorPickerProps extends InputProps {
   name: string;
 }
 
-export default function PlayerColorPicker({ name, ...inputProps }: PlayerColorPickerProps) {
+export default function ColorPicker({ name, ...inputProps }: PlayerColorPickerProps) {
   const { register } = useFormContext();
 
   return (
