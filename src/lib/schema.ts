@@ -12,8 +12,8 @@ export const PlayersInfoSchema = z.record(PlayerInfoSchema).default(defaultPlaye
 
 export const gameSettingSchema = z
   .object({
-    size: z.nativeEnum(BoardSize).default(BoardSize.Three),
-    winCondition: z.number().int().min(3).max(7).default(3),
+    size: z.nativeEnum(BoardSize).default(BoardSize.Size3),
+    winCondition: z.nativeEnum(BoardSize).default(BoardSize.Size3),
     firstPlayer: z.nativeEnum(Player).default(Player.X),
     playersInfo: PlayersInfoSchema,
   })

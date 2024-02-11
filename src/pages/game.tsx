@@ -1,6 +1,6 @@
 import { Board, Button, Divider, TurnIndicator, UndoStatus } from '@/components';
 import { useGame } from '@/hooks';
-import { boardConfigs, GameOption, Player, ScreenType } from '@/lib';
+import { boardConfig, GameOption, Player, ScreenType } from '@/lib';
 
 interface GameProps extends GameOption {
   onClick?: (type: ScreenType) => void;
@@ -41,7 +41,7 @@ export default function Game({
         playersInfo={playersInfo}
         board={board}
         handleClick={handlers.board}
-        className={boardConfigs[size]}
+        className={boardConfig[size]}
         winner={winner}
       />
       <TurnIndicator currentPlayer={getCurrentPlayer()} playersInfo={playersInfo} />

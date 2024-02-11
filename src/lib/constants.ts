@@ -4,20 +4,22 @@ export const NBSP = '\u00A0';
 export const MAX_UNDO_COUNT = 3;
 
 export enum BoardSize {
-  Three = 3,
-  Four = 4,
-  Five = 5,
-  Six = 6,
-  Seven = 7,
+  Size3 = 3,
+  Size4 = 4,
+  Size5 = 5,
+  Size6 = 6,
+  Size7 = 7,
 }
 
-export const boardConfigs = {
-  [BoardSize.Three]: 'grid-cols-3 text-7xl lg:text-8xl',
-  [BoardSize.Four]: 'grid-cols-4 text-6xl lg:text-7xl',
-  [BoardSize.Five]: 'grid-cols-5 text-5xl lg:text-6xl',
-  [BoardSize.Six]: 'grid-cols-6 text-4xl lg:text-5xl',
-  [BoardSize.Seven]: 'grid-cols-7 text-3xl lg:text-4xl',
+export const boardConfig = {
+  [BoardSize.Size3]: 'grid-cols-3 text-7xl lg:text-8xl',
+  [BoardSize.Size4]: 'grid-cols-4 text-6xl lg:text-7xl',
+  [BoardSize.Size5]: 'grid-cols-5 text-5xl lg:text-6xl',
+  [BoardSize.Size6]: 'grid-cols-6 text-4xl lg:text-5xl',
+  [BoardSize.Size7]: 'grid-cols-7 text-3xl lg:text-4xl',
 } as const;
+
+export const boardSize = Object.values(BoardSize).filter(Number);
 
 export enum Player {
   /** first player */

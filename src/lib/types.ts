@@ -10,7 +10,7 @@ export type Winner = {
 
 export type GameOption = {
   size: BoardSize;
-  winCondition: number;
+  winCondition: BoardSize;
   firstPlayer: Player;
   playersInfo: PlayersInfo;
 };
