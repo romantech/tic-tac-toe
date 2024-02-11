@@ -9,7 +9,7 @@ export default function BoardSizeRadio() {
 
   return (
     <fieldset className="flex items-center gap-3">
-      <legend className="pb-2 text-2xl font-semibold uppercase">board size</legend>
+      <legend className="pb-3 text-2xl font-semibold uppercase">board size</legend>
       {/* radio value 는 문자열만 가능해서 숫자로 변경하기 위해 controller 사용 */}
       <Controller
         name="size"
