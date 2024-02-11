@@ -11,18 +11,20 @@ interface PlayerInfoFieldProps {
 
 const PlayerInfo = ({ player, className }: PlayerInfoFieldProps) => {
   return (
-    <div
+    <fieldset
       className={clsx(
         className,
         'flex w-full items-center overflow-hidden rounded-lg border border-slate-600',
       )}
     >
-      <div className="whitespace-nowrap bg-slate-700 px-3 font-medium leading-[46px]">{`Player ${player}`}</div>
+      <h3 className="whitespace-nowrap bg-slate-700 px-3 font-medium leading-[46px]">
+        {`Player ${player}`}
+      </h3>
       <div className="flex w-full items-center gap-3 px-3">
         <MarkTextInput name={`playersInfo.${player}.mark`} />
         <ColorPicker name={`playersInfo.${player}.color`} />
       </div>
-    </div>
+    </fieldset>
   );
 };
 

@@ -45,10 +45,12 @@ export default function WinConditionRange() {
       <ul className="flex justify-between">
         {getRangeLabels(boardSize).map((label) => (
           <li
-            className={clsx('rounded-full bg-slate-600 px-2 py-0.5 text-sm', {
+            className={clsx('cursor-pointer rounded-full px-2 py-0.5 text-sm', {
               'bg-primary text-slate-800 font-semibold': label === winCondition,
+              'bg-slate-600': label !== winCondition,
             })}
             key={label}
+            onClick={() => setValue('winCondition', label)}
           >
             {label}
           </li>
