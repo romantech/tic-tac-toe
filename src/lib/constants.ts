@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { BoardType, GameOption, PlayerConfigs } from '@/lib/types';
+import { BoardType, GameOption, PlayerConfigs, TSquare, Winner } from '@/lib/types';
 
 export const NBSP = '\u00A0';
 export const MAX_UNDO_COUNT = 3;
@@ -68,3 +68,6 @@ export const defaultGameOption: GameOption = {
   firstPlayer: Player.X,
   playerConfigs: defaultPlayerConfigs,
 };
+
+export const defaultSquare: TSquare = { mark: null, sequence: null, color: 'transparent' };
+export const defaultWinner: Winner = { player: null, indices: null };

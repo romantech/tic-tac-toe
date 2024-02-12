@@ -1,9 +1,11 @@
 import { InputHTMLAttributes } from 'react';
 
-import { BoardConfig, BoardSize, Player } from '@/lib/constants';
+import { BoardSize, Player } from '@/lib/constants';
 
-export type BoardMark = Player | null;
-export type TBoard = BoardMark[];
+export type Mark = Player | null;
+export type TSequence = number | null;
+export type TSquare = { mark: Mark; sequence: TSequence; color: string };
+export type TBoard = TSquare[];
 
 export type Winner = {
   player: Player | null;
@@ -27,16 +29,6 @@ export type PlayerConfigs = {
   [key in Player]: PlayerConfig;
 };
 
-export type GameHistory = {
-  board: TBoard;
-  winner: Winner;
-  playerConfigs: PlayerConfigs;
-  boardConfigs: BoardConfig;
-  createdAt: ISODateString;
-};
-
 export type BoardType = 'play' | 'view';
-
-export type ISODateString = string;
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;

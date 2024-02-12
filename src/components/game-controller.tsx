@@ -5,19 +5,19 @@ import { useSetScreen } from '@/context';
 import { UseGameReturnType } from '@/hooks';
 import { PlayerConfigs, ScreenType } from '@/lib';
 
-interface GameControlsProps
+interface GameControllerProps
   extends Pick<UseGameReturnType, 'buttonStatus' | 'handlers' | 'undoCounts'> {
   className?: string;
   playerConfigs: PlayerConfigs;
 }
 
-export default function GameControls({
+export default function GameController({
   className,
   buttonStatus,
   handlers,
   playerConfigs,
   undoCounts,
-}: GameControlsProps) {
+}: GameControllerProps) {
   const changeScreen = useSetScreen();
 
   return (

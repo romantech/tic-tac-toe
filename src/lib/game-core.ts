@@ -1,4 +1,4 @@
-import { Player } from '@/lib/constants';
+import { defaultSquare, Player } from '@/lib/constants';
 
 import { TBoard } from './types';
 
@@ -106,8 +106,10 @@ const getLinearIndex = (row: number, col: number, size: number) => row * size + 
  * */
 export const getCell = (board: TBoard, size: number, row: number, col: number) => {
   const linearIndex = getLinearIndex(row, col, size);
-  if (row >= 0 && row < size && col >= 0 && col < size) return board[linearIndex];
+  if (row >= 0 && row < size && col >= 0 && col < size) return board[linearIndex].mark;
   return null;
 };
 
-export const getInitialBoard = (size: number) => Array(size * size).fill(null);
+export const getInitialBoard = (size: number): TBoard => {
+  return Array(size * size).fill(defaultSquare);
+};

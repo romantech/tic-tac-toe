@@ -4,21 +4,18 @@ import { createHistory, useUndoCount } from '@/hooks';
 import { useGameHistory } from '@/hooks/use-game-history';
 import {
   checkWin,
+  defaultSquare,
+  defaultWinner,
   GameOption,
   getCoordinatesFromIdx,
   getInitialBoard,
   getPlayerMark,
   Player,
   TBoard,
-  Winner,
 } from '@/lib';
 
-const defaultWinner: Winner = {
-  player: null,
-  indices: null,
-};
-
 export type UseGameReturnType = ReturnType<typeof useGame>;
+type BoardIdx = number;
 
 export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: GameOption) => {
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
@@ -26,7 +23,7 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
   const { addHistory } = useGameHistory();
 
   const winner = useRef(defaultWinner);
-  const history = useRef<Array<number>>([]);
+  const sequence = useRef<Array<BoardIdx>>([]);
   const xIsNext = useRef(firstPlayer === Player.X);
 
   const getCurrentPlayer = useCallback((opposition = false) => {
@@ -37,38 +34,40 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
     xIsNext.current = !xIsNext.current;
   }, []);
 
-  const onBoardClick = (i: number) => {
-    if (board[i] || winner.current.player) return;
+  const onBoardClick = (boardIdx: BoardIdx) => {
+    if (board[boardIdx].mark || winner.current.player) return;
 
+    sequence.current.push(boardIdx);
     const player = getCurrentPlayer();
+    const color = playerConfigs[player].color;
+
     const newBoard = [...board];
-    newBoard[i] = player;
+    newBoard[boardIdx] = { mark: player, sequence: sequence.current.length, color };
     setBoard(newBoard);
 
-    history.current.push(i);
-    const { row, col } = getCoordinatesFromIdx(i, size);
+    const { row, col } = getCoordinatesFromIdx(boardIdx, size);
     const winIndices = checkWin(newBoard, size, winCondition, row, col, player);
 
     if (winIndices) winner.current = { player, indices: winIndices };
     else togglePlayer();
 
-    if (winIndices || history.current.length === newBoard.length) {
+    if (winIndices || sequence.current.length === newBoard.length) {
       const history = createHistory(newBoard, winner.current, playerConfigs, size);
       addHistory(history);
     }
   };
 
   const undo = useCallback(() => {
-    const lastIndex = history.current.at(-1);
-    if (lastIndex === undefined || winner.current.player) return;
+    const lastBoardIdx = sequence.current.at(-1);
+    if (lastBoardIdx === undefined || winner.current.player) return;
 
-    history.current.pop();
+    sequence.current.pop();
     togglePlayer();
     decrementCount(getCurrentPlayer());
 
     setBoard((prev) => {
       const newBoard = [...prev];
-      newBoard[lastIndex] = null;
+      newBoard[lastBoardIdx] = defaultSquare;
       return newBoard;
     });
   }, [decrementCount, getCurrentPlayer, togglePlayer]);
@@ -77,12 +76,13 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
     setBoard(getInitialBoard(size));
     resetCount();
     winner.current = defaultWinner;
-    history.current = [];
+    sequence.current = [];
     xIsNext.current = firstPlayer === Player.X;
   }, [firstPlayer, resetCount, size]);
 
-  const isStarted = history.current.length > 0;
-  const isTied = isStarted && history.current.length === board.length;
+  const isStarted = sequence.current.length > 0;
+  const isTied = isStarted && sequence.current.length === board.length;
+
   const hasWinner = Boolean(winner.current.player);
   const hasUndoCount = undoCounts[getCurrentPlayer(true)] > 0;
   const enableUndo = !hasWinner && !isTied && hasUndoCount;

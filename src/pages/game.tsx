@@ -1,4 +1,4 @@
-import { Board, GameControls, TurnIndicator } from '@/components';
+import { Board, GameController, TurnIndicator } from '@/components';
 import { useGameOption } from '@/context';
 import { useGame } from '@/hooks';
 import { getBoardConfig } from '@/lib';
@@ -14,14 +14,13 @@ export default function Game() {
 
   return (
     <div className="mx-auto flex size-full flex-col items-center gap-4 py-20 text-slate-200 md:px-8">
-      <GameControls
+      <GameController
         buttonStatus={buttonStatus}
         handlers={handlers}
         undoCounts={undoCounts}
         playerConfigs={playerConfigs}
       />
       <Board
-        playerConfigs={playerConfigs}
         board={board}
         handleClick={handlers.board}
         className={getBoardConfig(size)}
