@@ -42,11 +42,9 @@ export const checkWin = (
       deltaRow,
       deltaCol,
     );
-    if (winningIndices) {
-      // 승리한 위치의 인덱스 배열 반환
-      const linearIndex = winningIndices.map(({ row, col }) => getLinearIndex(row, col, size));
-      return new Set(linearIndex);
-    }
+
+    // 승리한 위치의 인덱스 배열 반환
+    if (winningIndices) return winningIndices.map(({ row, col }) => getLinearIndex(row, col, size));
   }
 
   return null;

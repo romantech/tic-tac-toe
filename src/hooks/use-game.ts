@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { useUndoCount } from '@/hooks';
+import { createHistory, useUndoCount } from '@/hooks';
 import { useGameHistory } from '@/hooks/use-game-history';
 import {
   checkWin,
@@ -47,18 +47,14 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
 
     history.current.push(i);
     const { row, col } = getCoordinatesFromIdx(i, size);
-    const indices = checkWin(newBoard, size, winCondition, row, col, player);
+    const winIndices = checkWin(newBoard, size, winCondition, row, col, player);
 
-    if (indices) winner.current = { player, indices };
+    if (winIndices) winner.current = { player, indices: winIndices };
     else togglePlayer();
 
-    if (indices || history.current.length === newBoard.length) {
-      addHistory({
-        board: newBoard,
-        winner: player,
-        playerConfigs,
-        createdAt: new Date().toISOString(),
-      });
+    if (winIndices || history.current.length === newBoard.length) {
+      const history = createHistory(newBoard, winner.current, playerConfigs, size);
+      addHistory(history);
     }
   };
 

@@ -1,4 +1,6 @@
-import { GameOption, PlayerConfigs } from '@/lib/types';
+import { clsx } from 'clsx';
+
+import { BoardType, GameOption, PlayerConfigs } from '@/lib/types';
 
 export const NBSP = '\u00A0';
 export const MAX_UNDO_COUNT = 3;
@@ -11,13 +13,20 @@ export enum BoardSize {
   Size7 = 7,
 }
 
-export const boardConfig = {
-  [BoardSize.Size3]: 'grid-cols-3 text-7xl lg:text-8xl',
-  [BoardSize.Size4]: 'grid-cols-4 text-6xl lg:text-7xl',
-  [BoardSize.Size5]: 'grid-cols-5 text-5xl lg:text-6xl',
-  [BoardSize.Size6]: 'grid-cols-6 text-4xl lg:text-5xl',
-  [BoardSize.Size7]: 'grid-cols-7 text-3xl lg:text-4xl',
-} as const;
+export type BoardConfig = ReturnType<typeof getBoardConfig>;
+export const getBoardConfig = (size: BoardSize, type: BoardType = 'play') => {
+  const isPlay = type === 'play';
+
+  const configs = {
+    [BoardSize.Size3]: clsx('grid-cols-3', isPlay && 'text-7xl lg:text-8xl'),
+    [BoardSize.Size4]: clsx('grid-cols-4', isPlay && 'text-6xl lg:text-7xl'),
+    [BoardSize.Size5]: clsx('grid-cols-5', isPlay && 'text-5xl lg:text-6xl'),
+    [BoardSize.Size6]: clsx('grid-cols-6', isPlay && 'text-4xl lg:text-5xl'),
+    [BoardSize.Size7]: clsx('grid-cols-7', isPlay && 'text-3xl lg:text-4xl'),
+  } as const;
+
+  return configs[size];
+};
 
 export const boardSize = Object.values(BoardSize).filter(Number);
 

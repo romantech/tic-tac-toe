@@ -1,7 +1,7 @@
 import { Board, GameControls, TurnIndicator } from '@/components';
 import { useGameOption } from '@/context';
 import { useGame } from '@/hooks';
-import { boardConfig } from '@/lib';
+import { getBoardConfig } from '@/lib';
 
 export default function Game() {
   const { firstPlayer, size, winCondition, playerConfigs } = useGameOption();
@@ -24,7 +24,7 @@ export default function Game() {
         playerConfigs={playerConfigs}
         board={board}
         handleClick={handlers.board}
-        className={boardConfig[size]}
+        className={getBoardConfig(size)}
         winner={winner}
       />
       <TurnIndicator currentPlayer={getCurrentPlayer()} playerConfigs={playerConfigs} />

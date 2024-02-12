@@ -1,13 +1,13 @@
 import { InputHTMLAttributes } from 'react';
 
-import { BoardSize, Player } from '@/lib/constants';
+import { BoardConfig, BoardSize, Player } from '@/lib/constants';
 
 export type BoardMark = Player | null;
 export type TBoard = BoardMark[];
 
 export type Winner = {
   player: Player | null;
-  indices: Set<number> | null;
+  indices: Array<number> | null;
 };
 
 export type GameOption = {
@@ -29,10 +29,13 @@ export type PlayerConfigs = {
 
 export type GameHistory = {
   board: TBoard;
-  winner: Player;
+  winner: Winner;
   playerConfigs: PlayerConfigs;
+  boardConfigs: BoardConfig;
   createdAt: ISODateString;
 };
+
+export type BoardType = 'play' | 'view';
 
 export type ISODateString = string;
 
