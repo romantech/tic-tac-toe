@@ -31,6 +31,9 @@ export type GameHistory = {
   board: TBoard;
   winner: Player;
   playerConfigs: PlayerConfigs;
+  createdAt: ISODateString;
 };
+
+export type ISODateString = string;
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;

@@ -53,7 +53,12 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
     else togglePlayer();
 
     if (indices || history.current.length === newBoard.length) {
-      addHistory({ board: newBoard, winner: player, playerConfigs });
+      addHistory({
+        board: newBoard,
+        winner: player,
+        playerConfigs,
+        createdAt: new Date().toISOString(),
+      });
     }
   };
 
