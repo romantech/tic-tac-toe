@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { Button, Divider, UndoStatus } from '@/components/index';
+import { Button, Divider, UndoStatus } from '@/components';
 import { useSetScreen } from '@/context';
 import { UseGameReturnType } from '@/hooks';
 import { PlayerConfigs, ScreenType } from '@/lib';

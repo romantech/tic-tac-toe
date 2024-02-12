@@ -3,6 +3,7 @@ import { useLayoutEffect } from 'react';
 import { clsx } from 'clsx';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
+import { SectionTitle } from '@/components';
 import { BoardSize } from '@/lib';
 
 const getRangeLabels = (boardSize: number) => {
@@ -31,15 +32,12 @@ export default function WinConditionRange() {
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="pb-1 text-2xl font-semibold uppercase" htmlFor="winCondition">
-        win condition
-      </label>
+      <SectionTitle>win condition</SectionTitle>
       <Controller
         control={control}
         name="winCondition"
         render={({ field: { onChange, value } }) => (
           <input
-            id="winCondition"
             type="range"
             min={BoardSize.Size3}
             max={boardSize}
@@ -47,7 +45,7 @@ export default function WinConditionRange() {
             step={1}
             value={value}
             disabled={boardSize === BoardSize.Size3}
-            className="cursor-pointer accent-primary"
+            className="cursor-pointer accent-primary" // 사파리에선 막대 색상 적용 안됨
           />
         )}
       />

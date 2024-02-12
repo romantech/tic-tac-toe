@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 
 import { Divider } from '@/components';
-import { ISOString, TMark } from '@/lib';
+import { ISOString, TIE_SYMBOL, TMark } from '@/lib';
 
 interface BoardInfoProps {
   createdAt: ISOString;
@@ -21,8 +21,6 @@ const getDateText = (isoDateString: string): string => {
   };
   return new Intl.DateTimeFormat(navigator.language, options).format(isoDate);
 };
-
-const TIE_SYMBOL = '−';
 
 export default function BoardInfo({ createdAt, winner, className }: BoardInfoProps) {
   return (

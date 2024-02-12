@@ -1,5 +1,5 @@
 import { Button } from '@/components';
-import { useSetScreen } from '@/context/screen-context';
+import { useSetScreen } from '@/context';
 import { ScreenType } from '@/lib';
 
 export default function Home() {

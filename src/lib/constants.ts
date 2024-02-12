@@ -4,6 +4,7 @@ import { GameOption, PlayerConfigs, TSquare, Winner } from '@/lib/types';
 
 export const NBSP = '\u00A0';
 export const MAX_UNDO_COUNT = 3;
+export const TIE_SYMBOL = '−';
 
 export enum BoardSize {
   Size3 = 3,

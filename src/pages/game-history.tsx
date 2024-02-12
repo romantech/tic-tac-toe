@@ -1,7 +1,6 @@
 import { clsx } from 'clsx';
 
-import { Board, BoardInfo, Button, Divider } from '@/components';
-import Empty from '@/components/empty';
+import { Board, BoardInfo, Button, Divider, Empty } from '@/components';
 import { useSetScreen } from '@/context';
 import { useGameHistory } from '@/hooks';
 import { BoardType, ScreenType } from '@/lib';
@@ -19,7 +18,7 @@ export default function GameHistory() {
           <Board
             board={board}
             winner={winner}
-            className={clsx(boardConfigs, 'text-2xl')}
+            className={clsx(boardConfigs, 'w-full text-2xl')}
             type={BoardType.View}
           />
         </section>

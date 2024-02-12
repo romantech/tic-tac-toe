@@ -1,7 +1,6 @@
 import { clsx } from 'clsx';
 
-import ColorPicker from '@/components/forms/color-picker';
-import { FirstPlayerCheckbox, MarkTextInput } from '@/components/forms/index';
+import { ColorPicker, FirstPlayerCheckbox, MarkTextInput, SectionTitle } from '@/components';
 import { BasePlayer } from '@/lib';
 
 interface PlayerConfigProps {
@@ -36,7 +35,7 @@ interface PlayerConfigsFieldProps {
 export default function PlayerConfigsField({ className }: PlayerConfigsFieldProps) {
   return (
     <div className={clsx('flex flex-col gap-2', className)}>
-      <h3 className="pb-1 text-2xl font-semibold uppercase">player setting</h3>
+      <SectionTitle>player setting</SectionTitle>
       <PlayerConfig player={BasePlayer.X} />
       <PlayerConfig player={BasePlayer.O} />
     </div>
