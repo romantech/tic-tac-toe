@@ -1,8 +1,13 @@
 import { DevTool } from '@hookform/devtools';
 import { FormProvider } from 'react-hook-form';
 
-import { Button, Divider } from '@/components';
-import { BoardSizeRadio, PlayerConfigsField, WinConditionRange } from '@/components/forms';
+import { Divider } from '@/components';
+import {
+  BoardSizeRadio,
+  PlayButtonWithMessage,
+  PlayerConfigsField,
+  WinConditionRange,
+} from '@/components/forms';
 import { useSettingsForm } from '@/hooks';
 
 export default function Settings() {
@@ -17,7 +22,7 @@ export default function Settings() {
           <WinConditionRange />
           <Divider direction="horizontal" />
           <PlayerConfigsField />
-          <Button type="submit">Play</Button>
+          <PlayButtonWithMessage />
           <DevTool control={methods.control} />
         </form>
       </FormProvider>

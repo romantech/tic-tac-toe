@@ -4,3 +4,4 @@ export { default as MarkTextInput } from './mark-text-input';
 export { default as ColorPicker } from './color-picker';
 export { default as PlayerConfigsField } from './player-configs-field';
 export { default as FirstPlayerCheckbox } from './first-player-checkbox';
+export { default as PlayButtonWithMessage } from './play-button-with-message';
