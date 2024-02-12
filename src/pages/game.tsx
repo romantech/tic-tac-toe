@@ -1,22 +1,15 @@
 import { Board, Button, Divider, TurnIndicator, UndoStatus } from '@/components';
+import { useGameOption } from '@/context';
 import { useSetScreen } from '@/context/screen-context';
 import { useGame } from '@/hooks';
-import { boardConfig, GameOption, Player, ScreenType } from '@/lib';
+import { boardConfig, ScreenType } from '@/lib';
 
-export default function Game({
-  playerConfigs,
-  size = 3,
-  winCondition = 3,
-  firstPlayer = Player.X,
-}: GameOption) {
-  const { board, getCurrentPlayer, handlers, enableUndo, enableReset, undoCounts, winner } =
-    useGame({
-      size,
-      winCondition,
-      firstPlayer,
-    });
-
+export default function Game() {
   const setScreen = useSetScreen();
+
+  const { firstPlayer, size, winCondition, playerConfigs } = useGameOption();
+  const { board, getCurrentPlayer, handlers, enableUndo, enableReset, undoCounts, winner } =
+    useGame({ size, winCondition, firstPlayer });
 
   return (
     <div className="mx-auto flex size-full flex-col items-center gap-4 py-20 text-slate-200 md:px-8">

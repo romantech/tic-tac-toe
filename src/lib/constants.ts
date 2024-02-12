@@ -1,4 +1,4 @@
-import { PlayerConfigs } from '@/lib/types';
+import { GameOption, PlayerConfigs } from '@/lib/types';
 
 export const NBSP = '\u00A0';
 export const MAX_UNDO_COUNT = 3;
@@ -51,4 +51,11 @@ export const defaultPlayerConfigs: PlayerConfigs = {
     mark: Player.O,
     color: DefaultColor.O,
   },
+};
+
+export const defaultGameOption: GameOption = {
+  size: BoardSize.Size3,
+  winCondition: BoardSize.Size3,
+  firstPlayer: Player.X,
+  playerConfigs: defaultPlayerConfigs,
 };

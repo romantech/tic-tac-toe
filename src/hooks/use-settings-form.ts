@@ -1,23 +1,21 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { BoardSize, defaultPlayerConfigs, GameOption, gameOptionSchema, Player } from '@/lib';
-
-const defaultValues: GameOption = {
-  size: BoardSize.Size3,
-  winCondition: BoardSize.Size3,
-  firstPlayer: Player.X,
-  playerConfigs: defaultPlayerConfigs,
-};
+import { useSetGameOption, useSetScreen } from '@/context';
+import { defaultGameOption, GameOption, gameOptionSchema, ScreenType } from '@/lib';
 
 export const useSettingsForm = () => {
   const methods = useForm<GameOption>({
     resolver: zodResolver(gameOptionSchema),
-    defaultValues,
+    defaultValues: defaultGameOption,
   });
 
+  const setGameOption = useSetGameOption();
+  const setScreen = useSetScreen();
+
   const onSubmit = (data: GameOption) => {
-    console.log(data);
+    setGameOption(data);
+    setScreen(ScreenType.Play);
   };
 
   return { methods, onSubmit };
