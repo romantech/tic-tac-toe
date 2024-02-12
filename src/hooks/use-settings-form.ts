@@ -11,11 +11,11 @@ export const useSettingsForm = () => {
   });
 
   const setGameOption = useSetGameOption();
-  const setScreen = useSetScreen();
+  const changeScreen = useSetScreen();
 
   const onSubmit = (data: GameOption) => {
     setGameOption(data);
-    setScreen(ScreenType.Play);
+    changeScreen(ScreenType.Play);
   };
 
   return { methods, onSubmit };

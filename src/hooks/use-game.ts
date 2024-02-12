@@ -17,6 +17,8 @@ const defaultWinner: Winner = {
   indices: null,
 };
 
+export type UseGameReturnType = ReturnType<typeof useGame>;
+
 export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'playerConfigs'>) => {
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
   const { undoCounts, decrementCount, resetCount } = useUndoCount();
@@ -79,9 +81,8 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
     board,
     getCurrentPlayer,
     handlers: { board: onBoardClick, undo, reset },
+    buttonStatus: { undo: enableUndo, reset: isPlaying },
     winner: winner.current,
     undoCounts,
-    enableUndo,
-    enableReset: isPlaying,
   };
 };
