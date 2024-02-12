@@ -3,7 +3,12 @@ import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components';
 
-const playerMarkPaths = ['playerConfigs.X.mark', 'playerConfigs.O.mark'];
+const playerMarkPaths = [
+  'playerConfigs.X.mark',
+  'playerConfigs.O.mark',
+  'playerConfigs.X.color',
+  'playerConfigs.O.color',
+];
 
 const findFirstErrorPath = (errors: Record<string, unknown>, errorPaths: string[]) => {
   for (const path of errorPaths) {

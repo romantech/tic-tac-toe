@@ -33,4 +33,14 @@ export const gameOptionSchema = z
       message: 'Each player must have a unique mark',
       path: ['playerConfigs.X.mark'],
     },
+  )
+  .refine(
+    (data) => {
+      const colors = Object.values(data.playerConfigs).map(({ color }) => color);
+      return new Set(colors).size === colors.length; // 컬러 중복 검사
+    },
+    {
+      message: 'Each player must have a unique color',
+      path: ['playerConfigs.X.color'],
+    },
   );
