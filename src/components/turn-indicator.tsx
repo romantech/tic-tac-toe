@@ -1,9 +1,9 @@
 import { clsx } from 'clsx';
 
-import { Player, PlayerConfigs } from '@/lib';
+import { BasePlayer, PlayerConfigs } from '@/lib';
 
 interface TurnProps {
-  currentPlayer: Player;
+  currentPlayer: BasePlayer;
   playerConfigs: PlayerConfigs;
   className?: string;
 }
@@ -16,11 +16,11 @@ export default function TurnIndicator({ currentPlayer, className, playerConfigs 
       <div
         className={clsx(
           'absolute inset-x-0 size-20 rounded-lg transition-all duration-300 ease-in-out',
-          currentPlayer === Player.X ? 'translate-x-0' : 'translate-x-full', // 자신 너비만큼 수평 이동
+          currentPlayer === BasePlayer.X ? 'translate-x-0' : 'translate-x-full', // 자신 너비만큼 수평 이동
         )}
         style={{ backgroundColor: playerConfigs[currentPlayer].color }}
       />
-      {Object.values(Player).map((player) => (
+      {Object.values(BasePlayer).map((player) => (
         <div
           key={player}
           className={clsx('z-10 grid size-20 place-content-center rounded ', {

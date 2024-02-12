@@ -1,19 +1,13 @@
 import { useCallback } from 'react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { BoardSize, getBoardConfig, PlayerConfigs, TBoard, Winner } from '@/lib';
+import { BoardSize, BoardType, getBoardConfig, TBoard, Winner } from '@/lib';
 
 export type GameHistory = ReturnType<typeof createHistory>;
-export const createHistory = (
-  board: TBoard,
-  winner: Winner,
-  playerConfigs: PlayerConfigs,
-  size: BoardSize,
-) => ({
+export const createHistory = (board: TBoard, winner: Winner, size: BoardSize) => ({
   board,
   winner,
-  playerConfigs,
-  boardConfigs: getBoardConfig(size, 'view'),
+  boardConfigs: getBoardConfig(size, BoardType.View),
   createdAt: new Date().toISOString(),
 });
 

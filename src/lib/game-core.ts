@@ -1,6 +1,6 @@
-import { defaultSquare, Player } from '@/lib/constants';
+import { BasePlayer, defaultSquare } from '@/lib/constants';
 
-import { TBoard } from './types';
+import { Identifier, TBoard, TMark, TSequence, TSquareColor } from './types';
 
 export const getCoordinatesFromIdx = (i: number, size: number) => {
   const row = Math.floor(i / size);
@@ -9,7 +9,7 @@ export const getCoordinatesFromIdx = (i: number, size: number) => {
 };
 
 export const getPlayerMark = (xIsNext: boolean) => {
-  return xIsNext ? Player.X : Player.O;
+  return xIsNext ? BasePlayer.X : BasePlayer.O;
 };
 
 /**
@@ -22,7 +22,7 @@ export const checkWin = (
   winCondition: number,
   lastRow: number,
   lastCol: number,
-  player: Player,
+  player: BasePlayer,
 ) => {
   const directions = [
     { deltaRow: 0, deltaCol: 1 }, // 가로
@@ -56,7 +56,7 @@ const checkDirection = (
   row: number,
   col: number,
   winCondition: number,
-  player: Player,
+  player: BasePlayer,
   deltaRow: number,
   deltaCol: number,
 ) => {
@@ -106,10 +106,22 @@ const getLinearIndex = (row: number, col: number, size: number) => row * size + 
  * */
 export const getCell = (board: TBoard, size: number, row: number, col: number) => {
   const linearIndex = getLinearIndex(row, col, size);
-  if (row >= 0 && row < size && col >= 0 && col < size) return board[linearIndex].mark;
+  if (row >= 0 && row < size && col >= 0 && col < size) return board[linearIndex].identifier;
   return null;
 };
 
 export const getInitialBoard = (size: number): TBoard => {
   return Array(size * size).fill(defaultSquare);
 };
+
+export const createSquare = (
+  identifier: Identifier,
+  mark: TMark,
+  sequence: TSequence,
+  color: TSquareColor,
+) => ({
+  identifier,
+  mark,
+  sequence,
+  color,
+});

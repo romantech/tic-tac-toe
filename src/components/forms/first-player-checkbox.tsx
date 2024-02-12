@@ -1,11 +1,11 @@
 import { clsx } from 'clsx';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
-import { Player } from '@/lib';
+import { BasePlayer } from '@/lib';
 
 interface FirstPlayerCheckboxProps {
   name: string;
-  player: Player;
+  player: BasePlayer;
   className?: string;
 }
 

@@ -3,19 +3,20 @@ import { useCallback, useRef, useState } from 'react';
 import { createHistory, useUndoCount } from '@/hooks';
 import { useGameHistory } from '@/hooks/use-game-history';
 import {
+  BasePlayer,
+  BoardIdx,
   checkWin,
+  createSquare,
   defaultSquare,
   defaultWinner,
   GameOption,
   getCoordinatesFromIdx,
   getInitialBoard,
   getPlayerMark,
-  Player,
   TBoard,
 } from '@/lib';
 
 export type UseGameReturnType = ReturnType<typeof useGame>;
-type BoardIdx = number;
 
 export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: GameOption) => {
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
@@ -24,7 +25,7 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
 
   const winner = useRef(defaultWinner);
   const sequence = useRef<Array<BoardIdx>>([]);
-  const xIsNext = useRef(firstPlayer === Player.X);
+  const xIsNext = useRef(firstPlayer === BasePlayer.X);
 
   const getCurrentPlayer = useCallback((opposition = false) => {
     return getPlayerMark(opposition ? !xIsNext.current : xIsNext.current);
@@ -35,31 +36,31 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
   }, []);
 
   const onBoardClick = (boardIdx: BoardIdx) => {
-    if (board[boardIdx].mark || winner.current.player) return;
+    if (board[boardIdx].identifier || winner.current.identifier) return;
 
     sequence.current.push(boardIdx);
     const player = getCurrentPlayer();
-    const color = playerConfigs[player].color;
+    const { color, mark } = playerConfigs[player];
 
     const newBoard = [...board];
-    newBoard[boardIdx] = { mark: player, sequence: sequence.current.length, color };
+    newBoard[boardIdx] = createSquare(player, mark, sequence.current.length, color);
     setBoard(newBoard);
 
     const { row, col } = getCoordinatesFromIdx(boardIdx, size);
     const winIndices = checkWin(newBoard, size, winCondition, row, col, player);
 
-    if (winIndices) winner.current = { player, indices: winIndices };
+    if (winIndices) winner.current = { identifier: player, indices: winIndices };
     else togglePlayer();
 
     if (winIndices || sequence.current.length === newBoard.length) {
-      const history = createHistory(newBoard, winner.current, playerConfigs, size);
+      const history = createHistory(newBoard, winner.current, size);
       addHistory(history);
     }
   };
 
   const undo = useCallback(() => {
     const lastBoardIdx = sequence.current.at(-1);
-    if (lastBoardIdx === undefined || winner.current.player) return;
+    if (lastBoardIdx === undefined || winner.current.identifier) return;
 
     sequence.current.pop();
     togglePlayer();
@@ -77,13 +78,13 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
     resetCount();
     winner.current = defaultWinner;
     sequence.current = [];
-    xIsNext.current = firstPlayer === Player.X;
+    xIsNext.current = firstPlayer === BasePlayer.X;
   }, [firstPlayer, resetCount, size]);
 
   const isStarted = sequence.current.length > 0;
   const isTied = isStarted && sequence.current.length === board.length;
 
-  const hasWinner = Boolean(winner.current.player);
+  const hasWinner = Boolean(winner.current.identifier);
   const hasUndoCount = undoCounts[getCurrentPlayer(true)] > 0;
   const enableUndo = !hasWinner && !isTied && hasUndoCount;
 

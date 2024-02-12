@@ -16,9 +16,9 @@ export default function Board({
   handleClick,
   className,
   winner,
-  type = 'play',
+  type = BoardType.Play,
 }: BoardProps) {
-  const hasWinner = Boolean(winner.player);
+  const hasWinner = Boolean(winner.identifier);
 
   return (
     <div

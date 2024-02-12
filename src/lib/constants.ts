@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { BoardType, GameOption, PlayerConfigs, TSquare, Winner } from '@/lib/types';
+import { GameOption, PlayerConfigs, TSquare, Winner } from '@/lib/types';
 
 export const NBSP = '\u00A0';
 export const MAX_UNDO_COUNT = 3;
@@ -14,8 +14,8 @@ export enum BoardSize {
 }
 
 export type BoardConfig = ReturnType<typeof getBoardConfig>;
-export const getBoardConfig = (size: BoardSize, type: BoardType = 'play') => {
-  const isPlay = type === 'play';
+export const getBoardConfig = (size: BoardSize, type: BoardType = BoardType.Play) => {
+  const isPlay = type === BoardType.Play;
 
   const configs = {
     [BoardSize.Size3]: clsx('grid-cols-3', isPlay && 'text-7xl lg:text-8xl'),
@@ -30,7 +30,7 @@ export const getBoardConfig = (size: BoardSize, type: BoardType = 'play') => {
 
 export const boardSize = Object.values(BoardSize).filter(Number);
 
-export enum Player {
+export enum BasePlayer {
   /** first player */
   X = 'X',
   /** second player */
@@ -49,15 +49,20 @@ export enum ScreenType {
   'Settings',
 }
 
+export enum BoardType {
+  Play = 'play',
+  View = 'view',
+}
+
 export const defaultPlayerConfigs: PlayerConfigs = {
-  [Player.X]: {
-    identifier: Player.X,
-    mark: Player.X,
+  [BasePlayer.X]: {
+    identifier: BasePlayer.X,
+    mark: BasePlayer.X,
     color: DefaultColor.X,
   },
-  [Player.O]: {
-    identifier: Player.O,
-    mark: Player.O,
+  [BasePlayer.O]: {
+    identifier: BasePlayer.O,
+    mark: BasePlayer.O,
     color: DefaultColor.O,
   },
 };
@@ -65,9 +70,14 @@ export const defaultPlayerConfigs: PlayerConfigs = {
 export const defaultGameOption: GameOption = {
   size: BoardSize.Size3,
   winCondition: BoardSize.Size3,
-  firstPlayer: Player.X,
+  firstPlayer: BasePlayer.X,
   playerConfigs: defaultPlayerConfigs,
 };
 
-export const defaultSquare: TSquare = { mark: null, sequence: null, color: 'transparent' };
-export const defaultWinner: Winner = { player: null, indices: null };
+export const defaultSquare: TSquare = {
+  identifier: null,
+  sequence: null,
+  color: 'transparent',
+  mark: null,
+};
+export const defaultWinner: Winner = { identifier: null, indices: null };

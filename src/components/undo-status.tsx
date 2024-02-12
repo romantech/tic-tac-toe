@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 
 import { UndoCounts } from '@/hooks';
-import { Player, PlayerConfigs } from '@/lib';
+import { BasePlayer, PlayerConfigs } from '@/lib';
 
 interface UndoStatusProps {
   playerConfigs: PlayerConfigs;
@@ -12,8 +12,8 @@ interface UndoStatusProps {
 export default function UndoStatus({ playerConfigs, undoCounts, className }: UndoStatusProps) {
   return (
     <div className={clsx('text-slate-500', className)}>
-      <Status mark={playerConfigs[Player.X].mark} count={undoCounts[Player.X]} />
-      <Status mark={playerConfigs[Player.O].mark} count={undoCounts[Player.O]} />
+      <Status mark={playerConfigs[BasePlayer.X].mark} count={undoCounts[BasePlayer.X]} />
+      <Status mark={playerConfigs[BasePlayer.O].mark} count={undoCounts[BasePlayer.O]} />
     </div>
   );
 }

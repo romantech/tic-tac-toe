@@ -2,10 +2,10 @@ import { ButtonHTMLAttributes } from 'react';
 
 import { clsx } from 'clsx';
 
-import { Mark, NBSP, TSequence } from '@/lib';
+import { NBSP, TMark, TSequence } from '@/lib';
 
 interface SquareProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  mark: Mark;
+  mark: TMark;
   sequence: TSequence;
   dim: boolean;
   onClick: () => void;
