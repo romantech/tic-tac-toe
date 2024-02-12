@@ -20,7 +20,7 @@ export default function Square({
   className,
   color,
   sequence,
-  ...buttonsProps
+  ...buttonProps
 }: SquareProps) {
   return (
     <button
@@ -28,27 +28,28 @@ export default function Square({
       type="button"
       onClick={onClick}
       className={clsx('relative border-b-2 border-r-2', className)}
-      {...buttonsProps}
+      {...buttonProps}
     >
       {/* layout shift 방지를 위해 논브레이크 스페이스를 기본값으로 지정 */}
       <span className={clsx('inline-block', dim && 'opacity-30')}>{mark ?? NBSP}</span>
-      <Sequence sequence={sequence} />
+      <Sequence sequence={sequence} hidden={!sequence || !buttonProps.disabled} />
     </button>
   );
 }
 
 interface SequenceProps {
+  hidden: boolean;
   sequence: TSequence;
   className?: string;
 }
 
-const Sequence = ({ sequence, className }: SequenceProps) => {
+const Sequence = ({ sequence, className, hidden }: SequenceProps) => {
   return (
     <span
       className={clsx(
         className,
-        'absolute right-0 top-0 grid size-6 place-content-center text-sm font-normal text-slate-200',
-        { hidden: !sequence },
+        'absolute right-0 top-0 grid size-6 place-content-center text-sm font-normal text-slate-400',
+        { hidden },
       )}
     >
       {sequence}

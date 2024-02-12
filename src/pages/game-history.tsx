@@ -7,14 +7,13 @@ export default function GameHistory() {
   const { gameHistory } = useGameHistory();
 
   return (
-    <div className="flex size-full flex-wrap items-center justify-center gap-8">
-      {gameHistory.map(({ board, winner, playerConfigs, createdAt, boardConfigs }) => (
+    <div className="flex size-full flex-wrap items-center justify-center gap-8 overflow-auto p-8">
+      {gameHistory.map(({ board, winner, createdAt, boardConfigs }) => (
         <Board
           key={createdAt}
           board={board}
           winner={winner}
-          playerConfigs={playerConfigs}
-          className={clsx(boardConfigs, 'size-full max-h-64 max-w-64 text-2xl')}
+          className={clsx(boardConfigs, 'size-full max-h-80 max-w-80 text-2xl')}
           type="view"
         />
       ))}
