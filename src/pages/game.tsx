@@ -1,18 +1,14 @@
 import { Board, Button, Divider, TurnIndicator, UndoStatus } from '@/components';
+import { useSetScreen } from '@/context/screen-context';
 import { useGame } from '@/hooks';
 import { boardConfig, GameOption, Player, ScreenType } from '@/lib';
 
-interface GameProps extends GameOption {
-  onClick?: (type: ScreenType) => void;
-}
-
 export default function Game({
-  onClick,
   playerConfigs,
   size = 3,
   winCondition = 3,
   firstPlayer = Player.X,
-}: GameProps) {
+}: GameOption) {
   const { board, getCurrentPlayer, handlers, enableUndo, enableReset, undoCounts, winner } =
     useGame({
       size,
@@ -20,11 +16,13 @@ export default function Game({
       firstPlayer,
     });
 
+  const setScreen = useSetScreen();
+
   return (
     <div className="mx-auto flex size-full flex-col items-center gap-4 py-20 text-slate-200 md:px-8">
       <div className="flex max-h-14 gap-3">
         <section className="flex gap-3">
-          <Button onClick={() => onClick?.(ScreenType.Home)}>Home</Button>
+          <Button onClick={() => setScreen(ScreenType.Home)}>Home</Button>
           <Button disabled={!enableReset} onClick={handlers.reset}>
             Reset
           </Button>

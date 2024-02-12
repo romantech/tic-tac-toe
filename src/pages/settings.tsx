@@ -1,27 +1,12 @@
 import { DevTool } from '@hookform/devtools';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 
 import { Button, Divider } from '@/components';
 import { BoardSizeRadio, PlayerConfigsField, WinConditionRange } from '@/components/forms';
-import { BoardSize, defaultPlayerConfigs, GameOption, gameOptionSchema, Player } from '@/lib';
-
-const defaultValues: GameOption = {
-  size: BoardSize.Size3,
-  winCondition: BoardSize.Size3,
-  firstPlayer: Player.X,
-  playerConfigs: defaultPlayerConfigs,
-};
+import { useSettingsForm } from '@/hooks';
 
 export default function Settings() {
-  const methods = useForm<GameOption>({
-    resolver: zodResolver(gameOptionSchema),
-    defaultValues,
-  });
-
-  const onSubmit = (data: GameOption) => {
-    console.log(data);
-  };
+  const { methods, onSubmit } = useSettingsForm();
 
   return (
     <div className="grid h-full place-content-center text-slate-200">
