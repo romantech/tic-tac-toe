@@ -48,7 +48,7 @@ const Sequence = ({ sequence, className, hidden }: SequenceProps) => {
     <span
       className={clsx(
         className,
-        'absolute right-0 top-0 grid size-6 place-content-center text-sm font-normal text-slate-400',
+        'absolute right-0 top-0 grid size-5 place-content-center text-xs font-normal text-slate-400',
         { hidden },
       )}
     >

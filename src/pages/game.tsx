@@ -13,7 +13,7 @@ export default function Game() {
   });
 
   return (
-    <div className="mx-auto flex size-full flex-col items-center gap-4 py-20 text-slate-200 md:px-8">
+    <div className="flex h-screen flex-col items-center justify-center gap-4 py-20 text-slate-200 md:px-8">
       <GameController
         buttonStatus={buttonStatus}
         handlers={handlers}

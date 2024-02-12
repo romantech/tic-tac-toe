@@ -80,4 +80,4 @@ export const defaultSquare: TSquare = {
   color: 'transparent',
   mark: null,
 };
-export const defaultWinner: Winner = { identifier: null, indices: null };
+export const defaultWinner: Winner = { identifier: null, indices: null, mark: null };

@@ -49,7 +49,7 @@ export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: Game
     const { row, col } = getCoordinatesFromIdx(boardIdx, size);
     const winIndices = checkWin(newBoard, size, winCondition, row, col, player);
 
-    if (winIndices) winner.current = { identifier: player, indices: winIndices };
+    if (winIndices) winner.current = { identifier: player, indices: winIndices, mark };
     else togglePlayer();
 
     if (winIndices || sequence.current.length === newBoard.length) {

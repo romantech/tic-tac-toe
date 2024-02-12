@@ -3,7 +3,7 @@ import { Screen } from '@/pages';
 
 function App() {
   return (
-    <main className="h-screen w-screen bg-slate-800">
+    <main className="min-h-screen bg-slate-800">
       <ScreenProvider>
         <GameOptionProvider>
           <Screen />

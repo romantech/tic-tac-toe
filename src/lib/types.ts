@@ -21,6 +21,7 @@ export type TBoard = TSquare[];
 export type Winner = {
   identifier: Identifier;
   indices: Array<BoardIdx> | null;
+  mark: TMark;
 };
 
 export type GameOption = {
@@ -41,3 +42,5 @@ export type PlayerConfigs = {
 };
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;
+
+export type ISOString = string;

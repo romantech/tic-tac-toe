@@ -14,7 +14,7 @@ export default function Settings() {
   const { methods, onSubmit } = useSettingsForm();
 
   return (
-    <div className="grid h-full place-content-center text-slate-200">
+    <div className="grid h-screen place-content-center text-slate-200">
       <FormProvider {...methods}>
         <form className="flex flex-col gap-8" onSubmit={methods.handleSubmit(onSubmit)}>
           <BoardSizeRadio />
