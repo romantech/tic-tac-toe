@@ -5,7 +5,7 @@ import { Button } from '@/components';
 
 const playerMarkPaths = ['playerConfigs.X.mark', 'playerConfigs.O.mark'];
 
-const findFirstError = (errors: Record<string, unknown>, errorPaths: string[]) => {
+const findFirstErrorPath = (errors: Record<string, unknown>, errorPaths: string[]) => {
   for (const path of errorPaths) {
     const pathParts = path.split('.');
     const hasError = pathParts.reduce(
@@ -24,7 +24,7 @@ export default function PlayButtonWithMessage() {
   const { formState } = useFormContext();
   const { errors } = formState;
 
-  const firstErrorPath = findFirstError(errors, playerMarkPaths);
+  const errorPath = findFirstErrorPath(errors, playerMarkPaths) ?? '';
 
   return (
     <div className="flex flex-col gap-2">
@@ -32,7 +32,7 @@ export default function PlayButtonWithMessage() {
         Play
       </Button>
       <div className="text-primary">
-        <ErrorMessage errors={errors} name={firstErrorPath ?? ''} />
+        <ErrorMessage errors={errors} name={errorPath} />
       </div>
     </div>
   );

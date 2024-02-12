@@ -27,4 +27,10 @@ export type PlayerConfigs = {
   [key in Player]: PlayerConfig;
 };
 
+export type GameHistory = {
+  board: TBoard;
+  winner: Player;
+  playerConfigs: PlayerConfigs;
+};
+
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;

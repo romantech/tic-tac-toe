@@ -9,6 +9,7 @@ export default function Game() {
     size,
     winCondition,
     firstPlayer,
+    playerConfigs,
   });
 
   return (

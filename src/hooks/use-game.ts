@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
 import { useUndoCount } from '@/hooks';
+import { useGameHistory } from '@/hooks/use-game-history';
 import {
   checkWin,
   GameOption,
@@ -19,9 +20,10 @@ const defaultWinner: Winner = {
 
 export type UseGameReturnType = ReturnType<typeof useGame>;
 
-export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'playerConfigs'>) => {
+export const useGame = ({ size, winCondition, firstPlayer, playerConfigs }: GameOption) => {
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
   const { undoCounts, decrementCount, resetCount } = useUndoCount();
+  const { addHistory } = useGameHistory();
 
   const winner = useRef(defaultWinner);
   const history = useRef<Array<number>>([]);
@@ -49,6 +51,10 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
 
     if (indices) winner.current = { player, indices };
     else togglePlayer();
+
+    if (indices || history.current.length === newBoard.length) {
+      addHistory({ board: newBoard, winner: player, playerConfigs });
+    }
   };
 
   const undo = useCallback(() => {
@@ -74,14 +80,17 @@ export const useGame = ({ size, winCondition, firstPlayer }: Omit<GameOption, 'p
     xIsNext.current = firstPlayer === Player.X;
   }, [firstPlayer, resetCount, size]);
 
-  const isPlaying = history.current.length > 0;
-  const enableUndo = isPlaying && undoCounts[getCurrentPlayer(true)] > 0;
+  const isStarted = history.current.length > 0;
+  const isTied = isStarted && history.current.length === board.length;
+  const hasWinner = Boolean(winner.current.player);
+  const hasUndoCount = undoCounts[getCurrentPlayer(true)] > 0;
+  const enableUndo = !hasWinner && !isTied && hasUndoCount;
 
   return {
     board,
     getCurrentPlayer,
     handlers: { board: onBoardClick, undo, reset },
-    buttonStatus: { undo: enableUndo, reset: isPlaying },
+    buttonStatus: { undo: enableUndo, reset: isStarted },
     winner: winner.current,
     undoCounts,
   };
