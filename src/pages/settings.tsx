@@ -28,11 +28,11 @@ export default function Settings() {
           <PlayerConfigsField />
           <Box className="flex flex-col gap-2">
             <div className="flex grow gap-2">
-              <Button className="grow capitalize" type="submit">
-                play
-              </Button>
               <Button className="grow capitalize" onClick={reset} disabled={!isDirty}>
                 reset
+              </Button>
+              <Button className="grow capitalize" type="submit">
+                play
               </Button>
             </div>
             <FirstErrorMessage className="mr-auto" />
