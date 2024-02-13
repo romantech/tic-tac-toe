@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { BasePlayer, BoardSize, defaultPlayerConfigs } from '@/lib/constants';
+import { isUniqueProperty } from '@/lib/helpers';
 
 const PlayerConfigSchema = z.object({
   identifier: z.nativeEnum(BasePlayer).readonly(),
@@ -24,23 +25,11 @@ export const gameOptionSchema = z
   .refine((data) => data.winCondition <= data.size, {
     message: 'Win condition cannot exceed board size',
   })
-  .refine(
-    (data) => {
-      const marks = Object.values(data.playerConfigs).map(({ mark }) => mark);
-      return new Set(marks).size === marks.length; // X, O 마크 중복 검사
-    },
-    {
-      message: 'Each player must have a unique mark',
-      path: ['playerConfigs.X.mark'],
-    },
-  )
-  .refine(
-    (data) => {
-      const colors = Object.values(data.playerConfigs).map(({ color }) => color);
-      return new Set(colors).size === colors.length; // 컬러 중복 검사
-    },
-    {
-      message: 'Each player must have a unique color',
-      path: ['playerConfigs.X.color'],
-    },
-  );
+  .refine((data) => isUniqueProperty(Object.values(data.playerConfigs), 'mark'), {
+    message: 'Each player must have a unique mark',
+    path: ['playerConfigs.X.mark'],
+  })
+  .refine((data) => isUniqueProperty(Object.values(data.playerConfigs), 'color'), {
+    message: 'Each player must have a unique color',
+    path: ['playerConfigs.X.color'],
+  });

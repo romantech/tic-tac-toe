@@ -2,34 +2,20 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components';
+import { findFirstErrorPath } from '@/lib';
 
-const playerMarkPaths = [
+const validationErrorPaths = [
   'playerConfigs.X.mark',
   'playerConfigs.O.mark',
   'playerConfigs.X.color',
   'playerConfigs.O.color',
 ];
 
-const findFirstErrorPath = (errors: Record<string, unknown>, errorPaths: string[]) => {
-  for (const path of errorPaths) {
-    const pathParts = path.split('.');
-    const hasError = pathParts.reduce(
-      (error, key) => {
-        if (error?.[key]) return error[key] as Record<string, unknown>;
-        return null;
-      },
-      errors as Record<string, unknown> | null,
-    );
-    if (hasError) return path;
-  }
-  return null;
-};
-
 export default function PlayButtonWithMessage() {
   const { formState } = useFormContext();
   const { errors } = formState;
 
-  const errorPath = findFirstErrorPath(errors, playerMarkPaths) ?? '';
+  const errorPath = findFirstErrorPath(errors, validationErrorPaths) ?? '';
 
   return (
     <div className="flex flex-col gap-2">

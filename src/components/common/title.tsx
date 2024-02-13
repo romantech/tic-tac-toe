@@ -6,7 +6,7 @@ interface SectionTitleProps extends HTMLAttributes<HTMLHeadingElement> {
   className?: string;
 }
 
-export default function SectionTitle({ className, children, ...headingProps }: SectionTitleProps) {
+export default function Title({ className, children, ...headingProps }: SectionTitleProps) {
   return (
     <h2 className={clsx('pb-1 text-2xl font-semibold uppercase', className)} {...headingProps}>
       {children}

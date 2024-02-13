@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { SectionTitle } from '@/components';
+import { Title } from '@/components';
 import { boardSize } from '@/lib';
 
 export default function BoardSizeRadio() {
@@ -10,7 +10,7 @@ export default function BoardSizeRadio() {
 
   return (
     <fieldset className="flex flex-col justify-center gap-2">
-      <SectionTitle>board size</SectionTitle>
+      <Title>board size</Title>
       <div className="flex gap-3.5">
         {/* radio value 는 문자열만 가능해서 숫자로 변경하기 위해 controller 사용 */}
         <Controller

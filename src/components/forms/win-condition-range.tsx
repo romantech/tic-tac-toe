@@ -3,7 +3,7 @@ import { useLayoutEffect } from 'react';
 import { clsx } from 'clsx';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
-import { SectionTitle } from '@/components';
+import { Title } from '@/components';
 import { BoardSize } from '@/lib';
 
 const getRangeLabels = (boardSize: number) => {
@@ -32,7 +32,7 @@ export default function WinConditionRange() {
 
   return (
     <div className="flex flex-col gap-2">
-      <SectionTitle>win condition</SectionTitle>
+      <Title>win condition</Title>
       <Controller
         control={control}
         name="winCondition"
