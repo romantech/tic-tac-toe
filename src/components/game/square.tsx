@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes } from 'react';
 
 import { clsx } from 'clsx';
 
+import { Fade } from '@/components';
 import { NBSP, TMark, TSequence } from '@/lib';
 
 interface SquareProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -30,9 +31,11 @@ export default function Square({
       className={clsx('relative border-b-2 border-r-2', className)}
       {...buttonProps}
     >
-      {/* layout shift 방지를 위해 논브레이크 스페이스를 기본값으로 지정 */}
-      <span className={clsx('inline-block', dim && 'opacity-30')}>{mark ?? NBSP}</span>
-      <Sequence sequence={sequence} hidden={!sequence || !buttonProps.disabled} />
+      <Fade trigger={Boolean(mark) && !dim}>
+        {/* layout shift 방지를 위해 논브레이크 스페이스를 기본값으로 지정 */}
+        <span className={clsx('inline-block', dim && 'opacity-30')}>{mark ?? NBSP}</span>
+        <Sequence sequence={sequence} hidden={!sequence || !buttonProps.disabled} />
+      </Fade>
     </button>
   );
 }

@@ -31,7 +31,7 @@ export default function Board({
 
         return (
           <Square
-            className={clsx({ 'bg-slate-600': isHighlightIdx })}
+            className={clsx({ 'bg-slate-500': isHighlightIdx })}
             dim={hasWinner && !isHighlightIdx}
             color={color}
             key={i}
