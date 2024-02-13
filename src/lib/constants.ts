@@ -6,6 +6,11 @@ export const NBSP = '\u00A0';
 export const MAX_UNDO_COUNT = 3;
 export const TIE_SYMBOL = '−';
 
+export enum GameHistory {
+  Key = 'tic-tac-toe-history',
+  Max = 20,
+}
+
 export enum BoardSize {
   Size3 = 3,
   Size4 = 4,

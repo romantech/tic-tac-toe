@@ -1,11 +1,12 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { createHistory, useUndoCount } from '@/hooks';
+import { useUndoCount } from '@/hooks';
 import { useGameHistory } from '@/hooks/use-game-history';
 import {
   BasePlayer,
   BoardIdx,
   checkWin,
+  createHistory,
   createSquare,
   defaultSquare,
   defaultWinner,

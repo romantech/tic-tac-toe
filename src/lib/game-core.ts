@@ -1,6 +1,6 @@
-import { BasePlayer, defaultSquare } from '@/lib/constants';
+import { BasePlayer, BoardSize, BoardType, defaultSquare, getBoardConfig } from '@/lib/constants';
 
-import { Identifier, TBoard, TMark, TSequence, TSquareColor } from './types';
+import { Identifier, TBoard, TMark, TSequence, TSquareColor, Winner } from './types';
 
 export const getCoordinatesFromIdx = (i: number, size: number) => {
   const row = Math.floor(i / size);
@@ -124,4 +124,12 @@ export const createSquare = (
   mark,
   sequence,
   color,
+});
+
+export type TGameHistory = ReturnType<typeof createHistory>;
+export const createHistory = (board: TBoard, winner: Winner, size: BoardSize) => ({
+  board,
+  winner,
+  boardConfigs: getBoardConfig(size, BoardType.View),
+  createdAt: new Date().toISOString(),
 });

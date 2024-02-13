@@ -1,18 +1,37 @@
+import { Fragment } from 'react';
+
 import { clsx } from 'clsx';
 
 import { Board, BoardInfo, Button, Divider, Empty } from '@/components';
 import { useSetScreen } from '@/context';
 import { useGameHistory } from '@/hooks';
-import { BoardType, ScreenType } from '@/lib';
+import { BoardType, ScreenType, TGameHistory } from '@/lib';
 
 export default function GameHistory() {
-  const { gameHistory } = useGameHistory();
+  const { historyList, clearHistory } = useGameHistory();
+  const setScreen = useSetScreen();
 
   return (
     <div className="mx-auto grid min-h-screen max-w-screen-xl grid-cols-[repeat(auto-fill,_minmax(288px,288px))] place-content-center gap-8 p-8 text-slate-200">
-      <GameHistoryButtonGroup />
+      <div className="col-span-full flex gap-3">
+        <Button className="w-full max-w-24 capitalize" onClick={() => setScreen(ScreenType.Home)}>
+          home
+        </Button>
+        <Button className="w-full max-w-24 capitalize" onClick={clearHistory}>
+          clear
+        </Button>
+      </div>
       <Divider className="col-span-full w-full" direction="horizontal" />
-      {gameHistory.map(({ board, winner, createdAt, boardConfigs }) => (
+      <HistoryList historyList={historyList} />
+      <Empty hidden={historyList.length !== 0}>no history</Empty>
+    </div>
+  );
+}
+
+const HistoryList = ({ historyList }: { historyList: TGameHistory[] }) => {
+  return (
+    <Fragment>
+      {historyList?.map(({ board, winner, createdAt, boardConfigs }) => (
         <section key={createdAt}>
           <BoardInfo winner={winner.mark} createdAt={createdAt} />
           <Board
@@ -23,22 +42,6 @@ export default function GameHistory() {
           />
         </section>
       ))}
-      <Empty hidden={gameHistory.length !== 0}>no history</Empty>
-    </div>
-  );
-}
-
-const GameHistoryButtonGroup = ({ className }: { className?: string }) => {
-  const setScreen = useSetScreen();
-
-  return (
-    <div className={clsx('col-span-full flex gap-3', className)}>
-      <Button className="w-full max-w-24" onClick={() => setScreen(ScreenType.Home)}>
-        Home
-      </Button>
-      <Button className="w-full max-w-24" onClick={() => setScreen(ScreenType.Settings)}>
-        Start
-      </Button>
-    </div>
+    </Fragment>
   );
 };

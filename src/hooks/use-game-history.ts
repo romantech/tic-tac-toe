@@ -1,37 +1,35 @@
 import { useCallback } from 'react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { BoardSize, BoardType, getBoardConfig, TBoard, Winner } from '@/lib';
-
-export type GameHistory = ReturnType<typeof createHistory>;
-export const createHistory = (board: TBoard, winner: Winner, size: BoardSize) => ({
-  board,
-  winner,
-  boardConfigs: getBoardConfig(size, BoardType.View),
-  createdAt: new Date().toISOString(),
-});
+import { GameHistory, TGameHistory } from '@/lib';
 
 interface UseGameHistoryProps {
   historyKey?: string;
   maxHistory?: number;
 }
 
+const INITIAL_VALUE: TGameHistory[] = [];
+
 export const useGameHistory = ({
-  historyKey = 'tic-tac-toe-history',
-  maxHistory = 20,
+  historyKey = GameHistory.Key,
+  maxHistory = GameHistory.Max,
 }: UseGameHistoryProps = {}) => {
-  const [gameHistory, setGameHistory] = useLocalStorage<GameHistory[]>(historyKey, []);
+  const [historyList, setHistoryList] = useLocalStorage<TGameHistory[]>(historyKey, INITIAL_VALUE);
 
   const addHistory = useCallback(
-    (history: GameHistory) => {
-      setGameHistory((prev) => {
+    (history: TGameHistory) => {
+      setHistoryList((prev) => {
         const newHistory = [history, ...prev];
         if (newHistory.length > maxHistory) return newHistory.slice(0, maxHistory);
         return newHistory;
       });
     },
-    [maxHistory, setGameHistory],
+    [maxHistory, setHistoryList],
   );
 
-  return { gameHistory, addHistory };
+  const clearHistory = useCallback(() => {
+    setHistoryList(INITIAL_VALUE);
+  }, [setHistoryList]);
+
+  return { historyList, addHistory, clearHistory } as const;
 };
