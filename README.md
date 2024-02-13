@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+# TicTacToe
+- A simple TicTacToe game with React  
+- Live Demo : https://tictactoe.romantech.net
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Stack
 
-Currently, two official plugins are available:
+- Core: React + TypeScript
+- State Management: Constate (React Context API)
+- Styling: Tailwind CSS
+- Form Management: React Hook Form + Zod
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Features
 
-## Expanding the ESLint configuration
+- Customizable board size
+- Configurable win conditions
+- Options to set markers, colors, and turn order
+- Game history storage and viewer functionality
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# Screenshot
 
-- Configure the top-level `parserOptions` property like this:
+#### Home Screen
+![tictactoe-1](https://github.com/romantech/tic-tac-toe/assets/8604840/fed14c6c-403f-4f2f-a234-2ddc3d88abcb)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+#### Game Configuration
+![tictactoe-2](https://github.com/romantech/tic-tac-toe/assets/8604840/fd644aa8-959f-467a-8cb7-62beb9a903e6)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+#### Game Screen
+![tictactoe-3](https://github.com/romantech/tic-tac-toe/assets/8604840/5d3b99f7-d274-4a49-9e04-9f3ef5f5429c)
+
+#### Match History
+![tictactoe-4](https://github.com/romantech/tic-tac-toe/assets/8604840/88cf79a7-84b4-4bd6-91f6-f07ac54f7996)
