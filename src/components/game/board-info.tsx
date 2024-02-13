@@ -1,10 +1,10 @@
 import { clsx } from 'clsx';
 
 import { Divider } from '@/components';
-import { getDateText, ISOString, TIE_SYMBOL, TMark } from '@/lib';
+import { getDateText, ISODateString, TIE_SYMBOL, TMark } from '@/lib';
 
 interface BoardInfoProps {
-  createdAt: ISOString;
+  createdAt: ISODateString;
   winner: TMark;
   className?: string;
 }

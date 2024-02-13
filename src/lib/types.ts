@@ -41,7 +41,7 @@ export type PlayerConfigs = {
   [key in BasePlayer]: PlayerConfig;
 };
 
-export type ISOString = string;
+export type ISODateString = string;
 export type GenericRecord<T = unknown> = Record<string, T>;
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;

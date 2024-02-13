@@ -1,13 +1,14 @@
-import { GenericRecord } from '@/lib/types';
+import { GenericRecord, ISODateString } from '@/lib/types';
 
 export const isUniqueProperty = <T>(items: T[], propertyName: keyof T) => {
   const values = items.map((item) => item[propertyName]);
   return new Set(values).size === values.length;
 };
 
-export const getDateText = (isoDateString: string) => {
-  const isoDate = new Date(isoDateString);
-  const options: Intl.DateTimeFormatOptions = {
+export const getDateText = (isoDateString: ISODateString, option?: Intl.DateTimeFormatOptions) => {
+  const date = new Date(isoDateString);
+  const locale = navigator.language;
+  const defaultOption: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: '2-digit',
     day: 'numeric',
@@ -15,7 +16,8 @@ export const getDateText = (isoDateString: string) => {
     minute: '2-digit',
     hour12: false,
   };
-  return new Intl.DateTimeFormat(navigator.language, options).format(isoDate);
+
+  return new Intl.DateTimeFormat(locale, option ?? defaultOption).format(date);
 };
 
 export const findFirstErrorPath = (errors: GenericRecord, errorPaths: string[]) => {
