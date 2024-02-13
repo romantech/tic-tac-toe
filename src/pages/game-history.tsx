@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { clsx } from 'clsx';
 
-import { Board, BoardInfo, Button, Divider, Empty } from '@/components';
+import { Board, BoardInfo, Button, Divider, Empty, Fade } from '@/components';
 import { useSetScreen } from '@/context';
 import { useGameHistory } from '@/hooks';
 import { BoardType, ScreenType, TGameHistory } from '@/lib';
@@ -12,7 +12,7 @@ export default function GameHistory() {
   const setScreen = useSetScreen();
 
   return (
-    <div className="mx-auto grid min-h-screen max-w-screen-xl grid-cols-[repeat(auto-fill,_minmax(288px,288px))] place-content-center gap-8 p-8 text-slate-200">
+    <Fade className="mx-auto grid min-h-screen max-w-screen-xl grid-cols-[repeat(auto-fill,_minmax(288px,288px))] place-content-center gap-8 p-8 text-slate-200">
       <div className="col-span-full flex gap-3">
         <Button className="w-full max-w-24 capitalize" onClick={() => setScreen(ScreenType.Home)}>
           home
@@ -24,7 +24,7 @@ export default function GameHistory() {
       <Divider className="col-span-full w-full" direction="horizontal" />
       <HistoryList historyList={historyList} />
       <Empty hidden={historyList.length !== 0}>no history</Empty>
-    </div>
+    </Fade>
   );
 }
 

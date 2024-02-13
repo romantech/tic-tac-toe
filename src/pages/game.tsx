@@ -1,4 +1,4 @@
-import { Board, GameController, TurnIndicator } from '@/components';
+import { Board, Fade, GameController, TurnIndicator } from '@/components';
 import { useGameOption } from '@/context';
 import { useGame } from '@/hooks';
 import { getBoardConfig } from '@/lib';
@@ -13,7 +13,7 @@ export default function Game() {
   });
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-4 py-20 text-slate-200 md:px-8">
+    <Fade className="flex h-screen flex-col items-center justify-center gap-4 py-20 text-slate-200 md:px-8">
       <GameController
         buttonStatus={buttonStatus}
         handlers={handlers}
@@ -27,6 +27,6 @@ export default function Game() {
         winner={winner}
       />
       <TurnIndicator currentPlayer={getCurrentPlayer()} playerConfigs={playerConfigs} />
-    </div>
+    </Fade>
   );
 }

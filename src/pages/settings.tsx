@@ -4,6 +4,7 @@ import { FormProvider } from 'react-hook-form';
 import {
   BoardSizeRadio,
   Divider,
+  Fade,
   PlayButtonWithMessage,
   PlayerConfigsField,
   WinConditionRange,
@@ -14,7 +15,7 @@ export default function Settings() {
   const { methods, onSubmit } = useSettingsForm();
 
   return (
-    <div className="flex h-screen items-center justify-center text-slate-200">
+    <Fade className="flex h-screen items-center justify-center text-slate-200">
       <FormProvider {...methods}>
         <form className="flex flex-col gap-8" onSubmit={methods.handleSubmit(onSubmit)}>
           <BoardSizeRadio />
@@ -26,6 +27,6 @@ export default function Settings() {
           <DevTool control={methods.control} />
         </form>
       </FormProvider>
-    </div>
+    </Fade>
   );
 }

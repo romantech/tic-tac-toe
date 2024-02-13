@@ -17,13 +17,13 @@ const durationClasses = {
 interface FadeProps extends BoxProps {
   className?: string;
   duration?: keyof typeof durationClasses;
-  trigger: boolean;
+  trigger?: boolean;
 }
 
 export default function Fade({
   children,
   className,
-  trigger,
+  trigger = true,
   duration = 500,
   ...boxProps
 }: PropsWithChildren<FadeProps>) {
