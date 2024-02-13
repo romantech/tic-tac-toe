@@ -3,16 +3,19 @@ import { FormProvider } from 'react-hook-form';
 
 import {
   BoardSizeRadio,
+  Box,
+  Button,
   Divider,
   Fade,
-  PlayButtonWithMessage,
+  FirstErrorMessage,
   PlayerConfigsField,
   WinConditionRange,
 } from '@/components';
 import { useSettingsForm } from '@/hooks';
 
 export default function Settings() {
-  const { methods, onSubmit } = useSettingsForm();
+  const { methods, onSubmit, reset } = useSettingsForm();
+  const { isDirty } = methods.formState;
 
   return (
     <Fade className="flex h-screen items-center justify-center text-slate-200">
@@ -23,7 +26,17 @@ export default function Settings() {
           <WinConditionRange />
           <Divider direction="horizontal" />
           <PlayerConfigsField />
-          <PlayButtonWithMessage />
+          <Box className="flex flex-col gap-2">
+            <div className="flex grow gap-2">
+              <Button className="grow capitalize" type="submit">
+                play
+              </Button>
+              <Button className="grow capitalize" onClick={reset} disabled={!isDirty}>
+                reset
+              </Button>
+            </div>
+            <FirstErrorMessage className="mr-auto" />
+          </Box>
           <DevTool control={methods.control} />
         </form>
       </FormProvider>

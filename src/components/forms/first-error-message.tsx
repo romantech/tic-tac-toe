@@ -1,7 +1,8 @@
 import { ErrorMessage } from '@hookform/error-message';
+import { clsx } from 'clsx';
 import { useFormContext } from 'react-hook-form';
 
-import { Button } from '@/components';
+import { Fade } from '@/components';
 import { findFirstErrorPath } from '@/lib';
 
 const validationErrorPaths = [
@@ -11,20 +12,15 @@ const validationErrorPaths = [
   'playerConfigs.O.color',
 ];
 
-export default function PlayButtonWithMessage() {
+export default function FirstErrorMessage({ className }: { className?: string }) {
   const { formState } = useFormContext();
   const { errors } = formState;
 
   const errorPath = findFirstErrorPath(errors, validationErrorPaths) ?? '';
 
   return (
-    <div className="flex flex-col gap-2">
-      <Button className="w-full" type="submit">
-        Play
-      </Button>
-      <div className="text-primary">
-        <ErrorMessage errors={errors} name={errorPath} />
-      </div>
-    </div>
+    <Fade duration={300} className={clsx('min-h-6 text-primary', className)}>
+      <ErrorMessage errors={errors} name={errorPath} />
+    </Fade>
   );
 }

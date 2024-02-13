@@ -40,8 +40,8 @@ export default function Fade({
 
   return (
     <Box
+      className={clsx(className, durationClasses[duration], { 'animate-fadein': isFadingIn })}
       {...boxProps}
-      className={clsx(className, isFadingIn && `animate-fade ${durationClasses[duration]}`)}
     >
       {children}
     </Box>

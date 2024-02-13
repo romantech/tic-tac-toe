@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -13,10 +15,17 @@ export const useSettingsForm = () => {
   const setGameOption = useSetGameOption();
   const changeScreen = useSetScreen();
 
-  const onSubmit = (data: GameOption) => {
-    setGameOption(data);
-    changeScreen(ScreenType.Play);
-  };
+  const onSubmit = useCallback(
+    (data: GameOption) => {
+      setGameOption(data);
+      changeScreen(ScreenType.Play);
+    },
+    [setGameOption, changeScreen],
+  );
 
-  return { methods, onSubmit };
+  const reset = useCallback(() => {
+    methods.reset(defaultGameOption);
+  }, [methods]);
+
+  return { methods, onSubmit, reset };
 };

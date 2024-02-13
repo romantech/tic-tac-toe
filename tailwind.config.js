@@ -8,7 +8,7 @@ export default {
         secondary: '#9CFFD9',
       },
       animation: {
-        fade: 'fadeIn .5s ease-in-out',
+        fadein: 'fadeIn .5s ease-in-out',
       },
       keyframes: {
         fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
