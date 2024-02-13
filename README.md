@@ -1,4 +1,6 @@
 # TicTacToe
+![tictactoe-play](https://github.com/romantech/tic-tac-toe/assets/8604840/d21c7a5c-333a-4573-90fe-0f9c6757535e)
+
 - A simple TicTacToe game with React  
 - Live Demo: https://tictactoe.romantech.net
 
