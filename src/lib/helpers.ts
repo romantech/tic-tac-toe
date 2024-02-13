@@ -1,3 +1,5 @@
+import { GenericRecord } from '@/lib/types';
+
 export const isUniqueProperty = <T>(items: T[], propertyName: keyof T) => {
   const values = items.map((item) => item[propertyName]);
   return new Set(values).size === values.length;
@@ -16,15 +18,15 @@ export const getDateText = (isoDateString: string) => {
   return new Intl.DateTimeFormat(navigator.language, options).format(isoDate);
 };
 
-export const findFirstErrorPath = (errors: Record<string, unknown>, errorPaths: string[]) => {
+export const findFirstErrorPath = (errors: GenericRecord, errorPaths: string[]) => {
   for (const path of errorPaths) {
     const pathParts = path.split('.');
     const hasError = pathParts.reduce(
       (error, key) => {
-        if (error?.[key]) return error[key] as Record<string, unknown>;
+        if (error?.[key]) return error[key] as GenericRecord;
         return null;
       },
-      errors as Record<string, unknown> | null,
+      errors as GenericRecord | null,
     );
     if (hasError) return path;
   }
