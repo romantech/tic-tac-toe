@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ComponentProps } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -7,7 +7,7 @@ export default function Button({
   disabled,
   className,
   ...buttonProps
-}: ButtonHTMLAttributes<HTMLButtonElement>) {
+}: ComponentProps<'button'>) {
   return (
     <button
       className={clsx(

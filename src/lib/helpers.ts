@@ -34,3 +34,5 @@ export const findFirstErrorPath = (errors: GenericRecord, errorPaths: string[]) 
   }
   return null;
 };
+
+export const isDev = () => import.meta.env.MODE === 'development';

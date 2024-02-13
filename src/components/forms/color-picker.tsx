@@ -1,8 +1,8 @@
+import { ComponentProps } from 'react';
+
 import { useFormContext } from 'react-hook-form';
 
-import { InputProps } from '@/lib';
-
-interface PlayerColorPickerProps extends InputProps {
+interface PlayerColorPickerProps extends ComponentProps<'input'> {
   name: string;
 }
 

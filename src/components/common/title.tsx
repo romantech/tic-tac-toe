@@ -1,8 +1,8 @@
-import { HTMLAttributes } from 'react';
+import { ComponentProps } from 'react';
 
 import { clsx } from 'clsx';
 
-interface SectionTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+interface SectionTitleProps extends ComponentProps<'h2'> {
   className?: string;
 }
 

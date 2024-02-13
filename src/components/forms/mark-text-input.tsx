@@ -1,9 +1,9 @@
+import { ComponentProps } from 'react';
+
 import { clsx } from 'clsx';
 import { useFormContext } from 'react-hook-form';
 
-import { InputProps } from '@/lib';
-
-interface MarkTextInputProps extends InputProps {
+interface MarkTextInputProps extends ComponentProps<'input'> {
   name: string;
 }
 

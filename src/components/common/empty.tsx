@@ -1,8 +1,8 @@
-import { HTMLAttributes, PropsWithChildren } from 'react';
+import { ComponentProps, PropsWithChildren } from 'react';
 
 import { clsx } from 'clsx';
 
-interface EmptyProps extends HTMLAttributes<HTMLHeadingElement> {
+interface EmptyProps extends ComponentProps<'h1'> {
   className?: string;
   hidden?: boolean;
 }

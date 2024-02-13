@@ -1,10 +1,10 @@
-import { DevTool } from '@hookform/devtools';
 import { FormProvider } from 'react-hook-form';
 
 import {
   BoardSizeRadio,
   Box,
   Button,
+  DevToolWrapper,
   Divider,
   Fade,
   FirstErrorMessage,
@@ -37,7 +37,7 @@ export default function Settings() {
             </div>
             <FirstErrorMessage className="mr-auto" />
           </Box>
-          <DevTool control={methods.control} />
+          <DevToolWrapper control={methods.control} />
         </form>
       </FormProvider>
     </Fade>

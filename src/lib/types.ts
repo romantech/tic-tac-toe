@@ -1,5 +1,3 @@
-import { InputHTMLAttributes } from 'react';
-
 import { BasePlayer, BoardSize } from '@/lib/constants';
 
 export type BoardIdx = number;
@@ -43,5 +41,3 @@ export type PlayerConfigs = {
 
 export type ISODateString = string;
 export type GenericRecord<T = unknown> = Record<string, T>;
-
-export type InputProps = InputHTMLAttributes<HTMLInputElement>;

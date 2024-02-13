@@ -1,10 +1,10 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ComponentProps } from 'react';
 
 import { clsx } from 'clsx';
 
 import { NBSP, TMark, TSequence } from '@/lib';
 
-interface SquareProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface SquareProps extends ComponentProps<'button'> {
   mark: TMark;
   sequence: TSequence;
   dim: boolean;
