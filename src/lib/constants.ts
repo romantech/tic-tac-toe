@@ -49,15 +49,15 @@ export enum DefaultColor {
 }
 
 export enum ScreenType {
-  'Home',
-  'Play',
-  'History',
-  'Settings',
+  Home,
+  Play,
+  History,
+  Settings,
 }
 
 export enum BoardType {
-  Play = 'play',
-  View = 'view',
+  Play,
+  View,
 }
 
 export const defaultPlayerConfigs: PlayerConfigs = {

@@ -20,6 +20,8 @@ export default function Game() {
         handlers={handlers}
         undoCounts={undoCounts}
         playerConfigs={playerConfigs}
+        currentPlayer={currentPlayer}
+        withBot={withBot}
       />
       <Board
         board={board}

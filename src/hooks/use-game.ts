@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useUndoCount } from '@/hooks';
-import { useGameHistory } from '@/hooks/use-game-history';
+import { useGameHistory, useUndoCount } from '@/hooks';
 import {
   BasePlayer,
   BoardIdx,
