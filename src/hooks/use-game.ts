@@ -14,6 +14,7 @@ import {
   GameOption,
   getInitialBoard,
   getOpponent,
+  isNumber,
   TBoard,
 } from '@/lib';
 
@@ -66,7 +67,7 @@ export const useGame = ({
   const undo = () => {
     const lastBoardIdx = sequence.current.at(-1);
     const secondLastBoardIdx = sequence.current.at(-2);
-    if (lastBoardIdx === undefined || winner.current.identifier) return;
+    if (!isNumber(lastBoardIdx) || winner.current.identifier) return;
 
     const sliceCount = withBot ? 2 : 1;
     sequence.current.splice(sliceCount * -1);
@@ -75,7 +76,7 @@ export const useGame = ({
 
     setBoard((prev) => {
       const newBoard = [...prev];
-      if (withBot && secondLastBoardIdx !== undefined) newBoard[secondLastBoardIdx] = defaultSquare;
+      if (withBot && isNumber(secondLastBoardIdx)) newBoard[secondLastBoardIdx] = defaultSquare;
       newBoard[lastBoardIdx] = defaultSquare;
       return newBoard;
     });
@@ -100,7 +101,7 @@ export const useGame = ({
   useEffect(() => {
     if (currentPlayer.current === BasePlayer.O && withBot) {
       const nextIndex = findBestMove(board, size, winCondition, currentPlayer.current);
-      if (nextIndex !== null) onBoardClick(nextIndex);
+      if (isNumber(nextIndex)) onBoardClick(nextIndex);
     }
   }, [board, hasWinner, onBoardClick, size, winCondition, withBot]);
 

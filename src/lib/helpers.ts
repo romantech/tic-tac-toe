@@ -44,3 +44,7 @@ export const randomIntBetween = (from: number, to: number) => {
 export const getRandomElement = <T>(arr: T[]) => {
   return arr[randomIntBetween(0, arr.length - 1)];
 };
+
+export const isNumber = (value: unknown): value is number => {
+  return typeof value === 'number' && !isNaN(value);
+};
