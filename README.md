@@ -25,10 +25,10 @@
 ![tictactoe-1](https://github.com/romantech/tic-tac-toe/assets/8604840/fed14c6c-403f-4f2f-a234-2ddc3d88abcb)
 
 #### Game Configuration
-![tictactoe-2](https://github.com/romantech/tic-tac-toe/assets/8604840/4f035eea-1be1-460f-ba20-6028f08df3ad)
+![tictactoe-2](https://github.com/romantech/tic-tac-toe/assets/8604840/d062e580-45ae-4b79-9644-0989b8e37127)
 
 #### Game Screen
-![tictactoe-3](https://github.com/romantech/tic-tac-toe/assets/8604840/5d3b99f7-d274-4a49-9e04-9f3ef5f5429c)
+![tictactoe-3](https://github.com/romantech/tic-tac-toe/assets/8604840/247a85fd-59a7-4828-b9bb-1fda61004348)
 
 #### Match History
 ![tictactoe-4](https://github.com/romantech/tic-tac-toe/assets/8604840/88cf79a7-84b4-4bd6-91f6-f07ac54f7996)
