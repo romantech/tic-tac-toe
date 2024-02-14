@@ -78,6 +78,7 @@ export const defaultGameOption: GameOption = {
   winCondition: BoardSize.Size3,
   firstPlayer: BasePlayer.X,
   playerConfigs: defaultPlayerConfigs,
+  withBot: true,
 };
 
 export const defaultSquare: TSquare = {

@@ -36,3 +36,11 @@ export const findFirstErrorPath = (errors: GenericRecord, errorPaths: string[]) 
 };
 
 export const isDev = () => import.meta.env.MODE === 'development';
+
+export const randomIntBetween = (from: number, to: number) => {
+  return Math.floor(Math.random() * (to - from + 1) + from);
+};
+
+export const getRandomElement = <T>(arr: T[]) => {
+  return arr[randomIntBetween(0, arr.length - 1)];
+};

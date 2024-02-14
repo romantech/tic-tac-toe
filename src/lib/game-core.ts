@@ -1,4 +1,5 @@
 import { BasePlayer, BoardSize, BoardType, defaultSquare, getBoardConfig } from '@/lib/constants';
+import { getRandomElement } from '@/lib/helpers';
 
 import { Identifier, TBoard, TMark, TSequence, TSquareColor, Winner } from './types';
 
@@ -6,10 +7,6 @@ export const getCoordinatesFromIdx = (i: number, size: number) => {
   const row = Math.floor(i / size);
   const col = i % size; // 항상 0 ~ (size - 1) 값 반환
   return { row, col };
-};
-
-export const getPlayerMark = (xIsNext: boolean) => {
-  return xIsNext ? BasePlayer.X : BasePlayer.O;
 };
 
 /**
@@ -105,7 +102,7 @@ const getLinearIndex = (row: number, col: number, size: number) => row * size + 
  * row * size = row 위치. e.g. 2(row) * 5(size) = 10 (3번째 행 첫번째 열)
  * 계산한 row 위치에서 col 더하면 해당 위치의 인덱스
  * */
-export const getCell = (board: TBoard, size: number, row: number, col: number) => {
+const getCell = (board: TBoard, size: number, row: number, col: number) => {
   const linearIndex = getLinearIndex(row, col, size);
   if (row >= 0 && row < size && col >= 0 && col < size) return board[linearIndex].identifier;
   return null;
@@ -139,11 +136,72 @@ export const getOpponent = (player: BasePlayer) => {
   return player === BasePlayer.X ? BasePlayer.O : BasePlayer.X;
 };
 
+/**
+ * 주어진 size 보드에서 중앙에 위치하는 인덱스를 반환하는 함수
+ * 짝수 size 보드는 중앙이 존재하지 않으므로 근접한 인덱스를 반환하는 점 주의
+ * */
+const getCenterIndex = (size: number) => Math.floor((size * size) / 2);
+
+const getCornerIndexes = (size: number) => {
+  const leftTop = 0;
+  const rightTop = size - 1;
+  const leftBottom = size * rightTop;
+  const rightBottom = leftBottom + rightTop;
+  return [leftTop, rightTop, leftBottom, rightBottom];
+};
+
+const getAvailableMoves = (board: TBoard) => {
+  return board.reduce((moves, cell, i) => {
+    if (cell.identifier === null) moves.add(i);
+    return moves;
+  }, new Set<number>());
+};
+
+const getFirstBestMovePosition = (
+  board: TBoard,
+  size: number,
+  winCondition: number,
+  player: BasePlayer,
+) => {
+  const idx = board.findIndex((cell, i) => {
+    if (cell.identifier === null) {
+      const winnerIndices = checkWin(board, size, winCondition, i, player);
+      return winnerIndices !== null;
+    }
+    return false;
+  });
+
+  return idx !== -1 ? idx : null;
+};
+
+const chooseStrategicPosition = (board: TBoard, size: number) => {
+  const availableMoves = getAvailableMoves(board);
+  if (availableMoves.size === 0) return null;
+
+  const cornerIndexes = getCornerIndexes(size);
+  const centerIdx = getCenterIndex(size);
+
+  [...cornerIndexes, centerIdx].forEach((idx) => availableMoves.has(idx));
+
+  return getRandomElement([...availableMoves]);
+};
+
 export const findBestMove = (
   board: TBoard,
   size: number,
   winCondition: number,
   player: BasePlayer,
 ) => {
-  // TODO Bot Player
+  const opponent = getOpponent(player);
+
+  // 승리할 수 있는 위치 탐색
+  const bestMove = getFirstBestMovePosition(board, size, winCondition, player);
+  if (bestMove !== null) return bestMove;
+
+  // 방어 해야하는 위치 탐색
+  const defenseMove = getFirstBestMovePosition(board, size, winCondition, opponent);
+  if (defenseMove !== null) return defenseMove;
+
+  // 중앙, 모서리, 빈칸 중 랜덤하게 반환. 모든 칸이 다 찼으면 null 반환
+  return chooseStrategicPosition(board, size);
 };

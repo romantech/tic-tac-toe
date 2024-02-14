@@ -27,6 +27,7 @@ export type GameOption = {
   winCondition: BoardSize;
   firstPlayer: BasePlayer;
   playerConfigs: PlayerConfigs;
+  withBot: boolean;
 };
 
 export type PlayerConfig = {

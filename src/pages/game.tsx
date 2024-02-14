@@ -4,12 +4,13 @@ import { useGame } from '@/hooks';
 import { getBoardConfig } from '@/lib';
 
 export default function Game() {
-  const { firstPlayer, size, winCondition, playerConfigs } = useGameOption();
+  const { firstPlayer, size, winCondition, playerConfigs, withBot } = useGameOption();
   const { board, currentPlayer, handlers, buttonStatus, undoCounts, winner } = useGame({
     size,
     winCondition,
     firstPlayer,
     playerConfigs,
+    withBot,
   });
 
   return (
