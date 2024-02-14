@@ -20,10 +20,11 @@ export const checkWin = (
   board: TBoard,
   size: number,
   winCondition: number,
-  lastRow: number,
-  lastCol: number,
+  linearIndex: number,
   player: BasePlayer,
 ) => {
+  const { row: lastRow, col: lastCol } = getCoordinatesFromIdx(linearIndex, size);
+
   const directions = [
     { deltaRow: 0, deltaCol: 1 }, // 가로
     { deltaRow: 1, deltaCol: 0 }, // 세로
@@ -133,3 +134,16 @@ export const createHistory = (board: TBoard, winner: Winner, size: BoardSize) =>
   boardConfigs: getBoardConfig(size, BoardType.View),
   createdAt: new Date().toISOString(),
 });
+
+export const getOpponent = (player: BasePlayer) => {
+  return player === BasePlayer.X ? BasePlayer.O : BasePlayer.X;
+};
+
+export const findBestMove = (
+  board: TBoard,
+  size: number,
+  winCondition: number,
+  player: BasePlayer,
+) => {
+  // TODO Bot Player
+};

@@ -5,7 +5,7 @@ import { getBoardConfig } from '@/lib';
 
 export default function Game() {
   const { firstPlayer, size, winCondition, playerConfigs } = useGameOption();
-  const { board, getCurrentPlayer, handlers, buttonStatus, undoCounts, winner } = useGame({
+  const { board, currentPlayer, handlers, buttonStatus, undoCounts, winner } = useGame({
     size,
     winCondition,
     firstPlayer,
@@ -26,7 +26,7 @@ export default function Game() {
         className={getBoardConfig(size)}
         winner={winner}
       />
-      <TurnIndicator currentPlayer={getCurrentPlayer()} playerConfigs={playerConfigs} />
+      <TurnIndicator currentPlayer={currentPlayer} playerConfigs={playerConfigs} />
     </Fade>
   );
 }

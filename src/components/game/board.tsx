@@ -23,7 +23,7 @@ export default function Board({
   return (
     <div
       className={clsx('grid aspect-square border-l-2 border-t-2 font-semibold', className, {
-        'w-11/12 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12': type === 'play',
+        'w-11/12 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12': type === BoardType.Play,
       })}
     >
       {board.map(({ color, mark, sequence }, i) => {
@@ -37,7 +37,7 @@ export default function Board({
             key={i}
             mark={mark}
             onClick={() => handleClick?.(i)}
-            disabled={type !== 'play'}
+            disabled={type !== BoardType.Play}
             sequence={sequence}
           />
         );
