@@ -75,7 +75,7 @@ export const useGame = ({
 
     setBoard((prev) => {
       const newBoard = [...prev];
-      if (withBot && secondLastBoardIdx) newBoard[secondLastBoardIdx] = defaultSquare;
+      if (withBot && secondLastBoardIdx !== undefined) newBoard[secondLastBoardIdx] = defaultSquare;
       newBoard[lastBoardIdx] = defaultSquare;
       return newBoard;
     });

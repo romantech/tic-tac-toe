@@ -181,9 +181,8 @@ const chooseStrategicPosition = (board: TBoard, size: number) => {
   const cornerIndexes = getCornerIndexes(size);
   const centerIdx = getCenterIndex(size);
 
-  [...cornerIndexes, centerIdx].forEach((idx) => availableMoves.has(idx));
-
-  return getRandomElement([...availableMoves]);
+  const filtered = [centerIdx, ...cornerIndexes].filter((idx) => availableMoves.has(idx));
+  return getRandomElement(filtered);
 };
 
 export const findBestMove = (
