@@ -6,7 +6,7 @@ import { UseGameReturnType } from '@/hooks';
 import { BasePlayer, PlayerConfigs, ScreenType } from '@/lib';
 
 interface GameControllerProps
-  extends Pick<UseGameReturnType, 'buttonStatus' | 'handlers' | 'undoCounts'> {
+  extends Pick<UseGameReturnType, 'controlStates' | 'handlers' | 'undoCounts'> {
   className?: string;
   playerConfigs: PlayerConfigs;
   withBot: boolean;
@@ -15,7 +15,7 @@ interface GameControllerProps
 
 export default function GameController({
   className,
-  buttonStatus,
+  controlStates,
   handlers,
   playerConfigs,
   undoCounts,
@@ -29,13 +29,13 @@ export default function GameController({
     <div className={clsx('flex max-h-14 gap-3', className)}>
       <section className="flex gap-3">
         <Button onClick={() => changeScreen(ScreenType.Home)}>Home</Button>
-        <Button disabled={!buttonStatus.reset} onClick={handlers.reset}>
+        <Button disabled={!controlStates.reset} onClick={handlers.reset}>
           Reset
         </Button>
       </section>
       <Divider className="my-3" />
       <section className="flex gap-3">
-        <Button disabled={!buttonStatus.undo} onClick={handlers.undo} className="capitalize">
+        <Button disabled={!controlStates.undo} onClick={handlers.undo} className="capitalize">
           {undoButtonText}
         </Button>
         <UndoStatus

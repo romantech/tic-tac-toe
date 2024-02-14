@@ -89,6 +89,13 @@ export const useGame = ({
     resetCount();
   };
 
+  useEffect(() => {
+    if (currentPlayer.current === BasePlayer.O && withBot) {
+      const nextIndex = findBestMove(board, size, winCondition, currentPlayer.current);
+      if (isNumber(nextIndex)) setTimeout(() => onBoardClick(nextIndex), 350);
+    }
+  }, [board, onBoardClick, size, winCondition, withBot]);
+
   const isStarted = sequence.current.length > 0;
   const isTied = isStarted && sequence.current.length === board.length;
 
@@ -96,19 +103,13 @@ export const useGame = ({
   const hasUndoCount = getUndoCountByPlayer(currentPlayer.current) > 0;
 
   const enableUndo = !hasWinner && !isTied && hasUndoCount;
-
-  useEffect(() => {
-    if (currentPlayer.current === BasePlayer.O && withBot) {
-      const nextIndex = findBestMove(board, size, winCondition, currentPlayer.current);
-      if (isNumber(nextIndex)) setTimeout(() => onBoardClick(nextIndex), 350);
-    }
-  }, [board, hasWinner, onBoardClick, size, winCondition, withBot]);
+  const enableBoard = !withBot ? true : currentPlayer.current === BasePlayer.X;
 
   return {
     board,
     currentPlayer: currentPlayer.current,
     handlers: { board: onBoardClick, undo, reset },
-    buttonStatus: { undo: enableUndo, reset: isStarted },
+    controlStates: { undo: enableUndo, reset: isStarted, board: enableBoard },
     winner: winner.current,
     undoCounts,
   };
