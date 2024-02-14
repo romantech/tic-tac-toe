@@ -101,7 +101,7 @@ export const useGame = ({
   useEffect(() => {
     if (currentPlayer.current === BasePlayer.O && withBot) {
       const nextIndex = findBestMove(board, size, winCondition, currentPlayer.current);
-      if (isNumber(nextIndex)) onBoardClick(nextIndex);
+      if (isNumber(nextIndex)) setTimeout(() => onBoardClick(nextIndex), 350);
     }
   }, [board, hasWinner, onBoardClick, size, winCondition, withBot]);
 
