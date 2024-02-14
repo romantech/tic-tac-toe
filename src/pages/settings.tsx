@@ -8,6 +8,7 @@ import {
   Divider,
   Fade,
   FirstErrorMessage,
+  GameModeRadio,
   PlayerConfigsField,
   WinConditionRange,
 } from '@/components';
@@ -21,6 +22,8 @@ export default function Settings() {
     <Fade className="flex h-screen items-center justify-center text-slate-200">
       <FormProvider {...methods}>
         <form className="flex flex-col gap-8" onSubmit={methods.handleSubmit(onSubmit)}>
+          <GameModeRadio />
+          <Divider direction="horizontal" />
           <BoardSizeRadio />
           <Divider direction="horizontal" />
           <WinConditionRange />

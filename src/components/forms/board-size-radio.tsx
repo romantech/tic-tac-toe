@@ -19,19 +19,16 @@ export default function BoardSizeRadio() {
           render={({ field: { onChange, value } }) => (
             <Fragment>
               {boardSize.map((size) => (
-                <div key={size} className="flex items-center gap-2">
+                <label key={size} className="flex cursor-pointer items-center gap-2">
                   <input
-                    id={`size-${size}`}
                     type="radio"
                     value={size}
                     checked={value === size}
                     onChange={({ target }) => onChange(+target.value)}
                     className="size-5 cursor-pointer appearance-none rounded-full border-2 border-slate-500 bg-slate-100 transition-all checked:border-4 checked:border-amber-600  checked:bg-primary"
                   />
-                  <label className="cursor-pointer" htmlFor={`size-${size}`}>
-                    {`${size}x${size}`}
-                  </label>
-                </div>
+                  <span>{`${size}x${size}`}</span>
+                </label>
               ))}
             </Fragment>
           )}

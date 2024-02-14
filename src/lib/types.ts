@@ -1,4 +1,4 @@
-import { BasePlayer, BoardSize } from '@/lib/constants';
+import { BasePlayer, BoardSize, GameMode } from '@/lib/constants';
 
 export type BoardIdx = number;
 
@@ -27,7 +27,7 @@ export type GameOption = {
   winCondition: BoardSize;
   firstPlayer: BasePlayer;
   playerConfigs: PlayerConfigs;
-  withBot: boolean;
+  gameMode: GameMode;
 };
 
 export type PlayerConfig = {

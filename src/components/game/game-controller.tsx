@@ -9,7 +9,7 @@ interface GameControllerProps
   extends Pick<UseGameReturnType, 'controlStates' | 'handlers' | 'undoCounts'> {
   className?: string;
   playerConfigs: PlayerConfigs;
-  withBot: boolean;
+  isSinglePlay: boolean;
   currentPlayer: BasePlayer;
 }
 
@@ -20,10 +20,10 @@ export default function GameController({
   playerConfigs,
   undoCounts,
   currentPlayer,
-  withBot,
+  isSinglePlay,
 }: GameControllerProps) {
   const changeScreen = useSetScreen();
-  const undoButtonText = withBot ? `undo (${undoCounts[BasePlayer.X]})` : 'undo';
+  const undoButtonText = isSinglePlay ? `undo (${undoCounts[BasePlayer.X]})` : 'undo';
 
   return (
     <div className={clsx('flex max-h-14 gap-3', className)}>
@@ -41,7 +41,7 @@ export default function GameController({
         <UndoStatus
           playerConfigs={playerConfigs}
           undoCounts={undoCounts}
-          className={clsx(withBot && 'hidden')}
+          className={clsx(isSinglePlay && 'hidden')}
           currentPlayer={currentPlayer}
         />
       </section>

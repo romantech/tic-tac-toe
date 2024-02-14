@@ -19,7 +19,11 @@ export default function FirstErrorMessage({ className }: { className?: string })
   const errorPath = findFirstErrorPath(errors, validationErrorPaths) ?? '';
 
   return (
-    <Fade duration={300} className={clsx('min-h-6 text-primary', className)}>
+    <Fade
+      trigger={Boolean(errorPath)}
+      duration={300}
+      className={clsx('min-h-6 text-primary', className)}
+    >
       <ErrorMessage errors={errors} name={errorPath} />
     </Fade>
   );

@@ -4,14 +4,8 @@ import { useGame } from '@/hooks';
 import { getBoardConfig } from '@/lib';
 
 export default function Game() {
-  const { firstPlayer, size, winCondition, playerConfigs, withBot } = useGameOption();
-  const { board, currentPlayer, handlers, controlStates, undoCounts, winner } = useGame({
-    size,
-    winCondition,
-    firstPlayer,
-    playerConfigs,
-    withBot,
-  });
+  const options = useGameOption();
+  const { board, currentPlayer, handlers, controlStates, undoCounts, winner } = useGame(options);
 
   return (
     <Fade className="flex h-screen flex-col items-center justify-center gap-4 py-20 text-slate-200 md:px-8">
@@ -19,17 +13,17 @@ export default function Game() {
         controlStates={controlStates}
         handlers={handlers}
         undoCounts={undoCounts}
-        playerConfigs={playerConfigs}
+        playerConfigs={options.playerConfigs}
         currentPlayer={currentPlayer}
-        withBot={withBot}
+        isSinglePlay={options.isSinglePlay}
       />
       <Board
         board={board}
         handleClick={controlStates.board ? handlers.board : undefined}
-        className={getBoardConfig(size)}
+        className={getBoardConfig(options.size)}
         winner={winner}
       />
-      <TurnIndicator currentPlayer={currentPlayer} playerConfigs={playerConfigs} />
+      <TurnIndicator currentPlayer={currentPlayer} playerConfigs={options.playerConfigs} />
     </Fade>
   );
 }

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 import constate from 'constate';
 
-import { defaultGameOption, GameOption } from '@/lib';
+import { defaultGameOption, GameMode, GameOption } from '@/lib';
 
 interface GameOptionProviderProps {
   defaultOption?: GameOption;
@@ -18,7 +18,10 @@ const [GameOptionProvider, useGameOption, useSetGameOption] = constate(
 
     return { gameOption, changeGameOption };
   },
-  ({ gameOption }) => gameOption,
+  ({ gameOption }) => {
+    const { gameMode, ...options } = gameOption;
+    return { ...options, isSinglePlay: gameMode === GameMode.SinglePlayer };
+  },
   ({ changeGameOption }) => changeGameOption,
 );
 

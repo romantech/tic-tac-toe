@@ -60,6 +60,11 @@ export enum BoardType {
   View,
 }
 
+export enum GameMode {
+  SinglePlayer = 'SINGLE_PLAYER',
+  TwoPlayers = 'TWO_PLAYERS',
+}
+
 export const defaultPlayerConfigs: PlayerConfigs = {
   [BasePlayer.X]: {
     identifier: BasePlayer.X,
@@ -78,7 +83,7 @@ export const defaultGameOption: GameOption = {
   winCondition: BoardSize.Size3,
   firstPlayer: BasePlayer.X,
   playerConfigs: defaultPlayerConfigs,
-  withBot: true,
+  gameMode: GameMode.SinglePlayer,
 };
 
 export const defaultSquare: TSquare = {

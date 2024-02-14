@@ -32,7 +32,7 @@ export default function FirstPlayerCheckbox({ name, player, className }: FirstPl
             <label
               htmlFor={`firstPlayer-${player}`}
               className={clsx(
-                'inline-block cursor-pointer rounded bg-amber-700 px-2 text-sm capitalize leading-7 text-slate-200 transition-all',
+                'inline-block cursor-pointer rounded bg-gradient-to-r from-amber-900 to-amber-600 px-2 text-sm font-medium capitalize leading-7 text-slate-200 transition-all duration-300',
                 { 'opacity-30 hover:opacity-60': firstPlayer !== player },
                 { 'hover:opacity-90': firstPlayer === player },
               )}

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { BasePlayer, BoardSize, defaultGameOption, defaultPlayerConfigs } from '@/lib/constants';
+import { BasePlayer, BoardSize, defaultPlayerConfigs, GameMode } from '@/lib/constants';
 import { isUniqueProperty } from '@/lib/helpers';
 
 const PlayerConfigSchema = z.object({
@@ -21,7 +21,7 @@ export const gameOptionSchema = z
     winCondition: z.nativeEnum(BoardSize).default(BoardSize.Size3),
     firstPlayer: z.nativeEnum(BasePlayer).default(BasePlayer.X),
     playerConfigs: z.record(PlayerConfigSchema).default(defaultPlayerConfigs),
-    withBot: z.boolean().default(defaultGameOption.withBot),
+    gameMode: z.nativeEnum(GameMode).default(GameMode.SinglePlayer),
   })
   .refine((data) => data.winCondition <= data.size, {
     message: 'Win condition cannot exceed board size',

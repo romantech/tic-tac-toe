@@ -5,3 +5,4 @@ export { default as ColorPicker } from './color-picker';
 export { default as PlayerConfigsField } from './player-configs-field';
 export { default as FirstPlayerCheckbox } from './first-player-checkbox';
 export { default as FirstErrorMessage } from './first-error-message';
+export { default as GameModeRadio } from './game-mode-radio';

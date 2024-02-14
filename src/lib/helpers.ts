@@ -1,3 +1,4 @@
+import { BasePlayer, GameMode } from '@/lib/constants';
 import { GenericRecord, ISODateString } from '@/lib/types';
 
 export const isUniqueProperty = <T>(items: T[], propertyName: keyof T) => {
@@ -47,4 +48,19 @@ export const getRandomElement = <T>(arr: T[]) => {
 
 export const isNumber = (value: unknown): value is number => {
   return typeof value === 'number' && !isNaN(value);
+};
+
+export const getPlayerLabel = (gameMode: GameMode, player: BasePlayer) => {
+  switch (gameMode) {
+    case GameMode.SinglePlayer: {
+      return player === BasePlayer.X ? 'You' : 'Bot';
+    }
+    case GameMode.TwoPlayers: {
+      return player === BasePlayer.X ? 'Player X' : 'Player O';
+    }
+    default: {
+      console.warn('invalid game mode');
+      return '';
+    }
+  }
 };

@@ -19,21 +19,24 @@ import {
 
 export type UseGameReturnType = ReturnType<typeof useGame>;
 
+interface UseGameProps extends Omit<GameOption, 'gameMode'> {
+  isSinglePlay: boolean;
+}
+
 export const useGame = ({
   size,
   winCondition,
   firstPlayer,
   playerConfigs,
-  withBot,
-}: GameOption) => {
-  const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
-
-  const { undoCounts, decrementCount, resetCount, getUndoCountByPlayer } = useUndoCount(withBot);
-  const { addHistory } = useGameHistory();
-
+  isSinglePlay,
+}: UseGameProps) => {
   const currentPlayer = useRef<BasePlayer>(firstPlayer);
   const winner = useRef(defaultWinner);
   const sequence = useRef<Array<BoardIdx>>([]);
+
+  const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
+  const { undoCounts, decrementCount, resetCount, getUndoCountBy } = useUndoCount(isSinglePlay);
+  const { addHistory } = useGameHistory();
 
   const togglePlayer = useCallback(() => {
     currentPlayer.current = getOpponent(currentPlayer.current);
@@ -68,14 +71,14 @@ export const useGame = ({
     const secondLastBoardIdx = sequence.current.at(-2);
     if (!isNumber(lastBoardIdx) || winner.current.identifier) return;
 
-    const sliceCount = withBot ? 2 : 1;
-    sequence.current.splice(sliceCount * -1);
+    sequence.current.splice(isSinglePlay ? -2 : -1);
     decrementCount(currentPlayer.current);
-    if (!withBot) togglePlayer();
+    if (!isSinglePlay) togglePlayer();
 
     setBoard((prev) => {
       const newBoard = [...prev];
-      if (withBot && isNumber(secondLastBoardIdx)) newBoard[secondLastBoardIdx] = defaultSquare;
+      const shouldSetSecondLast = isSinglePlay && isNumber(secondLastBoardIdx);
+      if (shouldSetSecondLast) newBoard[secondLastBoardIdx] = defaultSquare;
       newBoard[lastBoardIdx] = defaultSquare;
       return newBoard;
     });
@@ -90,20 +93,20 @@ export const useGame = ({
   };
 
   useEffect(() => {
-    if (currentPlayer.current === BasePlayer.O && withBot) {
+    if (currentPlayer.current === BasePlayer.O && isSinglePlay) {
       const nextIndex = findBestMove(board, size, winCondition, currentPlayer.current);
       if (isNumber(nextIndex)) setTimeout(() => onBoardClick(nextIndex), 350);
     }
-  }, [board, onBoardClick, size, winCondition, withBot]);
+  }, [board, isSinglePlay, onBoardClick, size, winCondition]);
 
   const isStarted = sequence.current.length > 0;
   const isTied = isStarted && sequence.current.length === board.length;
 
   const hasWinner = Boolean(winner.current.identifier);
-  const hasUndoCount = getUndoCountByPlayer(currentPlayer.current) > 0;
+  const hasUndoCount = getUndoCountBy(currentPlayer.current) > 0;
 
   const enableUndo = !hasWinner && !isTied && hasUndoCount;
-  const enableBoard = !withBot ? true : currentPlayer.current === BasePlayer.X;
+  const enableBoard = !isSinglePlay ? true : currentPlayer.current === BasePlayer.X;
 
   return {
     board,
