@@ -5,4 +5,5 @@ export { default as Divider } from './divider';
 export { default as Fade } from './fade';
 export { default as GithubButton } from './github-button';
 export { default as DevToolWrapper } from './dev-tool-wrapper';
+export { default as Toggle } from './toggle';
 export * from './box';

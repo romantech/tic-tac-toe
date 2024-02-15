@@ -1,8 +1,9 @@
-import { PropsWithChildren, useLayoutEffect, useState } from 'react';
+import { PropsWithChildren, useLayoutEffect } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@/components';
+import { useDisclosure } from '@/hooks';
 
 const durationClasses = {
   75: 'duration-75',
@@ -27,20 +28,20 @@ export default function Fade({
   duration = 500,
   ...boxProps
 }: PropsWithChildren<FadeProps>) {
-  const [isFadingIn, setIsFadingIn] = useState(false);
+  const { isOpen: triggerFade, open: activeFade, close: cancelFade } = useDisclosure(false);
 
   useLayoutEffect(() => {
     let timer: number;
     if (trigger) {
-      setIsFadingIn(true);
-      timer = setTimeout(() => setIsFadingIn(false), duration);
+      activeFade();
+      timer = setTimeout(cancelFade, duration);
     }
     return () => clearTimeout(timer);
-  }, [duration, trigger]);
+  }, [activeFade, cancelFade, duration, trigger]);
 
   return (
     <Box
-      className={clsx(className, durationClasses[duration], { 'animate-fadein': isFadingIn })}
+      className={clsx(className, durationClasses[duration], { 'animate-fadein': triggerFade })}
       {...boxProps}
     >
       {children}

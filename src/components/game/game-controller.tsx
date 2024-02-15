@@ -30,7 +30,7 @@ export default function GameController({
       <section className="flex gap-3">
         <Button onClick={() => changeScreen(ScreenType.Home)}>Home</Button>
         <Button disabled={!controlStates.reset} onClick={handlers.reset}>
-          Reset
+          Restart
         </Button>
       </section>
       <Divider className="my-3" />

@@ -1,12 +1,11 @@
-import { Fragment } from 'react';
-
-import { Board, BoardInfo, Button, Divider, Empty, Fade } from '@/components';
+import { BoardList, Button, Divider, Empty, Fade, OrderToggle } from '@/components';
 import { useSetScreen } from '@/context';
-import { useGameHistory } from '@/hooks';
-import { BoardType, getBoardConfig, ScreenType, TGameHistory } from '@/lib';
+import { useDisclosure, useGameHistory } from '@/hooks';
+import { ScreenType } from '@/lib';
 
 export default function GameHistory() {
   const { historyList, clearHistory } = useGameHistory();
+  const { toggle: toggleShowOrder, isOpen: showOrder } = useDisclosure(true);
   const setScreen = useSetScreen();
 
   return (
@@ -18,28 +17,11 @@ export default function GameHistory() {
         <Button className="w-full max-w-24 capitalize" onClick={clearHistory}>
           clear
         </Button>
+        <OrderToggle checked={showOrder} onChange={toggleShowOrder} />
       </div>
       <Divider className="col-span-full w-full" direction="horizontal" />
-      <HistoryList historyList={historyList} />
+      <BoardList boardList={historyList} hideSequence={!showOrder} />
       <Empty hidden={historyList.length !== 0}>no history</Empty>
     </Fade>
   );
 }
-
-const HistoryList = ({ historyList }: { historyList: TGameHistory[] }) => {
-  return (
-    <Fragment>
-      {historyList?.map(({ board, winner, createdAt, size }) => (
-        <section key={createdAt}>
-          <BoardInfo winner={winner.mark} createdAt={createdAt} />
-          <Board
-            board={board}
-            winner={winner}
-            className={getBoardConfig(size, BoardType.View)}
-            type={BoardType.View}
-          />
-        </section>
-      ))}
-    </Fragment>
-  );
-};

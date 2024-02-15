@@ -112,13 +112,12 @@ export const useGame = ({
 
   const enabledReset = hasMark || isUndoUsed;
   const enableUndo = !hasWinner && hasMark && hasUndoCount;
-  const enableBoard = !isSinglePlay ? true : currentPlayer.current === BasePlayer.X;
 
   return {
     board,
     currentPlayer: currentPlayer.current,
     handlers: { board: onBoardClick, undo, reset },
-    controlStates: { undo: enableUndo, reset: enabledReset, board: enableBoard },
+    controlStates: { undo: enableUndo, reset: enabledReset },
     winner: winner.current,
     undoCounts,
   };

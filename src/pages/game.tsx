@@ -18,8 +18,9 @@ export default function Game() {
         isSinglePlay={options.isSinglePlay}
       />
       <Board
+        hideSequence
         board={board}
-        handleClick={controlStates.board ? handlers.board : undefined}
+        handleClick={handlers.board}
         className={getBoardConfig(options.size, BoardType.Play)}
         winner={winner}
       />
