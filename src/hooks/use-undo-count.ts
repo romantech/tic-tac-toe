@@ -2,10 +2,11 @@ import { useState } from 'react';
 
 import { BasePlayer, getOpponent, MAX_UNDO_COUNT } from '@/lib';
 
+export type UndoCounts = typeof defaultUndoValues;
 const defaultUndoValues = {
   [BasePlayer.X]: MAX_UNDO_COUNT,
   [BasePlayer.O]: MAX_UNDO_COUNT,
-};
+} as const;
 
 export const useUndoCount = (isSinglePlay: boolean) => {
   const [undoCounts, setUndoCounts] = useState(defaultUndoValues);
