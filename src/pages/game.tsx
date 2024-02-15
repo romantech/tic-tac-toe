@@ -1,14 +1,14 @@
 import { Board, Fade, GameController, TurnIndicator } from '@/components';
 import { useGameOption } from '@/context';
 import { useGame } from '@/hooks';
-import { getBoardConfig } from '@/lib';
+import { BoardType, getBoardConfig } from '@/lib';
 
 export default function Game() {
   const options = useGameOption();
   const { board, currentPlayer, handlers, controlStates, undoCounts, winner } = useGame(options);
 
   return (
-    <Fade className="flex h-screen flex-col items-center justify-center gap-4 py-20 text-slate-200 md:px-8">
+    <Fade className="flex h-screen flex-col items-center justify-center gap-4 px-8 py-20 text-slate-200 md:px-8">
       <GameController
         controlStates={controlStates}
         handlers={handlers}
@@ -20,7 +20,7 @@ export default function Game() {
       <Board
         board={board}
         handleClick={controlStates.board ? handlers.board : undefined}
-        className={getBoardConfig(options.size)}
+        className={getBoardConfig(options.size, BoardType.Play)}
         winner={winner}
       />
       <TurnIndicator currentPlayer={currentPlayer} playerConfigs={options.playerConfigs} />

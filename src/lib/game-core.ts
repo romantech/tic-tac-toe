@@ -1,4 +1,4 @@
-import { BasePlayer, BoardSize, BoardType, defaultSquare, getBoardConfig } from '@/lib/constants';
+import { BasePlayer, BoardSize, defaultSquare } from '@/lib/constants';
 import { getRandomElement } from '@/lib/helpers';
 
 import { Identifier, TBoard, TMark, TSequence, TSquareColor, Winner } from './types';
@@ -128,7 +128,7 @@ export type TGameHistory = ReturnType<typeof createHistory>;
 export const createHistory = (board: TBoard, winner: Winner, size: BoardSize) => ({
   board,
   winner,
-  boardConfigs: getBoardConfig(size, BoardType.View),
+  size,
   createdAt: new Date().toISOString(),
 });
 

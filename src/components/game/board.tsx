@@ -23,8 +23,7 @@ export default function Board({
   return (
     <div
       className={clsx(
-        'grid aspect-square select-none border-l-2 border-t-2 font-semibold',
-        { 'w-11/12 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12': type === BoardType.Play },
+        'grid aspect-square w-full max-w-md select-none border-l-2 border-t-2 font-semibold',
         className,
       )}
     >

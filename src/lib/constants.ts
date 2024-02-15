@@ -1,5 +1,3 @@
-import { clsx } from 'clsx';
-
 import { GameOption, PlayerConfigs, TSquare, Winner } from '@/lib/types';
 
 export const NBSP = '\u00A0';
@@ -21,17 +19,30 @@ export enum BoardSize {
 
 export type BoardConfig = ReturnType<typeof getBoardConfig>;
 export const getBoardConfig = (size: BoardSize, type: BoardType = BoardType.Play) => {
-  const isPlay = type === BoardType.Play;
+  const boardConfig = {
+    [BoardSize.Size3]: {
+      [BoardType.Play]: 'grid-cols-3 text-7xl sm:text-8xl',
+      [BoardType.View]: 'grid-cols-3 text-6xl sm:text-7xl',
+    },
+    [BoardSize.Size4]: {
+      [BoardType.Play]: 'grid-cols-4 text-6xl sm:text-7xl',
+      [BoardType.View]: 'grid-cols-4 text-5xl',
+    },
+    [BoardSize.Size5]: {
+      [BoardType.Play]: 'grid-cols-5 text-5xl sm:text-6xl',
+      [BoardType.View]: 'grid-cols-5 text-4xl',
+    },
+    [BoardSize.Size6]: {
+      [BoardType.Play]: 'grid-cols-6 text-4xl sm:text-5xl',
+      [BoardType.View]: 'grid-cols-6 text-3xl',
+    },
+    [BoardSize.Size7]: {
+      [BoardType.Play]: 'grid-cols-7 text-3xl sm:text-5xl',
+      [BoardType.View]: 'grid-cols-7 text-2xl',
+    },
+  };
 
-  const configs = {
-    [BoardSize.Size3]: clsx('grid-cols-3', isPlay && 'text-7xl lg:text-8xl'),
-    [BoardSize.Size4]: clsx('grid-cols-4', isPlay && 'text-6xl lg:text-7xl'),
-    [BoardSize.Size5]: clsx('grid-cols-5', isPlay && 'text-5xl lg:text-6xl'),
-    [BoardSize.Size6]: clsx('grid-cols-6', isPlay && 'text-4xl lg:text-5xl'),
-    [BoardSize.Size7]: clsx('grid-cols-7', isPlay && 'text-3xl lg:text-4xl'),
-  } as const;
-
-  return configs[size];
+  return boardConfig[size][type];
 };
 
 export const boardSize = Object.values(BoardSize).filter(Number);

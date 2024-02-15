@@ -31,7 +31,7 @@ export default function Square({
       {...buttonProps}
     >
       {/* layout shift 방지를 위해 논브레이크 스페이스를 기본값으로 지정 */}
-      <span className={clsx('inline-block', dim && 'opacity-30')}>{mark ?? NBSP}</span>
+      <span className={clsx('inline-block', dim && 'opacity-50')}>{mark ?? NBSP}</span>
       <Sequence sequence={sequence} hidden={!sequence || !buttonProps.disabled} />
     </button>
   );
