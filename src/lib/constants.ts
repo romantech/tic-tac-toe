@@ -22,7 +22,7 @@ export const getBoardConfig = (size: BoardSize, type: BoardType = BoardType.Play
   const boardConfig = {
     [BoardSize.Size3]: {
       [BoardType.Play]: 'grid-cols-3 text-7xl sm:text-8xl',
-      [BoardType.View]: 'grid-cols-3 text-6xl sm:text-7xl',
+      [BoardType.View]: 'grid-cols-3 text-6xl',
     },
     [BoardSize.Size4]: {
       [BoardType.Play]: 'grid-cols-4 text-6xl sm:text-7xl',

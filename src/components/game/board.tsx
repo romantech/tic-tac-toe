@@ -19,12 +19,14 @@ export default function Board({
   type = BoardType.Play,
 }: BoardProps) {
   const hasWinner = Boolean(winner.identifier);
+  const viewTypeBorderStyle = { 'border-slate-700': type === BoardType.View };
 
   return (
     <div
       className={clsx(
         'grid aspect-square w-full max-w-md select-none border-l-2 border-t-2 font-semibold',
         className,
+        viewTypeBorderStyle,
       )}
     >
       {board.map(({ color, mark, sequence }, i) => {
@@ -32,7 +34,8 @@ export default function Board({
 
         return (
           <Square
-            className={clsx({ 'bg-slate-500': isHighlightIdx })}
+            className={clsx(viewTypeBorderStyle)}
+            highlight={isHighlightIdx}
             dim={hasWinner && !isHighlightIdx}
             color={color}
             key={i}

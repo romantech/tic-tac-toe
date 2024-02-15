@@ -8,6 +8,7 @@ interface SquareProps extends ComponentProps<'button'> {
   mark: TMark;
   sequence: TSequence;
   dim: boolean;
+  highlight?: boolean;
   onClick: () => void;
   color?: string;
   className?: string;
@@ -17,6 +18,7 @@ export default function Square({
   dim,
   mark,
   onClick,
+  highlight,
   className,
   color,
   sequence,
@@ -27,29 +29,38 @@ export default function Square({
       style={{ color }}
       type="button"
       onClick={onClick}
-      className={clsx('relative border-b-2 border-r-2 transition-all duration-500', className)}
+      className={clsx(
+        'relative border-b-2 border-r-2 transition-all duration-500',
+        { 'bg-slate-600': highlight },
+        className,
+      )}
       {...buttonProps}
     >
       {/* layout shift 방지를 위해 논브레이크 스페이스를 기본값으로 지정 */}
       <span className={clsx('inline-block', dim && 'opacity-50')}>{mark ?? NBSP}</span>
-      <Sequence sequence={sequence} hidden={!sequence || !buttonProps.disabled} />
+      <Sequence
+        className={clsx({
+          'text-slate-400': highlight,
+          'text-slate-500': !highlight,
+          invisible: !sequence || !buttonProps.disabled,
+        })}
+        sequence={sequence}
+      />
     </button>
   );
 }
 
 interface SequenceProps {
-  hidden: boolean;
   sequence: TSequence;
   className?: string;
 }
 
-const Sequence = ({ sequence, className, hidden }: SequenceProps) => {
+const Sequence = ({ sequence, className }: SequenceProps) => {
   return (
     <span
       className={clsx(
         className,
-        'absolute right-0 top-0 grid size-5 place-content-center text-xs font-normal text-slate-400',
-        { hidden },
+        'absolute right-0 top-0 grid size-5 place-content-center text-xs font-medium',
       )}
     >
       {sequence}
