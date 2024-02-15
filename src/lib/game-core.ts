@@ -136,17 +136,26 @@ export const getOpponent = (player: BasePlayer) => {
   return player === BasePlayer.X ? BasePlayer.O : BasePlayer.X;
 };
 
-/**
- * 주어진 size 보드에서 중앙에 위치하는 인덱스를 반환하는 함수
- * 짝수 size 보드는 중앙이 존재하지 않으므로 근접한 인덱스를 반환하는 점 주의
- * */
-const getCenterIndex = (size: number) => Math.floor((size * size) / 2);
+const getCenterIndexes = (size: number) => {
+  // 홀수 size 보드
+  if (size % 2 !== 0) return [Math.floor((size * size) / 2)];
+
+  // 짝수 size 보드
+  const halfSize = size / 2;
+  return [
+    (halfSize - 1) * size + halfSize - 1,
+    (halfSize - 1) * size + halfSize,
+    halfSize * size + halfSize - 1,
+    halfSize * size + halfSize,
+  ];
+};
 
 const getCornerIndexes = (size: number) => {
   const leftTop = 0;
   const rightTop = size - 1;
-  const leftBottom = size * rightTop;
-  const rightBottom = leftBottom + rightTop;
+  const leftBottom = size * (size - 1);
+  const rightBottom = size * size - 1;
+
   return [leftTop, rightTop, leftBottom, rightBottom];
 };
 
@@ -178,11 +187,14 @@ const chooseStrategicPosition = (board: TBoard, size: number) => {
   const availableMoves = getAvailableMoves(board);
   if (availableMoves.size === 0) return null;
 
-  const cornerIndexes = getCornerIndexes(size);
-  const centerIdx = getCenterIndex(size);
+  const centerIdx = getCenterIndexes(size);
+  // 3x3 보드는 모서리 두는 것도 유리하므로 가능시 모서리에 배치
+  const cornerIndexes = size === 3 ? getCornerIndexes(size) : [];
 
-  const filtered = [centerIdx, ...cornerIndexes].filter((idx) => availableMoves.has(idx));
-  return getRandomElement(filtered);
+  const filtered = [...centerIdx, ...cornerIndexes].filter((idx) => availableMoves.has(idx));
+  if (filtered.length > 0) return getRandomElement(filtered);
+
+  return getRandomElement([...availableMoves]);
 };
 
 export const findBestMove = (
