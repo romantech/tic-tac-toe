@@ -7,6 +7,7 @@ interface UndoStatusProps {
   playerConfigs: PlayerConfigs;
   currentPlayer: BasePlayer;
   undoCounts: UndoCounts;
+  enableUndo?: boolean;
   className?: string;
 }
 
@@ -15,17 +16,21 @@ export default function UndoStatus({
   undoCounts,
   className,
   currentPlayer,
+  enableUndo,
 }: UndoStatusProps) {
   return (
     <div className={clsx('text-slate-500', className)}>
-      {Object.values(BasePlayer).map((player) => (
-        <Status
-          key={player}
-          className={clsx({ 'text-slate-200': player === currentPlayer })}
-          mark={playerConfigs[player].mark}
-          count={undoCounts[player]}
-        />
-      ))}
+      {Object.values(BasePlayer).map((player) => {
+        const highlight = player !== currentPlayer && enableUndo;
+        return (
+          <Status
+            key={player}
+            className={clsx({ 'text-slate-200': highlight })}
+            mark={playerConfigs[player].mark}
+            count={undoCounts[player]}
+          />
+        );
+      })}
     </div>
   );
 }

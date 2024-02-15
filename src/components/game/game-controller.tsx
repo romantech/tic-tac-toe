@@ -40,6 +40,7 @@ export default function GameController({
         </Button>
         <UndoStatus
           playerConfigs={playerConfigs}
+          enableUndo={controlStates.undo}
           undoCounts={undoCounts}
           className={clsx(isSinglePlay && 'hidden')}
           currentPlayer={currentPlayer}

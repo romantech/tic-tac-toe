@@ -35,7 +35,7 @@ export const useGame = ({
   const sequence = useRef<Array<BoardIdx>>([]);
 
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
-  const { undoCounts, decrementCount, resetCount, getUndoCountBy } = useUndoCount(isSinglePlay);
+  const { undoCounts, isUndoUsed, undoControls } = useUndoCount(isSinglePlay);
   const { addHistory } = useGameHistory();
 
   const togglePlayer = useCallback(() => {
@@ -43,8 +43,9 @@ export const useGame = ({
   }, []);
 
   const onBoardClick = useCallback(
-    (boardIdx: BoardIdx) => {
+    (boardIdx: BoardIdx, isBotTurn = false) => {
       if (board[boardIdx].identifier || winner.current.identifier) return;
+      if (isBotTurn && currentPlayer.current === BasePlayer.X) return;
 
       sequence.current.push(boardIdx);
 
@@ -72,7 +73,7 @@ export const useGame = ({
     if (!isNumber(lastBoardIdx) || winner.current.identifier) return;
 
     sequence.current.splice(isSinglePlay ? -2 : -1);
-    decrementCount(currentPlayer.current);
+    undoControls.decrement(currentPlayer.current);
     if (!isSinglePlay) togglePlayer();
 
     setBoard((prev) => {
@@ -89,30 +90,35 @@ export const useGame = ({
     currentPlayer.current = firstPlayer;
     winner.current = defaultWinner;
     sequence.current = [];
-    resetCount();
+    undoControls.reset();
   };
 
   useEffect(() => {
-    if (currentPlayer.current === BasePlayer.O && isSinglePlay) {
+    const isBotTurn = currentPlayer.current === BasePlayer.O && isSinglePlay;
+    const gameNotEnded = !winner.current.identifier;
+    let timer: number;
+
+    if (isBotTurn && gameNotEnded) {
       const nextIndex = findBestMove(board, size, winCondition, currentPlayer.current);
-      if (isNumber(nextIndex)) setTimeout(() => onBoardClick(nextIndex), 350);
+      if (isNumber(nextIndex)) timer = setTimeout(() => onBoardClick(nextIndex, true), 300);
     }
+
+    return () => clearTimeout(timer);
   }, [board, isSinglePlay, onBoardClick, size, winCondition]);
 
-  const isStarted = sequence.current.length > 0;
-  const isTied = isStarted && sequence.current.length === board.length;
-
+  const hasMark = sequence.current.length > 0;
   const hasWinner = Boolean(winner.current.identifier);
-  const hasUndoCount = getUndoCountBy(currentPlayer.current) > 0;
+  const hasUndoCount = undoControls.getUndoCountBy(currentPlayer.current) > 0;
 
-  const enableUndo = !hasWinner && !isTied && hasUndoCount;
+  const enabledReset = hasMark || isUndoUsed;
+  const enableUndo = !hasWinner && hasMark && hasUndoCount;
   const enableBoard = !isSinglePlay ? true : currentPlayer.current === BasePlayer.X;
 
   return {
     board,
     currentPlayer: currentPlayer.current,
     handlers: { board: onBoardClick, undo, reset },
-    controlStates: { undo: enableUndo, reset: isStarted, board: enableBoard },
+    controlStates: { undo: enableUndo, reset: enabledReset, board: enableBoard },
     winner: winner.current,
     undoCounts,
   };

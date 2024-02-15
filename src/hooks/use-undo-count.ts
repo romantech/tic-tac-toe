@@ -2,29 +2,29 @@ import { useState } from 'react';
 
 import { BasePlayer, getOpponent, MAX_UNDO_COUNT } from '@/lib';
 
-export type UndoCounts = ReturnType<typeof getDefaultValues>;
-
-const getDefaultValues = (isSinglePlay: boolean) => ({
+const defaultUndoValues = {
   [BasePlayer.X]: MAX_UNDO_COUNT,
-  [BasePlayer.O]: isSinglePlay ? 0 : MAX_UNDO_COUNT,
-});
+  [BasePlayer.O]: MAX_UNDO_COUNT,
+};
 
 export const useUndoCount = (isSinglePlay: boolean) => {
-  const [undoCounts, setUndoCounts] = useState<UndoCounts>(getDefaultValues(isSinglePlay));
+  const [undoCounts, setUndoCounts] = useState(defaultUndoValues);
 
-  const decrementCount = (player: BasePlayer) => {
+  const decrement = (player: BasePlayer) => {
     const target = isSinglePlay ? BasePlayer.X : getOpponent(player);
     setUndoCounts((prev) => ({ ...prev, [target]: prev[target] - 1 }));
   };
 
-  const resetCount = () => {
-    setUndoCounts(getDefaultValues(isSinglePlay));
-  };
+  const reset = () => setUndoCounts(defaultUndoValues);
 
   const getUndoCountBy = (player: BasePlayer) => {
     const target = isSinglePlay ? BasePlayer.X : getOpponent(player);
     return undoCounts[target];
   };
 
-  return { undoCounts, decrementCount, resetCount, getUndoCountBy };
+  const isUndoUsed = Object.values(undoCounts).some((count) => count < MAX_UNDO_COUNT);
+
+  const undoControls = { decrement, reset, getUndoCountBy };
+
+  return { undoCounts, isUndoUsed, undoControls };
 };

@@ -187,12 +187,13 @@ const chooseStrategicPosition = (board: TBoard, size: number) => {
   const availableMoves = getAvailableMoves(board);
   if (availableMoves.size === 0) return null;
 
-  const centerIdx = getCenterIndexes(size);
-  // 3x3 보드는 모서리 두는 것도 유리하므로 가능시 모서리에 배치
-  const cornerIndexes = size === 3 ? getCornerIndexes(size) : [];
-
-  const filtered = [...centerIdx, ...cornerIndexes].filter((idx) => availableMoves.has(idx));
-  if (filtered.length > 0) return getRandomElement(filtered);
+  // 3x3 보드는 중앙, 모서리를 먼저 선점하는게 게임 승리에 유리함
+  if (size === 3) {
+    const centerIdx = getCenterIndexes(size);
+    const cornerIndexes = getCornerIndexes(size);
+    const filtered = [...centerIdx, ...cornerIndexes].filter((idx) => availableMoves.has(idx));
+    if (filtered.length > 0) return getRandomElement(filtered);
+  }
 
   return getRandomElement([...availableMoves]);
 };

@@ -37,9 +37,9 @@ export const getBoardConfig = (size: BoardSize, type: BoardType = BoardType.Play
 export const boardSize = Object.values(BoardSize).filter(Number);
 
 export enum BasePlayer {
-  /** first player */
+  /** First player */
   X = 'X',
-  /** second player */
+  /** Second player which is bot on single play */
   O = 'O',
 }
 
