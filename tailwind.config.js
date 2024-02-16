@@ -9,9 +9,14 @@ export default {
       },
       animation: {
         fadein: 'fadeIn .5s ease-in-out',
+        win: 'rotateOnce .5s ease-in-out',
       },
       keyframes: {
         fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
+        rotateOnce: {
+          from: { transform: 'rotate(60deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
       },
     },
   },

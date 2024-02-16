@@ -6,3 +6,4 @@ export { default as Square } from './square';
 export { default as TurnIndicator } from './turn-indicator';
 export { default as UndoStatus } from './undo-status';
 export { default as OrderToggle } from './order-toggle';
+export { default as WinnerLabel } from './winner-label';

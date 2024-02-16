@@ -1,7 +1,7 @@
-import { Board, Fade, GameController, TurnIndicator } from '@/components';
+import { Board, Box, Fade, GameController, TurnIndicator, WinnerLabel } from '@/components';
 import { useGameOption } from '@/context';
 import { useGame } from '@/hooks';
-import { BoardType, getBoardConfig } from '@/lib';
+import { BasePlayer, BoardType, getBoardConfig } from '@/lib';
 
 export default function Game() {
   const options = useGameOption();
@@ -24,7 +24,11 @@ export default function Game() {
         className={getBoardConfig(options.size, BoardType.Play)}
         winner={winner}
       />
-      <TurnIndicator currentPlayer={currentPlayer} playerConfigs={options.playerConfigs} />
+      <Box className="flex items-center gap-5 md:gap-8">
+        <WinnerLabel target={BasePlayer.X} winner={winner.identifier} />
+        <TurnIndicator currentPlayer={currentPlayer} playerConfigs={options.playerConfigs} />
+        <WinnerLabel target={BasePlayer.O} winner={winner.identifier} />
+      </Box>
     </Fade>
   );
 }

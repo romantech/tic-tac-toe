@@ -11,7 +11,10 @@ interface TurnProps {
 export default function TurnIndicator({ currentPlayer, className, playerConfigs }: TurnProps) {
   return (
     <section
-      className={clsx('relative flex select-none text-6xl font-bold text-slate-500', className)}
+      className={clsx(
+        'relative flex select-none text-6xl font-extrabold text-slate-500',
+        className,
+      )}
     >
       <div
         className={clsx(
