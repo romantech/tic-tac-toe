@@ -8,7 +8,7 @@ export default function Game() {
   const { board, currentPlayer, handlers, controlStates, undoCounts, winner } = useGame(options);
 
   return (
-    <Fade className="flex h-screen flex-col items-center justify-center gap-8 px-8 py-20 text-slate-200 md:px-8">
+    <Fade className="m-auto flex size-full flex-col items-center justify-center gap-8 text-slate-200 md:px-8">
       <GameController
         controlStates={controlStates}
         handlers={handlers}

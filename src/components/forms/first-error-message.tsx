@@ -22,7 +22,7 @@ export default function FirstErrorMessage({ className }: { className?: string })
     <Fade
       trigger={Boolean(errorPath)}
       duration={300}
-      className={clsx('min-h-6 text-primary', className)}
+      className={clsx('min-h-6 text-primary', !errorPath && 'hidden', className)}
     >
       <ErrorMessage errors={errors} name={errorPath} />
     </Fade>

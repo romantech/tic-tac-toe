@@ -9,7 +9,7 @@ export default function GameHistory() {
   const setScreen = useSetScreen();
 
   return (
-    <Fade className="mx-auto grid min-h-screen max-w-screen-xl grid-cols-[repeat(auto-fill,_minmax(288px,320px))]     place-content-center gap-8 p-8 text-slate-200">
+    <Fade className="m-auto grid size-full max-w-screen-xl grid-cols-[repeat(auto-fill,_minmax(288px,320px))] place-content-center gap-8 py-8 text-slate-200">
       <div className="col-span-full flex gap-3">
         <Button className="w-full max-w-24 capitalize" onClick={() => setScreen(ScreenType.Home)}>
           home
