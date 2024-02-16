@@ -8,7 +8,7 @@ const getPlayModeSquareBorderStyle = (totalSquares: number, index: number) => {
   const rightBorder = 'border-r-4';
   const bottomBorder = 'border-b-4';
 
-  const classes: string[] = [];
+  const classes: string[] = ['border-slate-300'];
 
   const isLastSquareInRow = (index + 1) % size === 0;
   if (!isLastSquareInRow) classes.push(rightBorder);

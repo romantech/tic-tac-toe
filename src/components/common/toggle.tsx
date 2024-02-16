@@ -19,7 +19,7 @@ export default function Toggle({ className, size = 'md', ...inputProps }: Toggle
       <input type="checkbox" className="peer sr-only" {...inputProps} />
       <div
         className={clsx(
-          'peer relative rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[""] peer-checked:bg-yellow-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-4 peer-focus:ring-yellow-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-yellow-800',
+          'peer relative rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[""] peer-checked:bg-blue-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-4 peer-focus:ring-yellow-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-slate-700 dark:peer-focus:ring-slate-500',
           sizeClasses[size],
         )}
       ></div>

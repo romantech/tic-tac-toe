@@ -17,10 +17,10 @@ export default function Layout({ children, className }: PropsWithChildren<Layout
   const changeScreen = useSetScreen();
 
   return (
-    <Box className={clsx('flex min-h-screen flex-col bg-slate-800', className)}>
+    <Box className={clsx('flex min-h-screen flex-col bg-slate-800 text-slate-300', className)}>
       <header
         className={clsx(
-          'sticky top-0 z-10 flex min-h-14 items-center justify-end gap-2 border-b border-slate-700/50 bg-slate-700/20 px-4 backdrop-blur',
+          'sticky top-0 z-10 flex min-h-14 items-center justify-center gap-3 border-b border-slate-700/50 bg-slate-700/20 px-4 backdrop-blur',
           className,
         )}
       >
@@ -31,7 +31,7 @@ export default function Layout({ children, className }: PropsWithChildren<Layout
           <GitHubSvg />
         </IconButton>
       </header>
-      <Box as="main" className="flex grow px-8">
+      <Box as="main" className="flex grow p-8">
         {children}
       </Box>
     </Box>

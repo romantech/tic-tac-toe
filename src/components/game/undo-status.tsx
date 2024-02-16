@@ -25,7 +25,7 @@ export default function UndoStatus({
         return (
           <Status
             key={player}
-            className={clsx({ 'text-slate-200': highlight })}
+            className={clsx({ 'text-slate-300': highlight })}
             mark={playerConfigs[player].mark}
             count={undoCounts[player]}
           />
@@ -43,8 +43,8 @@ interface StatusProps {
 
 const Status = ({ mark, count, className }: StatusProps) => {
   return (
-    <div className={clsx('flex items-center justify-center gap-2', className)}>
-      <p className="min-w-5 text-center text-xl">{mark}</p>
+    <div className={clsx('flex items-center justify-center gap-1', className)}>
+      <p className="min-w-5 text-center">{mark}</p>
       <p className="w-[68px]">{`Count : ${count}`}</p>
     </div>
   );

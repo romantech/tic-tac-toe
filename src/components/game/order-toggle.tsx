@@ -9,9 +9,13 @@ interface OrderToggleProps extends ToggleProps {
 
 export default function OrderToggle({ className, ...inputProps }: OrderToggleProps) {
   return (
-    <div className={clsx('ml-auto mt-auto flex flex-col gap-2 sm:flex-row', className)}>
-      <span className="text-right capitalize text-slate-400">show order</span>
-      <Toggle className="ml-auto" {...inputProps} />
+    <div
+      className={clsx('rounded-lg bg-gradient-to-r from-slate-300 to-slate-700 p-0.5', className)}
+    >
+      <div className="flex size-full items-center gap-3 rounded-md bg-slate-800 px-3">
+        <span className="text-right font-semibold capitalize">show order</span>
+        <Toggle className="ml-auto" {...inputProps} />
+      </div>
     </div>
   );
 }

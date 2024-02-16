@@ -28,9 +28,9 @@ export default function GameController({
   return (
     <div className={clsx('flex max-h-14 gap-3', className)}>
       <section className="flex gap-3">
-        <Button onClick={() => changeScreen(ScreenType.Home)}>Home</Button>
+        <Button onClick={() => changeScreen(ScreenType.Settings)}>Config</Button>
         <Button disabled={!controlStates.reset} onClick={handlers.reset}>
-          Restart
+          Reset
         </Button>
       </section>
       <Divider className="my-3" />

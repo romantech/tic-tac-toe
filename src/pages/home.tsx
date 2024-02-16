@@ -6,7 +6,7 @@ export default function Home() {
   const changeScreen = useSetScreen();
 
   return (
-    <Fade className="m-auto flex flex-col items-center justify-center gap-4 text-slate-200 md:flex-row">
+    <Fade className="m-auto flex flex-col items-center justify-center gap-4 md:flex-row">
       <Button className="min-w-72 py-6 text-4xl" onClick={() => changeScreen(ScreenType.Settings)}>
         Start
       </Button>
