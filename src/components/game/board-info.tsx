@@ -14,7 +14,7 @@ export default function BoardInfo({ createdAt, winner, className }: BoardInfoPro
     <header
       className={clsx(
         'flex h-10 items-center gap-2 px-2 text-sm capitalize text-slate-200',
-        'rounded-tl-2xl bg-gradient-to-r from-slate-800 to-slate-600',
+        'rounded-t-xl bg-gradient-to-r from-slate-800 to-slate-600',
         'border-x-2 border-t-2 border-slate-700',
         className,
       )}
