@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useGameHistory, useUndoCount } from '@/hooks';
+import { useGameHistory, useGameSound, useUndoCount } from '@/hooks';
 import {
   BasePlayer,
   BoardIdx,
@@ -37,6 +37,7 @@ export const useGame = ({
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
   const { undoCounts, isUndoUsed, undoControls } = useUndoCount(isSinglePlay);
   const { addHistory } = useGameHistory();
+  const playSound = useGameSound();
 
   const togglePlayer = useCallback(() => {
     currentPlayer.current = getOpponent(currentPlayer.current);
@@ -53,18 +54,22 @@ export const useGame = ({
       const updatedSequence = sequence.current;
       const { color, mark } = playerConfigs[identifier];
 
+      playSound.mark(identifier);
+
       const newBoard = [...board];
       newBoard[boardIdx] = createSquare(identifier, mark, updatedSequence.length, color);
       setBoard(newBoard);
 
+      const isTied = updatedSequence.length === newBoard.length;
       const winIndices = checkWin(newBoard, size, winCondition, boardIdx, identifier);
       if (winIndices) winner.current = { identifier, indices: winIndices, mark };
 
-      const shouldAddHistory = winIndices || updatedSequence.length === newBoard.length;
-      if (shouldAddHistory) addHistory(createHistory(newBoard, winner.current, size));
-      else togglePlayer();
+      if (winIndices || isTied) {
+        addHistory(createHistory(newBoard, winner.current, size));
+        playSound.end(isTied);
+      } else togglePlayer();
     },
-    [addHistory, board, playerConfigs, size, togglePlayer, winCondition],
+    [addHistory, board, playSound, playerConfigs, size, togglePlayer, winCondition],
   );
 
   const undo = () => {
