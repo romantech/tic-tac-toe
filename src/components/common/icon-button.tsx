@@ -10,7 +10,7 @@ interface IconButtonProps {
 
 export default function IconButton({
   className,
-  size = 18,
+  size = 24,
   children,
   onClick,
 }: PropsWithChildren<IconButtonProps>) {
@@ -24,7 +24,7 @@ export default function IconButton({
       type="button"
       onClick={onClick}
       className={clsx(
-        'rounded-full bg-slate-700 p-2 text-slate-300 transition-all duration-300 hover:bg-slate-600',
+        'rounded-full bg-slate-700 p-2 text-slate-200 transition-all duration-300 hover:bg-slate-600',
         className,
       )}
     >

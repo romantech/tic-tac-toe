@@ -25,7 +25,7 @@ export default function UndoStatus({
         return (
           <Status
             key={player}
-            className={clsx({ 'text-slate-300': highlight })}
+            className={clsx({ 'text-slate-200': highlight })}
             mark={playerConfigs[player].mark}
             count={undoCounts[player]}
           />
