@@ -1,5 +1,5 @@
 # TicTacToe
-![tictactoe-play](https://github.com/romantech/tic-tac-toe/assets/8604840/d21c7a5c-333a-4573-90fe-0f9c6757535e)
+![tictactoe-play](https://github.com/romantech/tic-tac-toe/assets/8604840/b209f34a-255a-415d-b2f0-8b10dc701ed8)
 
 - A simple TicTacToe game with React  
 - Live Demo: https://tictactoe.romantech.net
@@ -8,27 +8,27 @@
 
 - Core: React + TypeScript
 - State Management: Constate (React Context API)
-- Styling: Tailwind CSS
+- Styling: Tailwind CSS + clsx
 - Form Management: React Hook Form + Zod
 
 # Features
 
-- Adjustable board size
-- Custom win conditions
-- Choose markers, colors, and turn order
-- Game history tracking and viewing
-- Last move undo option
+- Adjustable Board Size
+- Customizable Win Conditions
+- Selection of Markers, Colors, and Turn Order
+- Gameplay History Tracking and Review
+- Option to Undo the Last Move
 
 # Screenshot
 
 #### Home Screen
-![tictactoe-1](https://github.com/romantech/tic-tac-toe/assets/8604840/fed14c6c-403f-4f2f-a234-2ddc3d88abcb)
+![mobile-1](https://github.com/romantech/tic-tac-toe/assets/8604840/b1422a26-3ab6-4e70-9632-042ecefce9d3)
 
 #### Game Configuration
-![tictactoe-2](https://github.com/romantech/tic-tac-toe/assets/8604840/d062e580-45ae-4b79-9644-0989b8e37127)
+![mobile-2](https://github.com/romantech/tic-tac-toe/assets/8604840/f6f52967-4b4b-4c52-ad53-7334c4617cce)
 
 #### Game Screen
-![tictactoe-3](https://github.com/romantech/tic-tac-toe/assets/8604840/247a85fd-59a7-4828-b9bb-1fda61004348)
+![mobile-3](https://github.com/romantech/tic-tac-toe/assets/8604840/ab8bb8c9-46cd-4947-a07e-7a5f1f142069)
 
 #### Match History
-![tictactoe-4](https://github.com/romantech/tic-tac-toe/assets/8604840/88cf79a7-84b4-4bd6-91f6-f07ac54f7996)
+![mobile-4](https://github.com/romantech/tic-tac-toe/assets/8604840/10a134c1-37b8-4674-8b40-5e59e3cca671)
