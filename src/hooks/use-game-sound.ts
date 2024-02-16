@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import gameOverTie from '@/assets/sound/game-over-tie.mp3';
 import gameOver from '@/assets/sound/game-over.mp3';
@@ -25,7 +25,7 @@ export const useGameSound = () => {
     soundPath.forEach(preload);
   }, []);
 
-  const playSound = useRef((soundPath: SoundPath) => {
+  const playSound = (soundPath: SoundPath) => {
     const audio = audioRef.current.get(soundPath);
     if (isMuted || !audio) return;
 
@@ -39,17 +39,14 @@ export const useGameSound = () => {
       .play()
       .catch((error) => console.error('Failed to play sound', error))
       .finally(() => (currentPlaying.current = audio));
-  });
+  };
 
-  const mark = useCallback(
-    (identifier: BasePlayer) => playSound.current(identifier === BasePlayer.X ? soundX : soundO),
-    [],
-  );
+  const mark = (identifier: BasePlayer) => playSound(identifier === BasePlayer.X ? soundX : soundO);
 
-  const end = useCallback((isTied: boolean) => {
+  const end = (isTied: boolean) => {
     // 마지막 마크 사운드와 안겹치도록 딜레이 추가
-    setTimeout(() => playSound.current(isTied ? gameOverTie : gameOver), 350);
-  }, []);
+    setTimeout(() => playSound(isTied ? gameOverTie : gameOver), 350);
+  };
 
   return { mark, end };
 };
