@@ -1,4 +1,5 @@
 # Tic-Tac-Toe
+
 ![open-graph](https://github.com/romantech/tic-tac-toe/assets/8604840/a8340503-3d72-4096-b1b7-fd6ebe5af5cf)
 
 - Customizable Tic-Tac-Toe game built with React
@@ -22,22 +23,23 @@
 # Screenshot
 
 #### Gameplay GIF
+
 ![tictactoe-play](https://github.com/romantech/tic-tac-toe/assets/8604840/b209f34a-255a-415d-b2f0-8b10dc701ed8)
 
 #### Home Screen
 
-![tictactoe-1](https://github.com/romantech/tic-tac-toe/assets/8604840/f0f4fb58-d888-4cd5-ba79-a15b52a2eed4)
+![mobile-1](https://github.com/romantech/tic-tac-toe/assets/8604840/20589bb8-280a-454b-bebd-6ef3dda482e6)
 
 #### Game Configuration
 
-![tictactoe-2](https://github.com/romantech/tic-tac-toe/assets/8604840/6cefb894-5692-4576-afd6-2e0f46c51d7c)
+![mobile-2](https://github.com/romantech/tic-tac-toe/assets/8604840/7d86b160-3ade-476e-9b74-2e398761cd3b)
 
 #### Game Screen
 
-![tictactoe-3](https://github.com/romantech/tic-tac-toe/assets/8604840/fc150228-fd1b-47a2-bf39-915d54eb3677)
+![mobile-3](https://github.com/romantech/tic-tac-toe/assets/8604840/1f40a9c7-1b8f-4830-8cbc-74f61c242e2c)
 
 #### Match History
 
-![tictactoe-4](https://github.com/romantech/tic-tac-toe/assets/8604840/267d9a5e-36fd-4170-82c7-181dd9a04ef0)
+![mobile-4](https://github.com/romantech/tic-tac-toe/assets/8604840/34552ea2-6473-48c4-b4b4-4d50a215525b)
 
 > Source of game sound effects from [Neave Interactive](https://neave.com)
