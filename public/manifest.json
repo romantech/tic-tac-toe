@@ -1,7 +1,7 @@
 {
   "short_name": "Tic-Tac-Toe",
   "name": "Tic-Tac-Toe",
-  "description": "A customizable Tic-Tac-Toe game built with React",
+  "description": "Customizable Tic-Tac-Toe game built with React",
   "lang": "en",
   "categories": ["game"],
   "icons": [
