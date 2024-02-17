@@ -14,14 +14,18 @@ export const useGameSound = () => {
   const isMuted = useIsMuted();
   const audioRef = useRef<Map<SoundPath, HTMLAudioElement>>(new Map());
   const currentPlaying = useRef<HTMLAudioElement | null>(null);
+  const loaded = useRef(false);
 
   useEffect(() => {
+    if (loaded.current) return;
+
     const preload = (soundPath: SoundPath) => {
       const audio = new Audio(soundPath); // 오디오 파일 미리 로드
       audioRef.current.set(soundPath, audio);
     };
 
     soundPath.forEach(preload);
+    loaded.current = true;
   }, []);
 
   const playSound = (soundPath: SoundPath) => {
