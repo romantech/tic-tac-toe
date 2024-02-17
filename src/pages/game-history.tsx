@@ -6,7 +6,7 @@ export default function GameHistory() {
   const { toggle: toggleShowOrder, isOpen: showOrder } = useDisclosure(true);
 
   return (
-    <Fade className="text- m-auto grid size-full max-w-screen-xl grid-cols-[repeat(auto-fill,_minmax(288px,320px))] place-content-center gap-8">
+    <Fade className="m-auto grid size-full max-w-screen-xl grid-cols-[repeat(auto-fill,_minmax(288px,320px))] place-content-center gap-8">
       <div className="col-span-full flex gap-3">
         <Button className="px-3 capitalize" onClick={clearHistory}>
           clear

@@ -60,13 +60,13 @@ export const useGame = ({
       newBoard[boardIdx] = createSquare(identifier, mark, updatedSequence.length, color);
       setBoard(newBoard);
 
-      const isTied = updatedSequence.length === newBoard.length;
+      const isDraw = updatedSequence.length === newBoard.length;
       const winIndices = checkWin(newBoard, size, winCondition, boardIdx, identifier);
       if (winIndices) winner.current = { identifier, indices: winIndices, mark };
 
-      if (winIndices || isTied) {
+      if (winIndices || isDraw) {
         addHistory(createHistory(newBoard, winner.current, size));
-        playSound.end(isTied);
+        playSound.end(isDraw);
       } else togglePlayer();
     },
     [addHistory, board, playSound, playerConfigs, size, togglePlayer, winCondition],
@@ -112,12 +112,12 @@ export const useGame = ({
   }, [board, isSinglePlay, onBoardClick, size, winCondition]);
 
   const hasMark = sequence.current.length > 0;
-  const isTied = sequence.current.length === board.length;
+  const isDraw = sequence.current.length === board.length;
   const hasWinner = Boolean(winner.current.identifier);
   const hasUndoCount = undoControls.getUndoCountBy(currentPlayer.current) > 0;
 
   const enabledReset = hasMark || isUndoUsed;
-  const enableUndo = !hasWinner && hasMark && hasUndoCount && !isTied;
+  const enableUndo = !hasWinner && hasMark && hasUndoCount && !isDraw;
 
   return {
     board,
@@ -126,5 +126,6 @@ export const useGame = ({
     controlStates: { undo: enableUndo, reset: enabledReset },
     winner: winner.current,
     undoCounts,
+    isDraw,
   };
 };

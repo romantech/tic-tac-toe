@@ -13,7 +13,7 @@ export default function WinnerLabel({ target, winner, className }: WinnerLabelPr
     <span
       className={clsx(
         'text-3xl font-bold uppercase italic transition-all duration-300 md:text-4xl',
-        { 'invisible opacity-0': target !== winner, 'animate-win': target === winner },
+        { 'invisible opacity-0': target !== winner, 'animate-rotate-1': target === winner },
         className,
       )}
     >
