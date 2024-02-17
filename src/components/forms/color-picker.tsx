@@ -14,7 +14,7 @@ export default function ColorPicker({ name, ...inputProps }: PlayerColorPickerPr
       <label className="capitalize text-slate-500">color</label>
       <div className="relative size-7 overflow-hidden rounded-full bg-amber-100">
         <input
-          className="absolute -inset-1/2 size-12 cursor-pointer bg-slate-800"
+          className="absolute inset-1/2 size-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer bg-slate-800"
           type="color"
           {...register(name)}
           {...inputProps}
