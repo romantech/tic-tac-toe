@@ -40,7 +40,7 @@ export default function BoardSizeRadio() {
 
 const BoardDimension = ({ size }: { size: BoardSize | string }) => {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-0.5">
       <span>{size}</span>
       <span>x</span>
       <span>{size}</span>
