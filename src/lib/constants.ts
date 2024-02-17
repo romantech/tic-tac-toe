@@ -14,7 +14,6 @@ export enum BoardSize {
   Size4 = 4,
   Size5 = 5,
   Size6 = 6,
-  Size7 = 7,
 }
 
 export type BoardConfig = ReturnType<typeof getBoardConfig>;
@@ -35,10 +34,6 @@ export const getBoardConfig = (size: BoardSize, type: BoardType = BoardType.Play
     [BoardSize.Size6]: {
       [BoardType.Play]: 'grid-cols-6 text-4xl sm:text-5xl',
       [BoardType.View]: 'grid-cols-6 text-3xl',
-    },
-    [BoardSize.Size7]: {
-      [BoardType.Play]: 'grid-cols-7 text-3xl sm:text-5xl',
-      [BoardType.View]: 'grid-cols-7 text-2xl',
     },
   };
 
