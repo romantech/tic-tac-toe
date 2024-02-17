@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import gameOverTie from '@/assets/sound/game-over-tie.mp3';
 import gameOver from '@/assets/sound/game-over.mp3';
@@ -13,8 +13,9 @@ type SoundPath = (typeof soundPath)[number];
 export const useGameSound = () => {
   const isMuted = useIsMuted();
   const audioRef = useRef<Map<SoundPath, HTMLAudioElement>>(new Map());
-  const currentPlaying = useRef<HTMLAudioElement | null>(null);
+
   const loaded = useRef(false);
+  const [currentPlaying, setCurrentPlaying] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (loaded.current) return;
@@ -33,15 +34,15 @@ export const useGameSound = () => {
     if (isMuted || !audio) return;
 
     // 오디오가 재생중이면
-    if (currentPlaying.current?.paused === false) {
-      currentPlaying.current.pause();
-      currentPlaying.current.currentTime = 0;
+    if (currentPlaying?.paused === false) {
+      currentPlaying.pause();
+      currentPlaying.currentTime = 0;
     }
 
     audio
       .play()
       .catch((error) => console.error('Failed to play sound', error))
-      .finally(() => (currentPlaying.current = audio));
+      .finally(() => setCurrentPlaying(audio));
   };
 
   const mark = (identifier: BasePlayer) => playSound(identifier === BasePlayer.X ? soundX : soundO);
