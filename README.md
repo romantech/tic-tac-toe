@@ -24,7 +24,7 @@
 
 #### Gameplay GIF
 
-![tictactoe-play](https://github.com/romantech/tic-tac-toe/assets/8604840/b209f34a-255a-415d-b2f0-8b10dc701ed8)
+![gameplay](https://github.com/romantech/tic-tac-toe/assets/8604840/86aa713a-11d8-480c-b5fc-97b20b8f8096)
 
 #### Home Screen
 
