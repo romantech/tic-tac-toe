@@ -41,7 +41,7 @@ export default function Fade({
 
   return (
     <Box
-      className={clsx(className, durationClasses[duration], { 'animate-fadein': triggerFade })}
+      className={clsx(className, durationClasses[duration], { 'animate-fade-in': triggerFade })}
       {...boxProps}
     >
       {children}

@@ -8,8 +8,9 @@ export default {
         secondary: '#9CFFD9',
       },
       animation: {
-        fadein: 'fadeIn .5s ease-in-out',
-        win: 'rotateOnce .5s ease-in-out',
+        'fade-in': 'fadeIn .5s ease-in-out',
+        'rotate-1': 'rotateOnce .5s ease-in-out',
+        'blink-2': 'blinkTwoTimes .5s ease-in-out 2',
       },
       keyframes: {
         fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
@@ -17,6 +18,7 @@ export default {
           from: { transform: 'rotate(60deg)' },
           to: { transform: 'rotate(360deg)' },
         },
+        blinkTwoTimes: { '0%, 100%': { opacity: 1 }, '50%': { opacity: 0 } },
       },
     },
   },

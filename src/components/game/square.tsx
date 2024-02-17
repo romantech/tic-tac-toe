@@ -27,14 +27,21 @@ export default function Square({
   ...buttonProps
 }: SquareProps) {
   const buttonClasses = clsx(
-    'relative transition-all duration-500',
-    highlight && 'bg-slate-600',
+    'relative transition-all duration-300',
+    { 'bg-slate-600': highlight },
     className,
   );
-  const markClasses = clsx('inline-block', dim && 'opacity-50');
+  const markClasses = clsx('inline-block', {
+    'animate-blink-2': highlight && !buttonProps.disabled,
+    'opacity-50': dim,
+  });
   const sequenceClasses = clsx(
     'absolute right-0 top-0 grid size-5 place-content-center text-xs font-medium transition-all duration-300',
-    [highlight ? 'text-slate-400' : 'text-slate-500', hideSequence && 'invisible opacity-0'],
+    {
+      'text-slate-400': highlight,
+      'text-slate-500': !highlight,
+      'invisible opacity-0': hideSequence,
+    },
   );
 
   return (
