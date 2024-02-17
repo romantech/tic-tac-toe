@@ -42,9 +42,9 @@ export const useGameSound = () => {
 
   const mark = (identifier: BasePlayer) => playSound(identifier === BasePlayer.X ? soundX : soundO);
 
-  const end = (isTied: boolean) => {
+  const end = (isDraw: boolean) => {
     // 마지막 마크 사운드와 안겹치도록 딜레이 추가
-    setTimeout(() => playSound(isTied ? gameOverTie : gameOver), 350);
+    setTimeout(() => playSound(isDraw ? gameOverTie : gameOver), 350);
   };
 
   return { mark, end };
