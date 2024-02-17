@@ -28,18 +28,18 @@
 
 #### Home Screen
 
-![mobile-1](https://github.com/romantech/tic-tac-toe/assets/8604840/20589bb8-280a-454b-bebd-6ef3dda482e6)
+![mobile-1](https://github.com/romantech/tic-tac-toe/assets/8604840/61e7fc35-c8ef-468c-9034-2c18a9d11fde)
 
 #### Game Configuration
 
-![mobile-2](https://github.com/romantech/tic-tac-toe/assets/8604840/7d86b160-3ade-476e-9b74-2e398761cd3b)
+![mobile-2](https://github.com/romantech/tic-tac-toe/assets/8604840/14cbc1d0-8d34-4b4b-b1cb-111984eed656)
 
 #### Game Screen
 
-![mobile-3](https://github.com/romantech/tic-tac-toe/assets/8604840/1f40a9c7-1b8f-4830-8cbc-74f61c242e2c)
+![mobile-3](https://github.com/romantech/tic-tac-toe/assets/8604840/e2841ca7-75bc-4c34-a1a5-d62ac1a53e91)
 
 #### Match History
 
-![mobile-4](https://github.com/romantech/tic-tac-toe/assets/8604840/34552ea2-6473-48c4-b4b4-4d50a215525b)
+![mobile-4](https://github.com/romantech/tic-tac-toe/assets/8604840/42da7a06-faa6-4780-87f7-c7fbf14bad34)
 
 > Source of game sound effects from [Neave Interactive](https://neave.com)
