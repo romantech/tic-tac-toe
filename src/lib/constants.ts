@@ -14,7 +14,6 @@ export enum BoardSize {
   Size4 = 4,
   Size5 = 5,
   Size6 = 6,
-  Size7 = 7,
 }
 
 export type BoardConfig = ReturnType<typeof getBoardConfig>;
@@ -36,13 +35,25 @@ export const getBoardConfig = (size: BoardSize, type: BoardType = BoardType.Play
       [BoardType.Play]: 'grid-cols-6 text-4xl sm:text-5xl',
       [BoardType.View]: 'grid-cols-6 text-3xl',
     },
-    [BoardSize.Size7]: {
-      [BoardType.Play]: 'grid-cols-7 text-3xl sm:text-5xl',
-      [BoardType.View]: 'grid-cols-7 text-2xl',
-    },
   };
 
   return boardConfig[size][type];
+};
+
+export const getSequenceTextClasses = (size: BoardSize) => {
+  switch (size) {
+    case BoardSize.Size3:
+      return 'text-lg top-0.5 right-1.5';
+    case BoardSize.Size4:
+      return 'text-base top-0 right-1';
+    case BoardSize.Size5:
+      return 'text-sm top-0 right-0.5';
+    case BoardSize.Size6:
+      return 'text-xs top-0 right-0.5';
+    default:
+      console.error('Invalid size');
+      return 'text-base';
+  }
 };
 
 export const boardSize = Object.values(BoardSize).filter(Number);

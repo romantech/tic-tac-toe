@@ -35,7 +35,11 @@ export default function GameController({
       </section>
       <Divider className="my-3" />
       <section className="flex gap-3">
-        <Button disabled={!controlStates.undo} onClick={handlers.undo} className="capitalize">
+        <Button
+          disabled={!controlStates.undo}
+          onClick={handlers.undo}
+          className="min-w-[88px] capitalize"
+        >
           {undoButtonText}
         </Button>
         <UndoStatus

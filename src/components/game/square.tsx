@@ -2,12 +2,13 @@ import { ComponentProps } from 'react';
 
 import { clsx } from 'clsx';
 
-import { NBSP, TMark, TSequence } from '@/lib';
+import { BoardSize, getSequenceTextClasses, NBSP, TMark, TSequence } from '@/lib';
 
 interface SquareProps extends ComponentProps<'button'> {
   mark: TMark;
   onClick: () => void;
   sequence: TSequence;
+  size: BoardSize;
   hideSequence?: boolean;
   dim?: boolean;
   highlight?: boolean;
@@ -21,6 +22,7 @@ export default function Square({
   className,
   color,
   sequence,
+  size,
   highlight = false,
   dim = false,
   hideSequence = false,
@@ -36,12 +38,13 @@ export default function Square({
     'opacity-50': dim,
   });
   const sequenceClasses = clsx(
-    'absolute right-0 top-0 grid size-5 place-content-center text-xs font-medium transition-all duration-300',
+    'absolute grid place-content-center font-normal transition-all duration-300',
     {
+      'invisible opacity-0': hideSequence,
       'text-slate-400': highlight,
       'text-slate-500': !highlight,
-      'invisible opacity-0': hideSequence,
     },
+    getSequenceTextClasses(size),
   );
 
   return (
