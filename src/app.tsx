@@ -1,14 +1,16 @@
 import { Layout } from '@/components';
-import { GameOptionProvider, ScreenProvider } from '@/context';
+import { AudioProvider, GameOptionProvider, ScreenProvider } from '@/context';
 import { Screen } from '@/pages';
 
 function App() {
   return (
     <ScreenProvider>
       <GameOptionProvider>
-        <Layout>
-          <Screen />
-        </Layout>
+        <AudioProvider>
+          <Layout>
+            <Screen />
+          </Layout>
+        </AudioProvider>
       </GameOptionProvider>
     </ScreenProvider>
   );
