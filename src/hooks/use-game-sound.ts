@@ -13,12 +13,11 @@ type SoundPath = (typeof soundPath)[number];
 export const useGameSound = () => {
   const isMuted = useIsMuted();
   const audioRef = useRef<Map<SoundPath, HTMLAudioElement>>(new Map());
-  // const currentPlaying = useRef<HTMLAudioElement | null>(null);
+  const currentPlaying = useRef<HTMLAudioElement | null>(null);
 
-  // 오디오 파일을 미리 로드
   useEffect(() => {
     const preload = (soundPath: SoundPath) => {
-      const audio = new Audio(soundPath);
+      const audio = new Audio(soundPath); // 오디오 파일 미리 로드
       audioRef.current.set(soundPath, audio);
     };
 
@@ -29,14 +28,16 @@ export const useGameSound = () => {
     const audio = audioRef.current.get(soundPath);
     if (isMuted || !audio) return;
 
-    // // 오디오가 재생중이면
-    // if (currentPlaying.current?.paused === false) {
-    //   currentPlaying.current.pause();
-    //   currentPlaying.current.currentTime = 0;
-    // }
+    // 오디오가 재생중이면
+    if (currentPlaying.current?.paused === false) {
+      currentPlaying.current.pause();
+      currentPlaying.current.currentTime = 0;
+    }
 
-    audio.play().catch((error) => console.error('Failed to play sound', error));
-    // .finally(() => (currentPlaying.current = audio));
+    audio
+      .play()
+      .catch((error) => console.error('Failed to play sound', error))
+      .finally(() => (currentPlaying.current = audio));
   };
 
   const mark = (identifier: BasePlayer) => playSound(identifier === BasePlayer.X ? soundX : soundO);
