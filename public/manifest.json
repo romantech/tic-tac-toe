@@ -1,0 +1,20 @@
+{
+  "short_name": "Tic-Tac-Toe",
+  "name": "Tic-Tac-Toe",
+  "description": "A customizable Tic-Tac-Toe game built with React",
+  "lang": "en",
+  "categories": ["game"],
+  "icons": [
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1E293B",
+  "theme_color": "#1E293B",
+  "orientation": "portrait-primary"
+}

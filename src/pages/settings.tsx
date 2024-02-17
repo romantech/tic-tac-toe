@@ -19,7 +19,7 @@ export default function Settings() {
   const { isDirty } = methods.formState;
 
   return (
-    <Fade className="m-auto flex items-center justify-center">
+    <Fade className="m-auto flex max-w-full items-center justify-center">
       <FormProvider {...methods}>
         <form className="flex flex-col gap-8" onSubmit={methods.handleSubmit(onSubmit)}>
           <GameModeRadio />
