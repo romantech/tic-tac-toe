@@ -59,6 +59,7 @@ export default function Board({
             className={squareClass}
             highlight={isHighlightIdx}
             dim={hasWinner && !isHighlightIdx}
+            size={Math.sqrt(board.length)}
             color={color}
             mark={mark}
             onClick={() => handleClick?.(i)}
