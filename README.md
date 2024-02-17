@@ -1,6 +1,5 @@
 # Tic-Tac-Toe
-
-![tictactoe-play](https://github.com/romantech/tic-tac-toe/assets/8604840/b209f34a-255a-415d-b2f0-8b10dc701ed8)
+![open-graph](https://github.com/romantech/tic-tac-toe/assets/8604840/a8340503-3d72-4096-b1b7-fd6ebe5af5cf)
 
 - Customizable Tic-Tac-Toe game built with React
 - Gameplay link: https://tictactoe.romantech.net
@@ -21,6 +20,9 @@
 - Option to Undo the Last Move
 
 # Screenshot
+
+### Gameplay GIF
+![tictactoe-play](https://github.com/romantech/tic-tac-toe/assets/8604840/b209f34a-255a-415d-b2f0-8b10dc701ed8)
 
 #### Home Screen
 
