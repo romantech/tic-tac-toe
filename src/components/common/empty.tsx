@@ -15,7 +15,7 @@ export default function Empty({
 }: PropsWithChildren<EmptyProps>) {
   if (hidden) return null;
   return (
-    <h1 className={clsx('text-5xl font-bold capitalize', className)} {...headingProps}>
+    <h1 className={clsx('text-4xl font-extrabold', className)} {...headingProps}>
       {children}
     </h1>
   );

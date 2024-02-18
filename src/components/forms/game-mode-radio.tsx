@@ -16,10 +16,10 @@ export default function GameModeRadio() {
           <label
             key={mode}
             className={clsx(
-              'grid w-full cursor-pointer place-content-center gap-2 rounded bg-secondary bg-gradient-to-r from-amber-900 to-amber-600 p-2 font-semibold text-slate-200 transition-all duration-300',
+              'grid w-full cursor-pointer place-content-center gap-2 rounded-md border border-slate-500 p-2 shadow-md transition-all duration-300',
               {
-                'opacity-30 hover:opacity-60': gameMode !== mode,
-                'hover:opacity-90': gameMode === mode,
+                'text-slate-500 hover:bg-slate-700/50': gameMode !== mode,
+                'font-medium bg-slate-600/70 hover:bg-slate-600/85': gameMode === mode,
               },
             )}
           >

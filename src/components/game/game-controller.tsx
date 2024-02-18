@@ -27,19 +27,15 @@ export default function GameController({
 
   return (
     <div className={clsx('flex max-h-14 gap-3', className)}>
-      <section className="flex gap-3">
+      <section className="flex items-center gap-3">
         <Button onClick={() => changeScreen(ScreenType.Settings)}>Config</Button>
         <Button disabled={!controlStates.reset} onClick={handlers.reset}>
           Reset
         </Button>
       </section>
       <Divider className="my-3" />
-      <section className="flex gap-3">
-        <Button
-          disabled={!controlStates.undo}
-          onClick={handlers.undo}
-          className="min-w-[88px] capitalize"
-        >
+      <section className="flex items-center gap-2">
+        <Button disabled={!controlStates.undo} onClick={handlers.undo} className="capitalize">
           {undoButtonText}
         </Button>
         <UndoStatus

@@ -15,7 +15,7 @@ const PlayerLabel = ({ player, className, gameMode }: PlayerLabelProps) => {
     <Box
       as="h3"
       className={clsx(
-        'min-w-[84px] whitespace-nowrap bg-slate-700 text-center font-medium leading-[46px]',
+        'min-w-[84px] whitespace-nowrap bg-gradient-to-r from-slate-700 to-slate-800 text-center font-medium leading-[46px]',
         className,
       )}
     >
@@ -39,7 +39,7 @@ const PlayerConfig = ({ player, className, gameMode }: PlayerConfigProps) => {
       )}
     >
       <PlayerLabel player={player} gameMode={gameMode} />
-      <div className="flex w-full items-center gap-3 px-3">
+      <div className="flex w-full items-center gap-2 px-2 text-sm">
         <MarkTextInput name={`playerConfigs.${player}.mark`} />
         <ColorPicker name={`playerConfigs.${player}.color`} />
         <FirstPlayerCheckbox name={'firstPlayer'} player={player} />
