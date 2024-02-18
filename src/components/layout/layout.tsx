@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react';
 import { clsx } from 'clsx';
 
 import { GitHubSvg, HomeSvg, SpearOffSvg, SpearOnSvg } from '@/assets';
-import { Box, BoxProps, IconButton } from '@/components';
+import { Box, BoxProps, Header, IconButton } from '@/components';
 import { useAudio, useSetScreen } from '@/context';
 import { ScreenType } from '@/lib';
 
@@ -19,13 +19,8 @@ export default function Layout({ children, className }: PropsWithChildren<Layout
   const SoundIcon = isMuted ? SpearOffSvg : SpearOnSvg;
 
   return (
-    <Box className={clsx('flex min-h-screen flex-col bg-slate-800 text-slate-200', className)}>
-      <header
-        className={clsx(
-          'sticky top-0 z-10 flex min-h-16 items-center justify-center gap-3 bg-slate-700/10 px-4 shadow backdrop-blur',
-          className,
-        )}
-      >
+    <Box className="flex min-h-screen flex-col bg-slate-800 text-slate-200">
+      <Header>
         <IconButton onClick={() => changeScreen(ScreenType.Home)}>
           <HomeSvg />
         </IconButton>
@@ -35,8 +30,8 @@ export default function Layout({ children, className }: PropsWithChildren<Layout
         <IconButton onClick={() => window.open(githubUrl, '_blank', 'noopener,noreferrer')}>
           <GitHubSvg />
         </IconButton>
-      </header>
-      <Box as="main" className="flex grow p-8">
+      </Header>
+      <Box as="main" className={clsx('flex grow p-8', className)}>
         {children}
       </Box>
     </Box>
