@@ -24,7 +24,7 @@ export default function Board({
   const isViewMode = type === BoardType.View;
 
   const boardClasses = clsx(
-    ['grid aspect-square w-full max-w-md select-none overflow-hidden font-semibold', className],
+    ['grid aspect-square w-full max-w-md select-none overflow-hidden font-bold', className],
     { 'border-l-2 border-t-2 border-slate-700': isViewMode },
   );
 
