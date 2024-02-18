@@ -1,23 +1,7 @@
 import { clsx } from 'clsx';
 
 import { Square } from '@/components';
-import { BoardType, TBoard, Winner } from '@/lib';
-
-const getPlayModeSquareBorderStyle = (totalSquares: number, index: number) => {
-  const size = Math.sqrt(totalSquares);
-  const rightBorder = 'border-r-4';
-  const bottomBorder = 'border-b-4';
-
-  const classes: string[] = ['border-slate-300'];
-
-  const isLastSquareInRow = (index + 1) % size === 0;
-  if (!isLastSquareInRow) classes.push(rightBorder);
-
-  const isLastRowSquare = index >= totalSquares - size;
-  if (!isLastRowSquare) classes.push(bottomBorder);
-
-  return classes;
-};
+import { BoardType, getPlayModeSquareClasses, TBoard, Winner } from '@/lib';
 
 interface BoardProps {
   board: TBoard;
@@ -40,30 +24,30 @@ export default function Board({
   const isViewMode = type === BoardType.View;
 
   const boardClasses = clsx(
-    'grid aspect-square w-full max-w-md select-none overflow-hidden font-semibold',
-    [isViewMode && 'border-l-2 border-t-2 border-slate-700', className],
+    ['grid aspect-square w-full max-w-md select-none overflow-hidden font-semibold', className],
+    { 'border-l-2 border-t-2 border-slate-700': isViewMode },
   );
 
   return (
     <div className={boardClasses}>
       {board.map(({ color, mark, sequence }, i) => {
         const isHighlightIdx = winner.indices?.includes(i);
-        const squareClass = clsx(
-          isViewMode && 'border-b-2 border-r-2 border-slate-700',
-          !isViewMode && getPlayModeSquareBorderStyle(board.length, i),
-        );
+        const squareClasses = clsx({
+          'border-b-2 border-r-2 border-slate-700': isViewMode,
+          [getPlayModeSquareClasses(board.length, i)]: !isViewMode,
+        });
 
         return (
           <Square
             key={i}
-            className={squareClass}
+            className={squareClasses}
             highlight={isHighlightIdx}
             dim={hasWinner && !isHighlightIdx}
             size={Math.sqrt(board.length)}
             color={color}
             mark={mark}
             onClick={() => handleClick?.(i)}
-            disabled={type !== BoardType.Play}
+            disabled={isViewMode}
             sequence={sequence}
             hideSequence={hideSequence || !sequence}
           />
