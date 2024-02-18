@@ -1,4 +1,3 @@
-import { Layout } from '@/components';
 import { AudioProvider, GameOptionProvider, ScreenProvider } from '@/context';
 import { Screen } from '@/pages';
 
@@ -7,9 +6,7 @@ function App() {
     <ScreenProvider>
       <GameOptionProvider>
         <AudioProvider>
-          <Layout>
-            <Screen />
-          </Layout>
+          <Screen />
         </AudioProvider>
       </GameOptionProvider>
     </ScreenProvider>
