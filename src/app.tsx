@@ -1,15 +1,13 @@
-import { AudioProvider, GameOptionProvider, ScreenProvider } from '@/context';
+import { AudioProvider, GameOptionProvider, ProviderCombiner, ScreenProvider } from '@/context';
 import { Screen } from '@/pages';
+
+const providers = [ScreenProvider, GameOptionProvider, AudioProvider];
 
 function App() {
   return (
-    <ScreenProvider>
-      <GameOptionProvider>
-        <AudioProvider>
-          <Screen />
-        </AudioProvider>
-      </GameOptionProvider>
-    </ScreenProvider>
+    <ProviderCombiner providers={providers}>
+      <Screen />
+    </ProviderCombiner>
   );
 }
 
