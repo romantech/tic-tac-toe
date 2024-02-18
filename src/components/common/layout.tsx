@@ -22,7 +22,7 @@ export default function Layout({ children, className }: PropsWithChildren<Layout
     <Box className={clsx('flex min-h-screen flex-col bg-slate-800 text-slate-200', className)}>
       <header
         className={clsx(
-          'sticky top-0 z-10 flex min-h-16 items-center justify-center gap-3 border-b border-slate-700/50 bg-slate-700/20 px-4 backdrop-blur',
+          'sticky top-0 z-10 flex min-h-16 items-center justify-center gap-3 bg-slate-700/10 px-4 shadow backdrop-blur',
           className,
         )}
       >

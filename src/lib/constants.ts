@@ -109,8 +109,7 @@ export const getSequenceTextClasses = (size: BoardSize) => {
     case BoardSize.Size6:
       return 'text-xs top-0 right-0.5';
     default:
-      console.error('Invalid size');
-      return 'text-base';
+      throw new Error(`Invalid size: ${size}`);
   }
 };
 
