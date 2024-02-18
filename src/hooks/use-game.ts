@@ -112,9 +112,10 @@ export const useGame = ({
   }, [board, isSinglePlay, onBoardClick, size, winCondition]);
 
   const hasMark = sequence.current.length > 0;
-  const isDraw = sequence.current.length === board.length;
   const hasWinner = Boolean(winner.current.identifier);
+
   const hasUndoCount = undoControls.getUndoCountBy(currentPlayer.current) > 0;
+  const isDraw = sequence.current.length === board.length && !hasWinner;
 
   const enabledReset = hasMark || isUndoUsed;
   const enableUndo = !hasWinner && hasMark && hasUndoCount && !isDraw;
