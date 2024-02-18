@@ -43,7 +43,7 @@ interface StatusProps {
 
 const Status = ({ mark, count, className }: StatusProps) => {
   return (
-    <div className={clsx('flex items-center justify-center gap-1', className)}>
+    <div className={clsx('flex items-center justify-center gap-1 truncate', className)}>
       <span className="inline-block min-w-5 text-center">{mark}</span>
       <span className="inline-block min-w-16">{`Count ${count}`}</span>
     </div>

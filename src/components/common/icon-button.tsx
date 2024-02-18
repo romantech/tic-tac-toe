@@ -23,7 +23,7 @@ export default function IconButton({
       type="button"
       onClick={onClick}
       className={clsx(
-        'rounded-full bg-slate-700 p-2 text-slate-200 shadow-md transition-all duration-300 hover:bg-slate-600/80',
+        'rounded-full bg-slate-700 p-2 text-slate-200 shadow transition-all duration-300 hover:bg-slate-600/80',
         className,
       )}
     >
