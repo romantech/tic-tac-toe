@@ -1,18 +1,12 @@
-import { useLayoutEffect } from 'react';
-
 import { clsx } from 'clsx';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 import { Title } from '@/components';
 import { BoardSize } from '@/lib';
 
-const getRangeLabels = (boardSize: number) => {
-  return Array.from({ length: boardSize - BoardSize.Size3 + 1 }, (_, i) => BoardSize.Size3 + i);
-};
-
 export default function WinConditionRange() {
-  const { control, setValue } = useFormContext();
-  const [boardSize, winCondition] = useWatch({ control, name: ['size', 'winCondition'] });
+  const { control } = useFormContext();
+  const boardSize = useWatch({ control, name: 'size' });
 
   /**
    * useEffect 사용시(DOM 업데이트가 화면에 반영된 후 비동기적으로 실행) :
@@ -26,9 +20,9 @@ export default function WinConditionRange() {
    * 2. 이펙트 실행 후 winCondition 업데이트 (3 -> 5)
    * 3. 업데이트된 winCondition 값으로 페인트: rangeLabel 5에 대한 배경색 하이라이트가 바로 적용되므로 깜빡임 발생 안함
    * */
-  useLayoutEffect(() => {
-    setValue('winCondition', boardSize);
-  }, [boardSize, setValue]);
+  // useLayoutEffect(() => {
+  //   setValue('winCondition', boardSize);
+  // }, [boardSize, setValue]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -49,21 +43,33 @@ export default function WinConditionRange() {
           />
         )}
       />
-
-      <ul className="flex justify-between">
-        {getRangeLabels(boardSize).map((label) => (
-          <li
-            className={clsx('cursor-pointer rounded-full px-2 py-0.5 text-sm', {
-              'bg-primary text-slate-800 font-semibold': label === winCondition,
-              'bg-slate-600': label !== winCondition,
-            })}
-            key={label}
-            onClick={() => setValue('winCondition', label)}
-          >
-            {label}
-          </li>
-        ))}
-      </ul>
+      <RangeLabels />
     </div>
   );
 }
+
+const RangeLabels = () => {
+  const { setValue, control } = useFormContext();
+  const [boardSize, winCondition] = useWatch({ control, name: ['size', 'winCondition'] });
+
+  return (
+    <ul className="flex justify-between">
+      {getRangeLabels(boardSize).map((label) => (
+        <li
+          key={label}
+          className={clsx('cursor-pointer rounded-full px-2 py-0.5 text-sm', {
+            'bg-primary text-slate-800 font-semibold': label === winCondition,
+            'bg-slate-600': label !== winCondition,
+          })}
+          onClick={() => setValue('winCondition', label)}
+        >
+          {label}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const getRangeLabels = (boardSize: number) => {
+  return Array.from({ length: boardSize - BoardSize.Size3 + 1 }, (_, i) => BoardSize.Size3 + i);
+};

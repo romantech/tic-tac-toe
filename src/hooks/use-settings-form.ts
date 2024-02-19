@@ -12,6 +12,7 @@ export const useSettingsForm = () => {
     defaultValues: defaultGameOption,
   });
 
+  const { reset: resetForm } = methods;
   const setGameOption = useSetGameOption();
   const changeScreen = useSetScreen();
 
@@ -24,8 +25,8 @@ export const useSettingsForm = () => {
   );
 
   const reset = useCallback(() => {
-    methods.reset(defaultGameOption);
-  }, [methods]);
+    resetForm(defaultGameOption);
+  }, [resetForm]);
 
   return { methods, onSubmit, reset };
 };

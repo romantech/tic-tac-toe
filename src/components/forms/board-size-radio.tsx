@@ -6,7 +6,7 @@ import { Title } from '@/components';
 import { BoardSize, boardSize } from '@/lib';
 
 export default function BoardSizeRadio() {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
 
   return (
     <fieldset className="flex flex-col justify-center gap-2">
@@ -24,7 +24,10 @@ export default function BoardSizeRadio() {
                     type="radio"
                     value={size}
                     checked={value === size}
-                    onChange={({ target }) => onChange(+target.value)}
+                    onChange={({ target }) => {
+                      onChange(+target.value);
+                      setValue('winCondition', +target.value);
+                    }}
                     className="size-5 cursor-pointer appearance-none rounded-full border-2 border-slate-500 bg-slate-100 transition-all checked:border-4 checked:border-amber-600 checked:bg-primary"
                   />
                   <BoardDimension size={size} />
