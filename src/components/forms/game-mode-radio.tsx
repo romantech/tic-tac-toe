@@ -20,12 +20,7 @@ export default function GameModeRadio() {
               'text-slate-500 hover:bg-slate-700/50', // gameMode !== mode
             )}
           >
-            <input
-              {...register('gameMode')}
-              value={mode}
-              type="radio"
-              className="sr-only appearance-none"
-            />
+            <input {...register('gameMode')} value={mode} type="radio" className="sr-only" />
             <span className="capitalize">
               {mode === GameMode.SinglePlayer ? 'single player' : 'two players'}
             </span>

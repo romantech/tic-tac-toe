@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { useWatch } from 'react-hook-form';
 
-import { Box, ColorPicker, FirstPlayerCheckbox, MarkTextInput, Title } from '@/components';
+import { Box, ColorPicker, FirstPlayerRadio, MarkTextInput, Title } from '@/components';
 import { BasePlayer, GameMode, getPlayerLabel } from '@/lib';
 
 interface PlayerLabelProps {
@@ -42,7 +42,7 @@ const PlayerConfig = ({ player, className, gameMode }: PlayerConfigProps) => {
       <div className="flex w-full items-center gap-2 px-2 text-sm">
         <MarkTextInput name={`playerConfigs.${player}.mark`} />
         <ColorPicker name={`playerConfigs.${player}.color`} />
-        <FirstPlayerCheckbox name={'firstPlayer'} player={player} />
+        <FirstPlayerRadio name={'firstPlayer'} player={player} />
       </div>
     </fieldset>
   );
