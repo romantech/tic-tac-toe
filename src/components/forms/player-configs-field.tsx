@@ -2,31 +2,28 @@ import { clsx } from 'clsx';
 import { useWatch } from 'react-hook-form';
 
 import { Box, ColorPicker, FirstPlayerRadio, MarkTextInput, Title } from '@/components';
-import { BasePlayer, GameMode, getPlayerLabel } from '@/lib';
+import { BasePlayer, getPlayerLabel } from '@/lib';
 
 interface PlayerConfigsFieldProps {
   className?: string;
 }
 
 export default function PlayerConfigsField({ className }: PlayerConfigsFieldProps) {
-  const gameMode = useWatch({ name: 'gameMode' });
-
   return (
     <div className={clsx('flex flex-col gap-2', className)}>
       <Title>player setting</Title>
-      <PlayerConfig player={BasePlayer.X} gameMode={gameMode} />
-      <PlayerConfig player={BasePlayer.O} gameMode={gameMode} />
+      <PlayerConfig player={BasePlayer.X} />
+      <PlayerConfig player={BasePlayer.O} />
     </div>
   );
 }
 
 interface PlayerConfigProps {
   player: BasePlayer;
-  gameMode: GameMode;
   className?: string;
 }
 
-const PlayerConfig = ({ player, className, gameMode }: PlayerConfigProps) => {
+const PlayerConfig = ({ player, className }: PlayerConfigProps) => {
   return (
     <fieldset
       className={clsx(
@@ -34,7 +31,7 @@ const PlayerConfig = ({ player, className, gameMode }: PlayerConfigProps) => {
         'flex w-full items-center overflow-hidden rounded-lg border border-slate-600',
       )}
     >
-      <PlayerLabel player={player} gameMode={gameMode} />
+      <PlayerLabel player={player} />
       <div className="flex w-full items-center gap-2 px-2 text-sm">
         <MarkTextInput name={`playerConfigs.${player}.mark`} />
         <ColorPicker name={`playerConfigs.${player}.color`} />
@@ -46,11 +43,12 @@ const PlayerConfig = ({ player, className, gameMode }: PlayerConfigProps) => {
 
 interface PlayerLabelProps {
   player: BasePlayer;
-  gameMode: GameMode;
   className?: string;
 }
 
-const PlayerLabel = ({ player, className, gameMode }: PlayerLabelProps) => {
+const PlayerLabel = ({ player, className }: PlayerLabelProps) => {
+  const gameMode = useWatch({ name: 'gameMode' });
+
   return (
     <Box
       as="h3"
