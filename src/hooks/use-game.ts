@@ -65,7 +65,7 @@ export const useGame = ({
       if (winIndices) winner.current = { identifier, indices: winIndices, mark };
 
       if (winIndices || isDraw) {
-        addHistory(createHistory(newBoard, winner.current, size));
+        addHistory(createHistory(newBoard, winner.current));
         playSound.end(isDraw);
       } else togglePlayer();
     },

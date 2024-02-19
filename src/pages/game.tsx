@@ -9,7 +9,7 @@ import {
 } from '@/components';
 import { useGameOption } from '@/context';
 import { useGame } from '@/hooks';
-import { BasePlayer, BoardType, getBoardConfig } from '@/lib';
+import { BasePlayer } from '@/lib';
 
 export default function Game() {
   const options = useGameOption();
@@ -26,13 +26,7 @@ export default function Game() {
         currentPlayer={currentPlayer}
         isSinglePlay={options.isSinglePlay}
       />
-      <Board
-        hideSequence
-        board={board}
-        handleClick={handlers.board}
-        className={getBoardConfig(options.size, BoardType.Play)}
-        winner={winner}
-      />
+      <Board hideSequence board={board} handleClick={handlers.board} winner={winner} />
       <Box className="relative flex items-center gap-5 md:gap-8">
         <WinnerLabel target={BasePlayer.X} winner={winner.identifier} />
         <TurnIndicator currentPlayer={currentPlayer} playerConfigs={options.playerConfigs} />
