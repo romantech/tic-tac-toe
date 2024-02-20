@@ -2,7 +2,7 @@ import { ComponentProps } from 'react';
 
 import { clsx } from 'clsx';
 
-import { BoardSize, getSequenceTextClasses, TMark, TSequence } from '@/lib';
+import { BoardSize, TMark, TSequence } from '@/lib';
 
 interface SquareProps extends ComponentProps<'button'> {
   mark: TMark;
@@ -60,3 +60,18 @@ export default function Square({
     </button>
   );
 }
+
+const getSequenceTextClasses = (size: BoardSize) => {
+  switch (size) {
+    case BoardSize.Size3:
+      return 'text-lg top-0.5 right-1.5';
+    case BoardSize.Size4:
+      return 'text-base top-0 right-1';
+    case BoardSize.Size5:
+      return 'text-sm top-0 right-0.5';
+    case BoardSize.Size6:
+      return 'text-xs top-0 right-0.5';
+    default:
+      throw new Error(`Invalid size: ${size}`);
+  }
+};

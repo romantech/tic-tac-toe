@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import { Board, BoardInfo } from '@/components';
-import { BoardType, getBoardConfig, TGameHistory } from '@/lib';
+import { BoardType, TGameHistory } from '@/lib';
 
 interface BoardListProps {
   boardList: TGameHistory[];
@@ -11,16 +11,10 @@ interface BoardListProps {
 export default function BoardList({ boardList, hideSequence = false }: BoardListProps) {
   return (
     <Fragment>
-      {boardList?.map(({ board, winner, createdAt, size }) => (
+      {boardList?.map(({ board, winner, createdAt }) => (
         <section key={createdAt}>
           <BoardInfo winner={winner.mark} createdAt={createdAt} />
-          <Board
-            board={board}
-            winner={winner}
-            className={getBoardConfig(size, BoardType.View)}
-            type={BoardType.View}
-            hideSequence={hideSequence}
-          />
+          <Board board={board} winner={winner} type={BoardType.View} hideSequence={hideSequence} />
         </section>
       ))}
     </Fragment>

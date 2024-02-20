@@ -4,12 +4,12 @@ import { useGameHistory, useGameSound, useUndoCount } from '@/hooks';
 import {
   BasePlayer,
   BoardIdx,
-  checkWin,
+  checkWinIndexes,
   createHistory,
   createSquare,
   defaultSquare,
   defaultWinner,
-  findBestMove,
+  findBestMoveIdx,
   GameOption,
   getInitialBoard,
   getOpponent,
@@ -61,11 +61,11 @@ export const useGame = ({
       setBoard(newBoard);
 
       const isDraw = updatedSequence.length === newBoard.length;
-      const winIndices = checkWin(newBoard, size, winCondition, boardIdx, identifier);
+      const winIndices = checkWinIndexes(newBoard, size, winCondition, boardIdx, identifier);
       if (winIndices) winner.current = { identifier, indices: winIndices, mark };
 
       if (winIndices || isDraw) {
-        addHistory(createHistory(newBoard, winner.current, size));
+        addHistory(createHistory(newBoard, winner.current));
         playSound.end(isDraw);
       } else togglePlayer();
     },
@@ -104,7 +104,7 @@ export const useGame = ({
     let timer: number;
 
     if (isBotTurn && gameNotEnded) {
-      const nextIndex = findBestMove(board, size, winCondition, currentPlayer.current);
+      const nextIndex = findBestMoveIdx(board, size, winCondition, currentPlayer.current);
       if (isNumber(nextIndex)) timer = setTimeout(() => onBoardClick(nextIndex, true), 300);
     }
 

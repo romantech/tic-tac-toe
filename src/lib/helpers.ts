@@ -42,7 +42,7 @@ export const randomIntBetween = (from: number, to: number) => {
   return Math.floor(Math.random() * (to - from + 1) + from);
 };
 
-export const getRandomElement = <T>(arr: T[]) => {
+export const selectRandomElement = <T>(arr: T[]) => {
   return arr[randomIntBetween(0, arr.length - 1)];
 };
 
