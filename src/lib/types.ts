@@ -43,5 +43,4 @@ export type PlayerConfigs = {
 export type ISODateString = string;
 export type GenericRecord<T = unknown> = Record<string, T>;
 
-export type DeltaRowCol = { deltaRow: number; deltaCol: number };
-export type LastRowCol = { lastRow: number; lastCol: number };
+export type RowColPair<T extends string> = { [K in T]: number };

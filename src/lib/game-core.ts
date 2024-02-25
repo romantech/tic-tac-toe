@@ -1,16 +1,7 @@
 import { BasePlayer, defaultSquare } from '@/lib/constants';
 import { selectRandomElement } from '@/lib/helpers';
 
-import {
-  DeltaRowCol,
-  Identifier,
-  LastRowCol,
-  TBoard,
-  TMark,
-  TSequence,
-  TSquareColor,
-  Winner,
-} from './types';
+import { Identifier, RowColPair, TBoard, TMark, TSequence, TSquareColor, Winner } from './types';
 
 /* ==========================================================================================
  * ============================= Winning Condition Verification =============================
@@ -58,8 +49,8 @@ const checkDirection = (
   winCondition: number,
   player: BasePlayer,
   size: number,
-  { lastRow, lastCol }: LastRowCol,
-  { deltaRow, deltaCol }: DeltaRowCol,
+  { lastRow, lastCol }: RowColPair<'lastRow' | 'lastCol'>,
+  { deltaRow, deltaCol }: RowColPair<'deltaRow' | 'deltaCol'>,
 ) => {
   const searchDirection = (deltaRow: number, deltaCol: number) => {
     const winningIndexes = [];
