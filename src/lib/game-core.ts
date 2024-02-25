@@ -161,10 +161,10 @@ const getCenterIndexes = (size: number) => {
   // 짝수 size 보드
   const halfSize = size / 2;
   return [
-    (halfSize - 1) * size + halfSize - 1,
-    (halfSize - 1) * size + halfSize,
-    halfSize * size + halfSize - 1,
-    halfSize * size + halfSize,
+    (halfSize - 1) * size + halfSize - 1, // 중앙 격자 왼쪽 상단
+    (halfSize - 1) * size + halfSize, // 중앙 격자 오른쪽 상단
+    halfSize * size + halfSize - 1, // 중앙 격자 왼쪽 하단
+    halfSize * size + halfSize, // 중앙 격자 오른쪽 하단
   ];
 };
 
