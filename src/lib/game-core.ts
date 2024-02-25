@@ -57,8 +57,8 @@ const checkDirection = (
 
     // 마지막 놓았던 위치는 제외하기 위해 i = 1 부터 시작
     for (let i = 1; i < winCondition; i++) {
-      const currentRow = lastRow + i * deltaRow;
-      const currentCol = lastCol + i * deltaCol;
+      const currentRow = i * deltaRow + lastRow;
+      const currentCol = i * deltaCol + lastCol;
 
       if (!isWithinBounds(size, currentRow, currentCol)) break;
       if (getCellIdentifier(board, currentRow, currentCol) !== player) break;
