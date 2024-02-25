@@ -60,7 +60,9 @@ const checkDirection = (
       const currentRow = i * deltaRow + lastRow;
       const currentCol = i * deltaCol + lastCol;
 
+      // 보드 범위를 벗어났으면 검사 중지
       if (!isWithinBounds(size, currentRow, currentCol)) break;
+      // 기호가 일치하지 않으면 검사 중지
       if (getCellIdentifier(board, currentRow, currentCol) !== player) break;
 
       winningIndexes.push({ row: currentRow, col: currentCol });
@@ -139,12 +141,13 @@ const chooseStrategicPosition = (board: TBoard) => {
  * ========================================================================================== */
 
 /**
- * 2차원 보드의 row, col 좌표 값을 받아서 1차원 배열로 표현했을 때의 인덱스 반환
+ * 2차원 보드의 row, col 좌표 값을 받아 1차원 보드의 인덱스 반환
  * row * size = row 위치. e.g. 2(row) * 5(size) = 10 (3번째 행 첫번째 열)
  * 계산한 row 위치에서 col 더하면 해당 위치의 인덱스
  * */
 const getLinearIndex = (row: number, col: number, size: number) => row * size + col;
 
+/** 1차원 보드의 인덱스를 받아 2차원 보드의 row, col 좌표값 반환 */
 export const getCoordinates = (i: number, size: number) => {
   const row = Math.floor(i / size);
   const col = i % size; // 항상 0 ~ (size - 1) 값 반환
@@ -174,6 +177,7 @@ const getCornerIndexes = (size: number) => {
   return [leftTop, rightTop, leftBottom, rightBottom];
 };
 
+/** row, col 좌표값이 보드 범위 안에 있는지 검사 */
 const isWithinBounds = (size: number, row: number, col: number) => {
   return row >= 0 && row < size && col >= 0 && col < size;
 };
@@ -182,6 +186,7 @@ const isWithinBounds = (size: number, row: number, col: number) => {
  * ================================== Board Utilities =======================================
  * ========================================================================================== */
 
+/** 1차원 보드에서 row, col 좌표값에 해당하는 기호 조회 */
 const getCellIdentifier = (board: TBoard, row: number, col: number) => {
   const size = getBoardSize(board);
   const idx = getLinearIndex(row, col, size);
@@ -215,6 +220,7 @@ export const createHistory = (board: TBoard, winner: Winner) => ({
   createdAt: new Date().toISOString(),
 });
 
+/** 보드 사이즈 조회(row.length) */
 export const getBoardSize = (board: TBoard) => {
   const size = Math.sqrt(board.length);
   if (!Number.isInteger(size)) throw new Error('Board is not a perfect square.');
