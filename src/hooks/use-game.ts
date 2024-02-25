@@ -61,7 +61,7 @@ export const useGame = ({
       setBoard(newBoard);
 
       const isDraw = updatedSequence.length === newBoard.length;
-      const winIndices = checkWinIndexes(newBoard, size, winCondition, boardIdx, identifier);
+      const winIndices = checkWinIndexes(newBoard, winCondition, boardIdx, identifier);
       if (winIndices) winner.current = { identifier, indices: winIndices, mark };
 
       if (winIndices || isDraw) {
@@ -69,7 +69,7 @@ export const useGame = ({
         playSound.end(isDraw);
       } else togglePlayer();
     },
-    [addHistory, board, playSound, playerConfigs, size, togglePlayer, winCondition],
+    [addHistory, board, playSound, playerConfigs, togglePlayer, winCondition],
   );
 
   const undo = () => {
@@ -104,12 +104,12 @@ export const useGame = ({
     let timer: number;
 
     if (isBotTurn && gameNotEnded) {
-      const nextIndex = findBestMoveIdx(board, size, winCondition, currentPlayer.current);
+      const nextIndex = findBestMoveIdx(board, winCondition, currentPlayer.current);
       if (isNumber(nextIndex)) timer = setTimeout(() => onBoardClick(nextIndex, true), 300);
     }
 
     return () => clearTimeout(timer);
-  }, [board, isSinglePlay, onBoardClick, size, winCondition]);
+  }, [board, isSinglePlay, onBoardClick, winCondition]);
 
   const hasMark = sequence.current.length > 0;
   const hasWinner = Boolean(winner.current.identifier);
