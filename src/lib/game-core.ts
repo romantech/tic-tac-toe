@@ -87,17 +87,25 @@ const checkDirection = (
 
 export const findBestMoveIdx = (board: TBoard, winCondition: number, player: BasePlayer) => {
   const opponent = getOpponent(player);
+  const size = getBoardSize(board);
 
   // 승리할 수 있는 위치 탐색
   const bestMove = getFirstBestMoveIdx(board, winCondition, player);
   if (bestMove !== null) return bestMove;
 
   // 방어 해야하는 위치 탐색
-  const defenseMove = getFirstBestMoveIdx(board, winCondition, opponent);
-  if (defenseMove !== null) return defenseMove;
+  const minCondition = winCondition - 2;
+  const conditionLen = winCondition - minCondition + 1;
+  const defenseConditions = Array.from({ length: conditionLen }, (_, i) => winCondition - i);
 
-  // 중앙, 모서리, 빈칸 중 랜덤하게 반환. 모든 칸이 다 찼으면 null 반환
-  return chooseStrategicPosition(board);
+  for (const condition of defenseConditions) {
+    const defenseMove = getFirstBestMoveIdx(board, condition, opponent);
+    if (defenseMove !== null) return defenseMove;
+    if (condition === size) break;
+  }
+
+  // 중앙, 모서리, 빈칸 중 임의 선택. 모든 칸이 다 찼으면 null 반환
+  return chooseStrategicPosition(board, size);
 };
 
 const getAvailableMoves = (board: TBoard) => {
@@ -119,9 +127,8 @@ const getFirstBestMoveIdx = (board: TBoard, winCondition: number, player: BasePl
   return idx !== -1 ? idx : null;
 };
 
-const chooseStrategicPosition = (board: TBoard) => {
+const chooseStrategicPosition = (board: TBoard, size: number) => {
   const availableMoves = getAvailableMoves(board);
-  const size = getBoardSize(board);
 
   if (availableMoves.size === 0) return null;
 
