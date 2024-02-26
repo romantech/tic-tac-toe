@@ -89,18 +89,21 @@ export const findBestMoveIdx = (board: TBoard, winCondition: number, player: Bas
   const opponent = getOpponent(player);
   const size = getBoardSize(board);
 
-  // 승리할 수 있는 위치 탐색
+  // 승리 위치 탐색
   const bestMove = getFirstBestMoveIdx(board, winCondition, player);
   if (bestMove !== null) return bestMove;
 
-  // 방어 해야하는 위치 탐색
-  const minCondition = winCondition - 2;
-  const conditionLen = winCondition - minCondition + 1;
-  const defenseConditions = Array.from({ length: conditionLen }, (_, i) => winCondition - i);
+  // 방어 위치 탐색
+  const minDefenseCondition = winCondition - 2;
+  // 연속된 기호가 배열될 수 있는 최소 길이부터 승리 조건까지의 범위. e.g. 승리 조건 4, 최소 방어 조건 2 -> 범위는 3 (2, 3, 4)
+  const defenseRange = winCondition - minDefenseCondition + 1;
+  // 계산된 범위에 따라 내림차순으로 방어 조건 배열 생성. e.g. 승리 조건 4 -> [4, 3, 2]
+  const defenseConditions = Array.from({ length: defenseRange }, (_, i) => winCondition - i);
 
   for (const condition of defenseConditions) {
     const defenseMove = getFirstBestMoveIdx(board, condition, opponent);
     if (defenseMove !== null) return defenseMove;
+    // 보드 크기와 승리 조건이 같다면 보드 전체를 채워야만 승리할 수 있으므로 이보다 작은 승리조건은 검사할 필요가 없다
     if (condition === size) break;
   }
 
