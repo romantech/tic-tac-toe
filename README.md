@@ -1,4 +1,4 @@
-# Enhanced Tic-Tac-Toe
+# Tic-Tac-Toe
 
 ![open-graph](https://github.com/romantech/tic-tac-toe/assets/8604840/a8340503-3d72-4096-b1b7-fd6ebe5af5cf)
 
