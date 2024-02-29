@@ -1,9 +1,25 @@
-# Tic-Tac-Toe
+<h1 align="center">Enhanced Tic-Tac-Toe</h1>
 
 ![open-graph](https://github.com/romantech/tic-tac-toe/assets/8604840/a8340503-3d72-4096-b1b7-fd6ebe5af5cf)
 
-- Customizable Tic-Tac-Toe game built with React
-- Gameplay link: https://tictactoe.romantech.net
+<p align="center">Customizable Tic-Tac-Toe game built with React</p>
+
+---
+
+## TOC
+
+- [About](#about)
+- [Stack](#stack)
+- [Features](#features)
+- [Implementation Details](#implementation-details)
+- [Screenshot](#screenshot)
+
+## About
+
+Tic-Tac-Toe is a classic board game where two players alternate in placing their symbols (X or O) on a 3x3 grid, aiming to align three of their marks in a row, column, or diagonal. This project elevates the conventional Tic-Tac-Toe experience by introducing customizable features including adjustable board sizes, modifiable win conditions, and the choice between single or dual-player modes, offering a tailored gaming experience.
+
+- [Game Play](https://tictactoe.romantech.net)
+- [Implementation Details Korean Ver.](https://colorfilter.notion.site/TIL-Tic-Tac-Toe-47f5b86f257e484983c08e2fab68d286?pvs=4)
 
 ## Stack
 
@@ -16,13 +32,19 @@
 
 - Adjustable Board Size
 - Customizable Win Conditions
+- Single/Dual Play Mode Selection
 - Selection of Markers, Colors, and Turn Order
 - Gameplay History Tracking and Review
 - Option to Undo the Last Move
 
 ## Implementation Details
 
-Tic-Tac-Toe is a classic two-player game where participants alternate marking spaces on a 3x3 grid with their respective symbols (X or O), aiming to align three of their marks in a horizontal, vertical, or diagonal row. Each grid space can hold only one symbol. A draw occurs if all spaces are filled without any player achieving this alignment.
+- [Win Condition Evaluation](#win-condition-evaluation)
+  - [Basic](#basic)
+  - [Advanced](#advanced)
+- [Finding the Best Move](#finding-the-best-move)
+  - [Searching for Winning Positions](#searching-for-winning-positions)
+  - [Searching for Defensive Positions](#searching-for-defensive-positions)
 
 ### Win Condition Evaluation
 
@@ -35,12 +57,12 @@ The basic method for determining win conditions involves storing potential winni
 ```tsx
 function calculateWinner(board: number[]) {
   const lines = [
-    [0, 1, 2], // horizontal row 1
-    [3, 4, 5], // horizontal row 2
-    [6, 7, 8], // horizontal row 3
-    [0, 3, 6], // vertical column 1
-    [1, 4, 7], // vertical column 2
-    [2, 5, 8], // vertical column 3
+    [0, 1, 2], // row 1
+    [3, 4, 5], // row 2
+    [6, 7, 8], // row 3
+    [0, 3, 6], // column 1
+    [1, 4, 7], // column 2
+    [2, 5, 8], // column 3
     [0, 4, 8], // diagonal 1
     [2, 4, 6], // diagonal 2
   ];
@@ -65,7 +87,7 @@ Consider a 4x4 board with a piece placed at index 10. The win can be checked aro
 - Horizontal: [8, 9, 10, 11]
 - Vertical: [2, 6, 10, 14]
 - Diagonal 1: [0, 5, 10, 15]
-- Diagonal 2: [3, 6, 9, 12]
+- Diagonal 2: [7, 10, 13]
 
 ![Untitled](https://github.com/romantech/tic-tac-toe/assets/8604840/d8c74755-b367-44e9-a4b0-f192ad7b7059)
 
