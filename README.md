@@ -6,7 +6,7 @@
 
 Tic-Tac-Toe, the classic board game, involves two players taking turns to place their symbols (X or O) on a 3x3 grid, with the goal of aligning three of their marks in a row, column, or diagonal. This project elevates the traditional Tic-Tac-Toe experience by introducing customizable features such as adjustable board sizes, customizable winning conditions, and the ability to undo the last move, thus offering a more tailored and engaging gaming experience.
 
-- [Game Play](https://tictactoe.romantech.net)
+- [Play Game](https://tictactoe.romantech.net)
 - [Implementation Details Korean Ver.](https://colorfilter.notion.site/TIL-Tic-Tac-Toe-47f5b86f257e484983c08e2fab68d286?pvs=4)
 
 ## TOC
@@ -14,7 +14,7 @@ Tic-Tac-Toe, the classic board game, involves two players taking turns to place 
 - [Stack](#stack)
 - [Features](#features)
 - [Implementation Details](#implementation-details)
-- [Screenshot](#screenshot)
+- [Screenshots](#screenshots)
 
 ## Stack
 
@@ -211,7 +211,7 @@ Moreover, to prioritize defending areas with a larger number of consecutive spac
 
 If the board size and the win condition are the same, winning is only possible by filling the entire board. Therefore, it is unnecessary to check for win conditions smaller than the board size. Thus, the loop is stopped with the condition `if (condition === size) break;` to avoid unnecessary checks.
 
-## Screenshot
+## Screenshots
 
 #### Gameplay GIF
 
