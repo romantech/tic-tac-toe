@@ -33,12 +33,12 @@ export default function WinConditionRange() {
         render={({ field: { onChange, value } }) => (
           <input
             type="range"
-            min={BoardSize.Size3}
+            min={BoardSize.Size4}
             max={boardSize}
             onChange={({ target }) => onChange(+target.value)}
             step={1}
             value={value}
-            disabled={boardSize === BoardSize.Size3}
+            disabled={boardSize < BoardSize.Size5}
             className="cursor-pointer accent-primary" // 사파리에선 막대 색상 적용 안됨
           />
         )}
@@ -71,5 +71,6 @@ const RangeLabels = () => {
 };
 
 const getRangeLabels = (boardSize: number) => {
-  return Array.from({ length: boardSize - BoardSize.Size3 + 1 }, (_, i) => BoardSize.Size3 + i);
+  if (boardSize < BoardSize.Size5) return [boardSize];
+  return Array.from({ length: boardSize - BoardSize.Size3 }, (_, i) => BoardSize.Size3 + i + 1);
 };
