@@ -1,25 +1,20 @@
-<h1 align="center">Enhanced Tic-Tac-Toe</h1>
+# Enhanced Tic-Tac-Toe
 
 ![open-graph](https://github.com/romantech/tic-tac-toe/assets/8604840/a8340503-3d72-4096-b1b7-fd6ebe5af5cf)
 
-<p align="center">Customizable Tic-Tac-Toe game built with React</p>
+> Customizable Tic-Tac-Toe game built with React
 
----
+Tic-Tac-Toe, the classic board game, involves two players taking turns to place their symbols (X or O) on a 3x3 grid, with the goal of aligning three of their marks in a row, column, or diagonal. This project elevates the traditional Tic-Tac-Toe experience by introducing customizable features such as adjustable board sizes, customizable winning conditions, and the ability to undo the last move, thus offering a more tailored and engaging gaming experience.
+
+- [Game Play](https://tictactoe.romantech.net)
+- [Implementation Details Korean Ver.](https://colorfilter.notion.site/TIL-Tic-Tac-Toe-47f5b86f257e484983c08e2fab68d286?pvs=4)
 
 ## TOC
 
-- [About](#about)
 - [Stack](#stack)
 - [Features](#features)
 - [Implementation Details](#implementation-details)
 - [Screenshot](#screenshot)
-
-## About
-
-Tic-Tac-Toe is a classic board game where two players alternate in placing their symbols (X or O) on a 3x3 grid, aiming to align three of their marks in a row, column, or diagonal. This project elevates the conventional Tic-Tac-Toe experience by introducing customizable features including adjustable board sizes, modifiable win conditions, and the choice between single or dual-player modes, offering a tailored gaming experience.
-
-- [Game Play](https://tictactoe.romantech.net)
-- [Implementation Details Korean Ver.](https://colorfilter.notion.site/TIL-Tic-Tac-Toe-47f5b86f257e484983c08e2fab68d286?pvs=4)
 
 ## Stack
 
@@ -31,11 +26,11 @@ Tic-Tac-Toe is a classic board game where two players alternate in placing their
 ## Features
 
 - Adjustable Board Size
-- Customizable Win Conditions
-- Single/Dual Play Mode Selection
-- Selection of Markers, Colors, and Turn Order
-- Gameplay History Tracking and Review
-- Option to Undo the Last Move
+- Customizable Winning Conditions
+- Choice between Single or Dual Play Modes
+- Selection of Markers, Colors, and Turn Sequencing
+- Tracking and Review of Gameplay History
+- Ability to Undo the Last Move
 
 ## Implementation Details
 
