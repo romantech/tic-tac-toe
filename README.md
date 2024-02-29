@@ -26,7 +26,7 @@ Tic-Tac-Toe is a classic two-player game where participants alternate marking sp
 
 ### Win Condition Evaluation
 
-#### Basic Approach
+#### Basic
 
 ![Untitled](https://github.com/romantech/tic-tac-toe/assets/8604840/1e63145d-8f38-4d82-9c27-044b391583c7)
 
@@ -56,7 +56,7 @@ function calculateWinner(board: number[]) {
 
 This static approach does not account for varying board sizes or dynamic win conditions, making it less versatile for different game configurations.
 
-#### Advanced Method
+#### Advanced
 
 An advanced strategy dynamically checks for win conditions around the most recently placed symbol, accommodating variable board sizes and win conditions. It assesses potential wins in horizontal, vertical, and diagonal directions from the last move.
 
@@ -119,6 +119,80 @@ const checkDirection = (/* ... */) => {
 ```
 
 This method calculates potential win paths from the last move, offering a scalable solution for various board configurations and win conditions.
+
+### Finding the Best Move
+
+#### Searching for Winning Positions
+
+The simplest method to search for winning positions is to fill the empty spaces on the current board with the player's symbol and check whether this position meets the win conditions in horizontal, vertical, and diagonal directions based on that position. This approach is straightforward and has the advantage of being able to reuse the win condition check function written above (`checkWinIndexes` function considers the index it receives as the position where the last move was made).
+
+```tsx
+const getFirstBestMoveIdx = (board: TBoard, winCondition: number, player: BasePlayer) => {
+  const idx = board.findIndex((cell, i) => {
+    if (cell.identifier === null) {
+      const winningIndexes = checkWinIndexes(board, winCondition, i, player);
+      return winningIndexes !== null;
+    }
+    return false;
+  });
+
+  return idx !== -1 ? idx : null;
+};
+
+const findBestMoveIdx = (board: TBoard, winCondition: number, player: BasePlayer) => {
+  // ...
+  const bestMove = getFirstBestMoveIdx(board, winCondition, player);
+  if (bestMove !== null) return bestMove;
+  // ...
+};
+```
+
+1. Traverse the board to check if the grid is empty.
+2. If the grid is empty, call the `checkWinIndexes` function with the current index and player information.
+3. If it meets the win condition, return the current index; otherwise, return `null`.
+
+#### Searching for Defensive Positions
+
+##### Basic
+
+By simply changing the player information, existing logic such as `getFirstBestMoveIdx` can be reused to find defensive positions. Traverse the board using the opponent's symbol to search for places that meet the win conditions, and if a winning spot is found, set it as the defensive position.
+
+```tsx
+const findBestMoveIdx = (board: TBoard, winCondition: number, player: BasePlayer) => {
+  const opponent = getOpponent(player); // player = 'O' | 'X'
+  // ...
+  const defenseMove = getFirstBestMoveIdx(board, winCondition, opponent);
+  if (defenseMove !== null) return defenseMove;
+};
+```
+
+##### Advanced
+
+![Untitled](https://github.com/romantech/tic-tac-toe/assets/8604840/49cf7483-2412-4d9b-97ed-09578ecd6ac5)
+
+If the win condition is smaller than the board size (the length of one side of the board), when there are `win condition - 2` consecutive symbols, one must defend one of the ends of this sequence. For example, if the board size is 6 and the win condition is 4, and symbols are placed consecutively at positions 20 and 21, then either position 19 or 22 must be defended. If not defended, the opponent can place their symbol in one of these positions on their next turn to meet the win condition.
+
+```tsx
+const findBestMoveIdx = (board: TBoard, winCondition: number, player: BasePlayer) => {
+  // ...
+  const minDefenseCondition = winCondition - 2;
+  const defenseRange = winCondition - minDefenseCondition + 1;
+  const defenseConditions = Array.from({ length: defenseRange }, (_, i) => winCondition - i);
+
+  for (const condition of defenseConditions) {
+    const defenseMove = getFirstBestMoveIdx(board, condition, opponent);
+    if (defenseMove !== null) return defenseMove;
+    if (condition === size) break; // If the board size is the same as the win condition, only check for that win condition
+  }
+  // ...
+};
+```
+
+To defend against the above situation, an array composed of numbers from `win condition - 2` to the `win condition` is created and checked. Each element represents the length of the consecutive spaces that need to be defended. For example, if the win condition is 4, it checks whether placing a symbol in an empty space results in 4 consecutive symbols.
+
+Moreover, to prioritize defending areas with a larger number of consecutive spaces, the conditions array should be created in descending order. If the board size is 6 and the win condition is 4, the `defenseConditions` array would be `[4, 3, 2]`.
+
+If the board size and the win condition are the same, winning is only possible by filling the entire board. Therefore, it is unnecessary to check for win conditions smaller than the board size. Thus, the loop is stopped with the condition `if (condition === size) break;` to avoid unnecessary checks.
 
 ## Screenshot
 
