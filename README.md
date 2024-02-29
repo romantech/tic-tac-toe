@@ -75,7 +75,7 @@ This static approach does not account for varying board sizes or dynamic win con
 
 #### Advanced
 
-An advanced strategy dynamically checks for win conditions around the most recently placed symbol, accommodating variable board sizes and win conditions. It assesses potential wins in horizontal, vertical, and diagonal directions from the last move.
+A better approach is to dynamically check for win conditions around the most recently placed symbol, accommodating variable board sizes and win conditions. It assesses potential wins in horizontal, vertical, and diagonal directions from the last move.
 
 Consider a 4x4 board with a piece placed at index 10. The win can be checked around this position in all directions:
 
