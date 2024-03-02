@@ -7,7 +7,6 @@ import {
   checkWinIndexes,
   createHistory,
   createSquare,
-  defaultSquare,
   defaultWinner,
   findBestMoveIdx,
   GameOption,
@@ -84,8 +83,8 @@ export const useGame = ({
     setBoard((prev) => {
       const newBoard = [...prev];
       const shouldSetSecondLast = isSinglePlay && isNumber(secondLastBoardIdx);
-      if (shouldSetSecondLast) newBoard[secondLastBoardIdx] = defaultSquare;
-      newBoard[lastBoardIdx] = defaultSquare;
+      if (shouldSetSecondLast) newBoard[secondLastBoardIdx] = createSquare();
+      newBoard[lastBoardIdx] = createSquare();
       return newBoard;
     });
   };

@@ -1,4 +1,4 @@
-import { BasePlayer, defaultSquare } from '@/lib/constants';
+import { BasePlayer } from '@/lib/constants';
 import { selectRandomElement } from '@/lib/helpers';
 
 import { Identifier, RowColPair, TBoard, TMark, TSequence, TSquareColor, Winner } from './types';
@@ -204,7 +204,7 @@ const getCellIdentifier = (board: TBoard, row: number, col: number) => {
 };
 
 export const getInitialBoard = (size: number): TBoard => {
-  return Array(size * size).fill(defaultSquare);
+  return Array.from({ length: size * size }, () => createSquare());
 };
 
 export const getOpponent = (player: BasePlayer) => {
@@ -212,10 +212,10 @@ export const getOpponent = (player: BasePlayer) => {
 };
 
 export const createSquare = (
-  identifier: Identifier,
-  mark: TMark,
-  sequence: TSequence,
-  color: TSquareColor,
+  identifier: Identifier = null,
+  mark: TMark = null,
+  sequence: TSequence = null,
+  color: TSquareColor = 'transparent',
 ) => ({
   identifier,
   mark,
