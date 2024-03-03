@@ -11,7 +11,7 @@ import { Identifier, RowColPair, TBoard, TMark, TSequence, TSquareColor, Winner 
  * 보드의 모든 위치를 검사하면 보드가 커질수록 비효율적이므로,
  * 마지막 놓았던 위치부터 가로, 세로, 대각선 방향으로 winCondition 만큼 검사
  * */
-export const checkWinIndexes = (
+export const evaluateWinning = (
   board: TBoard,
   winCondition: number,
   lastIndex: number,
@@ -121,7 +121,7 @@ export const findBestMoveIdx = (board: TBoard, winCondition: number, player: Bas
 const getFirstBestMoveIdx = (board: TBoard, winCondition: number, player: BasePlayer) => {
   const idx = board.findIndex((cell, i) => {
     if (cell.identifier === null) {
-      const winningIndexes = checkWinIndexes(board, winCondition, i, player);
+      const winningIndexes = evaluateWinning(board, winCondition, i, player);
       return winningIndexes !== null;
     }
     return false;
@@ -261,7 +261,7 @@ const minimax = (
   player: BasePlayer,
   opponent: BasePlayer,
 ): number => {
-  const winner = checkWinIndexes(board, winCondition, lastIndex, null, 'winner');
+  const winner = evaluateWinning(board, winCondition, lastIndex, null, 'winner');
 
   // 빠른 승리 혹은 늦은 패배 선호
   if (winner) return winner === player ? Score.Win - depth : Score.Lose + depth;

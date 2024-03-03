@@ -4,10 +4,10 @@ import { useGameHistory, useGameSound, useUndoCount } from '@/hooks';
 import {
   BasePlayer,
   BoardIdx,
-  checkWinIndexes,
   createHistory,
   createSquare,
   defaultWinner,
+  evaluateWinning,
   findBestMoveIdx,
   GameOption,
   getInitialBoard,
@@ -60,7 +60,7 @@ export const useGame = ({
       setBoard(newBoard);
 
       const isDraw = updatedSequence.length === newBoard.length;
-      const winIndices = checkWinIndexes(newBoard, winCondition, boardIdx);
+      const winIndices = evaluateWinning(newBoard, winCondition, boardIdx);
       if (Array.isArray(winIndices)) winner.current = { identifier, indices: winIndices, mark };
 
       if (winIndices || isDraw) {
