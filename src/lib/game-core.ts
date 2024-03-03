@@ -1,4 +1,4 @@
-import { BasePlayer } from '@/lib/constants';
+import { BasePlayer, Score } from '@/lib/constants';
 import { selectRandomElement } from '@/lib/helpers';
 
 import { Identifier, RowColPair, TBoard, TMark, TSequence, TSquareColor, Winner } from './types';
@@ -14,11 +14,11 @@ import { Identifier, RowColPair, TBoard, TMark, TSequence, TSquareColor, Winner 
 export const checkWinIndexes = (
   board: TBoard,
   winCondition: number,
-  linearIndex: number,
+  lastIndex: number,
   player: BasePlayer,
 ) => {
   const size = getBoardSize(board);
-  const { row: lastRow, col: lastCol } = getCoordinates(linearIndex, size);
+  const { row: lastRow, col: lastCol } = getCoordinates(lastIndex, size);
 
   const directions = [
     { deltaRow: 0, deltaCol: 1 }, // 가로
@@ -109,13 +109,6 @@ export const findBestMoveIdx = (board: TBoard, winCondition: number, player: Bas
 
   // 중앙, 모서리, 빈칸 중 임의 선택. 모든 칸이 다 찼으면 null 반환
   return chooseStrategicPosition(board, size);
-};
-
-const getAvailableMoves = (board: TBoard) => {
-  return board.reduce((moves, cell, i) => {
-    if (cell.identifier === null) moves.add(i);
-    return moves;
-  }, new Set<number>());
 };
 
 const getFirstBestMoveIdx = (board: TBoard, winCondition: number, player: BasePlayer) => {
@@ -236,4 +229,75 @@ export const getBoardSize = (board: TBoard) => {
   if (!Number.isInteger(size)) throw new Error('Board is not a perfect square.');
 
   return size;
+};
+
+const getAvailableMoves = (board: TBoard) => {
+  return board.reduce((moves, cell, i) => {
+    if (cell.identifier === null) moves.add(i);
+    return moves;
+  }, new Set<number>());
+};
+
+const hasAvailableMove = (board: TBoard) => {
+  return board.some(({ identifier }) => identifier === null);
+};
+
+/* ==========================================================================================
+ * ================================== MiniMax Algorithm =====================================
+ * ========================================================================================== */
+
+const minimax = (
+  board: TBoard,
+  winCondition: number,
+  depth: number,
+  isMaximizing: boolean,
+  lastIndex: number,
+  player: BasePlayer,
+  opponent: BasePlayer,
+): number => {
+  const evaluatingPlayer = !isMaximizing ? player : opponent;
+  const winnerIndices = checkWinIndexes(board, winCondition, lastIndex, evaluatingPlayer);
+
+  // 빠른 승리 혹은 늦은 패배 선호
+  if (winnerIndices) return evaluatingPlayer === player ? Score.Win - depth : Score.Lose + depth;
+  if (!hasAvailableMove(board)) return Score.Draw;
+
+  let bestScore = isMaximizing ? -Infinity : Infinity;
+  const compareFn = isMaximizing ? Math.max : Math.min;
+  const nextPlayer = isMaximizing ? player : opponent;
+
+  for (let i = 0; i < board.length; i++) {
+    if (board[i].identifier === null) {
+      board[i].identifier = nextPlayer;
+      const score = minimax(board, winCondition, depth + 1, !isMaximizing, i, player, opponent);
+      board[i].identifier = null;
+      bestScore = compareFn(score, bestScore);
+    }
+  }
+  return bestScore;
+};
+
+export const findBestMoveIdxMiniMax = (
+  board: TBoard,
+  winCondition: number,
+  player: BasePlayer,
+): number | null => {
+  let bestScore = -Infinity;
+  let bestMove = null;
+  const opponent = getOpponent(player);
+
+  for (let i = 0; i < board.length; i++) {
+    if (board[i].identifier === null) {
+      board[i].identifier = player;
+      const score = minimax(board, winCondition, 1, false, i, player, opponent);
+      board[i].identifier = null;
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestMove = i;
+      }
+    }
+  }
+
+  return bestMove;
 };

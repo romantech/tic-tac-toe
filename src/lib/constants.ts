@@ -68,3 +68,9 @@ export const defaultGameOption: GameOption = {
 };
 
 export const defaultWinner: Winner = { identifier: null, indices: null, mark: null };
+
+export enum Score {
+  Win = 100,
+  Lose = -100,
+  Draw = 0,
+}
