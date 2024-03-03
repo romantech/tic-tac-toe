@@ -60,8 +60,8 @@ export const useGame = ({
       setBoard(newBoard);
 
       const isDraw = updatedSequence.length === newBoard.length;
-      const winIndices = checkWinIndexes(newBoard, winCondition, boardIdx, identifier);
-      if (winIndices) winner.current = { identifier, indices: winIndices, mark };
+      const winIndices = checkWinIndexes(newBoard, winCondition, boardIdx);
+      if (Array.isArray(winIndices)) winner.current = { identifier, indices: winIndices, mark };
 
       if (winIndices || isDraw) {
         addHistory(createHistory(newBoard, winner.current));

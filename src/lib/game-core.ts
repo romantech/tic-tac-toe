@@ -15,8 +15,12 @@ export const checkWinIndexes = (
   board: TBoard,
   winCondition: number,
   lastIndex: number,
-  player: BasePlayer,
+  identifier: BasePlayer | null = null,
+  resultType: 'position' | 'winner' = 'position',
 ) => {
+  const player = identifier ?? board[lastIndex].identifier;
+  if (!player) return null;
+
   const size = getBoardSize(board);
   const { row: lastRow, col: lastCol } = getCoordinates(lastIndex, size);
 
@@ -38,7 +42,10 @@ export const checkWinIndexes = (
     );
 
     // 승리한 위치의 인덱스 배열 반환
-    if (winningIndexes) return winningIndexes.map(({ row, col }) => getLinearIndex(row, col, size));
+    if (winningIndexes) {
+      if (resultType === 'winner') return player;
+      else return winningIndexes.map(({ row, col }) => getLinearIndex(row, col, size));
+    }
   }
 
   return null;
@@ -47,7 +54,7 @@ export const checkWinIndexes = (
 const checkDirection = (
   board: TBoard,
   winCondition: number,
-  player: BasePlayer,
+  identifier: BasePlayer,
   size: number,
   { lastRow, lastCol }: RowColPair<'lastRow' | 'lastCol'>,
   { deltaRow, deltaCol }: RowColPair<'deltaRow' | 'deltaCol'>,
@@ -57,15 +64,15 @@ const checkDirection = (
 
     // 마지막 놓았던 위치는 제외하기 위해 i = 1 부터 시작
     for (let i = 1; i < winCondition; i++) {
-      const currentRow = i * deltaRow + lastRow;
-      const currentCol = i * deltaCol + lastCol;
+      const curRow = i * deltaRow + lastRow;
+      const curCol = i * deltaCol + lastCol;
 
       // 보드 범위를 벗어났으면 검사 중지
-      if (!isWithinBounds(size, currentRow, currentCol)) break;
+      if (!isWithinBounds(size, curRow, curCol)) break;
       // 기호가 일치하지 않으면 검사 중지
-      if (getCellIdentifier(board, currentRow, currentCol) !== player) break;
+      if (getIdentifierFromRowCol(board, size, curRow, curCol) !== identifier) break;
 
-      winningIndexes.push({ row: currentRow, col: currentCol });
+      winningIndexes.push({ row: curRow, col: curCol });
     }
 
     return winningIndexes;
@@ -190,8 +197,7 @@ const isWithinBounds = (size: number, row: number, col: number) => {
  * ========================================================================================== */
 
 /** 1차원 보드에서 row, col 좌표값에 해당하는 기호 조회 */
-const getCellIdentifier = (board: TBoard, row: number, col: number) => {
-  const size = getBoardSize(board);
+const getIdentifierFromRowCol = (board: TBoard, size: number, row: number, col: number) => {
   const idx = getLinearIndex(row, col, size);
   return board[idx].identifier;
 };
@@ -255,11 +261,10 @@ const minimax = (
   player: BasePlayer,
   opponent: BasePlayer,
 ): number => {
-  const evaluatingPlayer = !isMaximizing ? player : opponent;
-  const winnerIndices = checkWinIndexes(board, winCondition, lastIndex, evaluatingPlayer);
+  const winner = checkWinIndexes(board, winCondition, lastIndex, null, 'winner');
 
   // 빠른 승리 혹은 늦은 패배 선호
-  if (winnerIndices) return evaluatingPlayer === player ? Score.Win - depth : Score.Lose + depth;
+  if (winner) return winner === player ? Score.Win - depth : Score.Lose + depth;
   if (!hasAvailableMove(board)) return Score.Draw;
 
   let bestScore = isMaximizing ? -Infinity : Infinity;
