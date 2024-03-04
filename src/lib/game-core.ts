@@ -317,6 +317,7 @@ export const findBestMoveIdxMiniMax = (
   const opponent = getOpponent(player);
 
   for (let i = 0; i < board.length; i++) {
+    // 빈 칸을 현재 플레이어 기호로 채운 후 계산된 점수 중 가장 큰 곳의 위치를 bestMove로 설정한다
     if (board[i].identifier === null) {
       board[i].identifier = player;
       // 다음 호출은 최소화 단계이므로 isMaximizing 파라미터는 false로 넘긴다
