@@ -252,6 +252,18 @@ const hasAvailableMove = (board: TBoard) => {
  * ================================== MiniMax Algorithm =====================================
  * ========================================================================================== */
 
+/**
+ * Minimax algorithm to determine the best possible score for the current player.
+ *
+ * @param {TBoard} board - The game board
+ * @param {number} winCondition -the number of consecutive pieces required to win (e.g., 3 for a 3x3 board)
+ * @param {number} depth - The current depth of search
+ * @param {boolean} isMaximizing - Whether it's a maximizing step
+ * @param {number} lastIndex - The index of the last move
+ * @param {BasePlayer} player - The identifier of the player seeking maximum score (e.g., 'X')
+ * @param {BasePlayer} opponent - The identifier of the player seeking minimum score (e.g., 'O')
+ * @return {number} The best possible score for the current player
+ */
 const minimax = (
   board: TBoard,
   winCondition: number,
@@ -261,16 +273,19 @@ const minimax = (
   player: BasePlayer,
   opponent: BasePlayer,
 ): number => {
+  // Check if there is a winner
   const winner = evaluateWinning(board, winCondition, lastIndex, null, 'winner');
 
-  // 빠른 승리 혹은 늦은 패배 선호
+  // Return score for winning, losing, or draw (Prefer early wins or late losses)
   if (winner) return winner === player ? Score.Win - depth : Score.Lose + depth;
   if (!hasAvailableMove(board)) return Score.Draw;
 
+  // Initialize bestScore and compare function
   let bestScore = isMaximizing ? -Infinity : Infinity;
   const compareFn = isMaximizing ? Math.max : Math.min;
   const nextPlayer = isMaximizing ? player : opponent;
 
+  // Iterate through available moves and calculate scores
   for (let i = 0; i < board.length; i++) {
     if (board[i].identifier === null) {
       board[i].identifier = nextPlayer;
@@ -282,11 +297,21 @@ const minimax = (
   return bestScore;
 };
 
+/**
+ * Find the best move index using the MiniMax algorithm.
+ *
+ * @param {TBoard} board - the game board
+ * @param {number} winCondition - the number of consecutive pieces required to win
+ * @param {BasePlayer} player - the current player
+ * @return {number | null} the index of the best move or null if no move is available
+ */
 export const findBestMoveIdxMiniMax = (
   board: TBoard,
   winCondition: number,
   player: BasePlayer,
 ): number | null => {
+  // 미니맥스 알고리즘은 일반적으로 최대화 단계부터 시작한다. 함수를 호출하면 최대화 단계가 시작된다
+  // 최대화 단계에선 가장 큰 값을 찾기 위해 가장 작은 수(-Infinity)를 기본값으로 설정한다
   let bestScore = -Infinity;
   let bestMove = null;
   const opponent = getOpponent(player);
@@ -294,6 +319,7 @@ export const findBestMoveIdxMiniMax = (
   for (let i = 0; i < board.length; i++) {
     if (board[i].identifier === null) {
       board[i].identifier = player;
+      // 다음 호출은 최소화 단계이므로 isMaximizing 파라미터는 false로 넘긴다
       const score = minimax(board, winCondition, 1, false, i, player, opponent);
       board[i].identifier = null;
 
