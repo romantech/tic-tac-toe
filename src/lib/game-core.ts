@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { BasePlayer, Score } from '@/lib/constants';
 import { selectRandomElement } from '@/lib/helpers';
 
@@ -260,6 +261,8 @@ const hasAvailableMove = (board: TBoard) => {
  * @param {number} depth - The current depth of search
  * @param {boolean} isMaximizing - Whether it's a maximizing step
  * @param {number} lastIndex - The index of the last move
+ * @param {number} alpha - the alpha value for alpha-beta pruning
+ * @param {number} beta - the beta value for alpha-beta pruning
  * @param {BasePlayer} player - The identifier of the player seeking maximum score (e.g., 'X')
  * @param {BasePlayer} opponent - The identifier of the player seeking minimum score (e.g., 'O')
  * @return {number} The best possible score for the current player
@@ -270,6 +273,8 @@ const minimax = (
   depth: number,
   isMaximizing: boolean,
   lastIndex: number,
+  alpha: number,
+  beta: number,
   player: BasePlayer,
   opponent: BasePlayer,
 ): number => {
@@ -289,11 +294,28 @@ const minimax = (
   for (let i = 0; i < board.length; i++) {
     if (board[i].identifier === null) {
       board[i].identifier = nextPlayer;
-      const score = minimax(board, winCondition, depth + 1, !isMaximizing, i, player, opponent);
+      // minimax 함수를 호출할 때마다 다음 턴으로 넘어가므로 현재 depth에 1을 더한다
+      const score = minimax(
+        board,
+        winCondition,
+        depth + 1,
+        !isMaximizing,
+        i,
+        alpha,
+        beta,
+        player,
+        opponent,
+      );
       board[i].identifier = null;
+
       bestScore = compareFn(score, bestScore);
+      if (isMaximizing) alpha = compareFn(alpha, bestScore);
+      else beta = compareFn(beta, bestScore);
+
+      if (beta <= alpha) break;
     }
   }
+
   return bestScore;
 };
 
@@ -314,6 +336,8 @@ export const findBestMoveIdxMiniMax = (
   // 최대화 단계에선 가장 큰 값을 찾기 위해 가장 작은 수(-Infinity)를 기본값으로 설정한다
   let bestScore = -Infinity;
   let bestMove = null;
+  let alpha = -Infinity;
+  const beta = Infinity;
   const opponent = getOpponent(player);
 
   for (let i = 0; i < board.length; i++) {
@@ -321,12 +345,13 @@ export const findBestMoveIdxMiniMax = (
     if (board[i].identifier === null) {
       board[i].identifier = player;
       // 다음 호출은 최소화 단계이므로 isMaximizing 파라미터는 false로 넘긴다
-      const score = minimax(board, winCondition, 1, false, i, player, opponent);
+      const score = minimax(board, winCondition, 1, false, i, alpha, beta, player, opponent);
       board[i].identifier = null;
 
       if (score > bestScore) {
         bestScore = score;
         bestMove = i;
+        alpha = Math.max(alpha, bestScore);
       }
     }
   }
