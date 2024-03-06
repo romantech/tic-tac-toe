@@ -40,6 +40,16 @@ export type PlayerConfigs = {
   [key in BasePlayer]: PlayerConfig;
 };
 
+export type Roles = {
+  player: BasePlayer;
+  opponent: BasePlayer;
+};
+
+export type CutBounds = {
+  alpha: number;
+  beta: number;
+};
+
 export type ISODateString = string;
 export type GenericRecord<T = unknown> = Record<string, T>;
 

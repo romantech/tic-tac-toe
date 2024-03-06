@@ -1,8 +1,17 @@
-/* eslint-disable no-param-reassign */
 import { BasePlayer, Score } from '@/lib/constants';
 import { selectRandomElement } from '@/lib/helpers';
 
-import { Identifier, RowColPair, TBoard, TMark, TSequence, TSquareColor, Winner } from './types';
+import {
+  CutBounds,
+  Identifier,
+  Roles,
+  RowColPair,
+  TBoard,
+  TMark,
+  TSequence,
+  TSquareColor,
+  Winner,
+} from './types';
 
 /* ==========================================================================================
  * ============================= Winning Condition Verification =============================
@@ -250,69 +259,79 @@ const hasAvailableMove = (board: TBoard) => {
 };
 
 /* ==========================================================================================
- * ================================== MiniMax Algorithm =====================================
+ * ============================== MiniMax, Alpha-Beta Pruning ===============================
  * ========================================================================================== */
 
+const updateCutBounds = (cutBounds: CutBounds, score: number, isMaximizing: boolean) => {
+  if (isMaximizing) cutBounds.alpha = Math.max(cutBounds.alpha, score);
+  else cutBounds.beta = Math.min(cutBounds.beta, score);
+};
+
+const isMaximizing = (depth: number) => depth % 2 === 0;
+
+const getMinimaxContext = (depth: number) => {
+  const isMax = isMaximizing(depth);
+  return {
+    isMaximizing: isMax,
+    bestScore: isMax ? -Infinity : Infinity,
+    compareFn: isMax ? Math.max : Math.min,
+  };
+};
+
+const evaluateMove = (
+  board: TBoard,
+  winCondition: number,
+  depth: number,
+  index: number,
+  cutBounds: CutBounds,
+  roles: Roles,
+): number => {
+  board[index].identifier = isMaximizing(depth) ? roles.player : roles.opponent;
+  // minimax 함수를 호출할 때마다 다음 턴으로 넘어가므로 현재 depth에 1을 더한다
+  // 최대화/최소화 단계에 따라 잘못된 가지치기로 이어지는 것을 방지하기 위해 객체를 복사해서 독립적인 로컬 알파/베타 값 유지
+  const score = minimax(board, winCondition, depth + 1, index, { ...cutBounds }, roles); // Evaluate the board
+  board[index].identifier = null;
+
+  return score;
+};
+
 /**
- * Minimax algorithm to determine the best possible score for the current player.
+ * The minimax algorithm for determining the best possible move in a game.
  *
- * @param {TBoard} board - The game board
- * @param {number} winCondition -the number of consecutive pieces required to win (e.g., 3 for a 3x3 board)
- * @param {number} depth - The current depth of search
- * @param {boolean} isMaximizing - Whether it's a maximizing step
- * @param {number} lastIndex - The index of the last move
- * @param {number} alpha - the alpha value for alpha-beta pruning
- * @param {number} beta - the beta value for alpha-beta pruning
- * @param {BasePlayer} player - The identifier of the player seeking maximum score (e.g., 'X')
- * @param {BasePlayer} opponent - The identifier of the player seeking minimum score (e.g., 'O')
- * @return {number} The best possible score for the current player
+ * @param {TBoard} board - the game board
+ * @param {number} winCondition - the number of consecutive pieces needed to win (e.g., 3 for a 3x3 board)
+ * @param {number} depth - the current depth in the search tree
+ * @param {number} lastIndex - the index of the last move made
+ * @param {CutBounds} cutBounds - alpha-beta pruning values
+ * @param {Roles} roles - the roles of the players
+ * @return {number} the best score for the current player
  */
 const minimax = (
   board: TBoard,
   winCondition: number,
   depth: number,
-  isMaximizing: boolean,
   lastIndex: number,
-  alpha: number,
-  beta: number,
-  player: BasePlayer,
-  opponent: BasePlayer,
+  cutBounds: CutBounds,
+  roles: Roles,
 ): number => {
   // Check if there is a winner
   const winner = evaluateWinning(board, winCondition, lastIndex, null, 'winner');
-
   // Return score for winning, losing, or draw (Prefer early wins or late losses)
-  if (winner) return winner === player ? Score.Win - depth : Score.Lose + depth;
+  if (winner) return winner === roles.player ? Score.Win - depth : Score.Lose + depth;
   if (!hasAvailableMove(board)) return Score.Draw;
 
   // Initialize bestScore and compare function
-  let bestScore = isMaximizing ? -Infinity : Infinity;
-  const compareFn = isMaximizing ? Math.max : Math.min;
-  const nextPlayer = isMaximizing ? player : opponent;
+  // eslint-disable-next-line prefer-const
+  let { isMaximizing, bestScore, compareFn } = getMinimaxContext(depth);
 
   // Iterate through available moves and calculate scores
   for (let i = 0; i < board.length; i++) {
     if (board[i].identifier === null) {
-      board[i].identifier = nextPlayer;
-      // minimax 함수를 호출할 때마다 다음 턴으로 넘어가므로 현재 depth에 1을 더한다
-      const score = minimax(
-        board,
-        winCondition,
-        depth + 1,
-        !isMaximizing,
-        i,
-        alpha,
-        beta,
-        player,
-        opponent,
-      );
-      board[i].identifier = null;
-
+      const score = evaluateMove(board, winCondition, depth, i, cutBounds, roles);
       bestScore = compareFn(score, bestScore);
-      if (isMaximizing) alpha = compareFn(alpha, bestScore);
-      else beta = compareFn(beta, bestScore);
+      updateCutBounds(cutBounds, bestScore, isMaximizing);
 
-      if (beta <= alpha) break;
+      if (cutBounds.beta <= cutBounds.alpha) break;
     }
   }
 
@@ -336,22 +355,22 @@ export const findBestMoveIdxMiniMax = (
   // 최대화 단계에선 가장 큰 값을 찾기 위해 가장 작은 수(-Infinity)를 기본값으로 설정한다
   let bestScore = -Infinity;
   let bestMove = null;
-  let alpha = -Infinity;
-  const beta = Infinity;
-  const opponent = getOpponent(player);
+
+  const cutBounds = { alpha: -Infinity, beta: Infinity };
+  const roles = { player, opponent: getOpponent(player) };
+
+  const depth = 0;
 
   for (let i = 0; i < board.length; i++) {
     // 빈 칸을 현재 플레이어 기호로 채운 후 계산된 점수 중 가장 큰 곳의 위치를 bestMove로 설정한다
     if (board[i].identifier === null) {
-      board[i].identifier = player;
-      // 다음 호출은 최소화 단계이므로 isMaximizing 파라미터는 false로 넘긴다
-      const score = minimax(board, winCondition, 1, false, i, alpha, beta, player, opponent);
-      board[i].identifier = null;
+      // 다음 호출은 최소화 단계
+      const score = evaluateMove(board, winCondition, depth, i, cutBounds, roles);
 
       if (score > bestScore) {
         bestScore = score;
         bestMove = i;
-        alpha = Math.max(alpha, bestScore);
+        updateCutBounds(cutBounds, bestScore, true);
       }
     }
   }
