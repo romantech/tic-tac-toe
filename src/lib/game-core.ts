@@ -331,7 +331,7 @@ const minimax = (
       bestScore = compareFn(score, bestScore);
       updateCutBounds(cutBounds, bestScore, isMaximizing);
 
-      if (cutBounds.beta <= cutBounds.alpha) break;
+      if (cutBounds.alpha >= cutBounds.beta) break;
     }
   }
 
