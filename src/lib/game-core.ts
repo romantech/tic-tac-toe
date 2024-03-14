@@ -331,8 +331,9 @@ const minimax = (
     if (board[i].identifier === null) {
       const score = evaluateMove(board, winCondition, depth, i, roles, cutBounds);
       bestScore = compareFn(score, bestScore);
+      // 자식 노드 평가 결과를 알파/베타 값에 반영
       updateCutBounds(cutBounds, score, isMaximizing);
-
+      // 현재 노드의 최적해를 찾았는지 검사하고, 찾았다면 자식 노드 탐색 중지
       if (cutBounds.alpha >= cutBounds.beta) break;
     }
   }
@@ -356,19 +357,20 @@ export const findBestMoveIdxMiniMax = (
   // 미니맥스 알고리즘은 일반적으로 최대화 단계부터 시작한다. 함수를 호출하면 최대화 단계가 시작된다
   // 최대화 단계에선 가장 큰 값을 찾기 위해 가장 작은 수(-Infinity)를 기본값으로 설정한다
   const bestOutcome: BestOutcome = { score: -Infinity, move: null };
-  const cutBounds = { alpha: -Infinity, beta: Infinity };
+  const cutBounds = { alpha: -Infinity, beta: Infinity }; // 알파/베타 초기값 설정
 
   const roles = { player, opponent: getOpponent(player) };
   const depth = 0; // 최대화 단계부터 시작
 
   for (let i = 0; i < board.length; i++) {
     if (board[i].identifier === null) {
-      // 빈 칸을 현재 플레이어 기호로 채운 후 계산된 점수 중 가장 큰 칸의 위치를 bestMove 값으로 설정한다
+      // 빈 칸을 현재 플레이어 기호로 채운 후 계산된 점수 중 가장 큰 곳의 인덱스를 bestMove 값으로 설정한다
       const score = evaluateMove(board, winCondition, depth, i, roles, cutBounds);
 
       if (score > bestOutcome.score) {
         bestOutcome.score = score;
         bestOutcome.move = i;
+        // 자식 노드 평가 결과를 알파/베타 값에 반영 (업데이트된 값을 자식 노드로 전달해야 하므로)
         updateCutBounds(cutBounds, score, true);
       }
     }
