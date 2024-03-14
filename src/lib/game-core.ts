@@ -5,6 +5,7 @@ import {
   BestOutcome,
   CutBounds,
   Identifier,
+  Memo,
   Roles,
   RowColPair,
   TBoard,
@@ -280,6 +281,10 @@ const getMinimaxContext = (depth: number) => {
   };
 };
 
+const getStateKey = (board: TBoard, depth: number) => {
+  return `${board.map(({ identifier }) => identifier ?? '-').join('')}:${depth}`;
+};
+
 const evaluateMove = (
   board: TBoard,
   winCondition: number,
@@ -287,11 +292,12 @@ const evaluateMove = (
   lastIndex: number,
   roles: Roles,
   cutBounds: CutBounds,
+  memo: Memo,
 ): number => {
   board[lastIndex].identifier = isMaximizing(depth) ? roles.player : roles.opponent;
   // minimax 함수를 호출할 때마다 다음 턴으로 넘어가므로 현재 depth 값에 1을 더한다
   // 최대화/최소화 단계에 따라 잘못된 가지치기로 이어지는 것을 방지하기 위해 객체를 복사해서 독립적인 로컬 알파/베타 값 유지
-  const score = minimax(board, winCondition, depth + 1, lastIndex, roles, { ...cutBounds }); // Evaluate the board
+  const score = minimax(board, winCondition, depth + 1, lastIndex, roles, { ...cutBounds }, memo); // Evaluate the board
   board[lastIndex].identifier = null;
 
   return score;
@@ -306,6 +312,7 @@ const evaluateMove = (
  * @param {number} lastIndex - the index of the last move made
  * @param {Roles} roles - the roles of the players
  * @param {CutBounds} cutBounds - alpha-beta pruning values
+ * @param {Memo} memo - Memoization object to store calculated values
  * @return {number} the best score for the current player
  */
 const minimax = (
@@ -315,7 +322,11 @@ const minimax = (
   lastIndex: number,
   roles: Roles,
   cutBounds: CutBounds,
+  memo: Memo,
 ): number => {
+  const key = getStateKey(board, depth);
+  if (memo.has(key)) return memo.get(key)!; // 이미 계산된 상태인지 확인}
+
   // Check if there is a winner
   const winner = evaluateWinning(board, winCondition, lastIndex, null, 'winner');
   // Return score for winning, losing, or draw (Prefer early wins or late losses)
@@ -329,7 +340,7 @@ const minimax = (
   // Iterate through available moves and calculate scores
   for (let i = 0; i < board.length; i++) {
     if (board[i].identifier === null) {
-      const score = evaluateMove(board, winCondition, depth, i, roles, cutBounds);
+      const score = evaluateMove(board, winCondition, depth, i, roles, cutBounds, memo);
       bestScore = compareFn(score, bestScore);
       // 자식 노드 평가 결과를 알파/베타 값에 반영
       updateCutBounds(cutBounds, score, isMaximizing);
@@ -338,6 +349,7 @@ const minimax = (
     }
   }
 
+  memo.set(key, bestScore);
   return bestScore;
 };
 
@@ -362,10 +374,12 @@ export const findBestMoveIdxMiniMax = (
   const roles = { player, opponent: getOpponent(player) };
   const depth = 0; // 최대화 단계부터 시작
 
+  const memo: Memo = new Map(); // 메모이제이션 객체 초기화
+
   for (let i = 0; i < board.length; i++) {
     if (board[i].identifier === null) {
       // 빈 칸을 현재 플레이어 기호로 채운 후 계산된 점수 중 가장 큰 곳의 인덱스를 bestMove 값으로 설정한다
-      const score = evaluateMove(board, winCondition, depth, i, roles, cutBounds);
+      const score = evaluateMove(board, winCondition, depth, i, roles, cutBounds, memo);
 
       if (score > bestOutcome.score) {
         bestOutcome.score = score;

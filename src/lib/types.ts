@@ -39,5 +39,6 @@ export type BestOutcome = { score: number; move: number | null };
 
 export type ISODateString = string;
 export type GenericRecord<T = unknown> = Record<string, T>;
+export type Memo = Map<string, number>;
 
 export type RowColPair<T extends string> = { [K in T]: number };
