@@ -2,6 +2,7 @@ import { BasePlayer, Score } from '@/lib/constants';
 import { selectRandomElement } from '@/lib/helpers';
 
 import {
+  BestOutcome,
   CutBounds,
   Identifier,
   Roles,
@@ -262,6 +263,7 @@ const hasAvailableMove = (board: TBoard) => {
  * ============================== MiniMax, Alpha-Beta Pruning ===============================
  * ========================================================================================== */
 
+/** 자식 노드 평가 결과인 score를 인자로 받아 알파/베타 값 업데이트 */
 const updateCutBounds = (cutBounds: CutBounds, score: number, isMaximizing: boolean) => {
   if (isMaximizing) cutBounds.alpha = Math.max(cutBounds.alpha, score);
   else cutBounds.beta = Math.min(cutBounds.beta, score);
@@ -287,7 +289,7 @@ const evaluateMove = (
   cutBounds: CutBounds,
 ): number => {
   board[lastIndex].identifier = isMaximizing(depth) ? roles.player : roles.opponent;
-  // minimax 함수를 호출할 때마다 다음 턴으로 넘어가므로 현재 depth에 1을 더한다
+  // minimax 함수를 호출할 때마다 다음 턴으로 넘어가므로 현재 depth 값에 1을 더한다
   // 최대화/최소화 단계에 따라 잘못된 가지치기로 이어지는 것을 방지하기 위해 객체를 복사해서 독립적인 로컬 알파/베타 값 유지
   const score = minimax(board, winCondition, depth + 1, lastIndex, roles, { ...cutBounds }); // Evaluate the board
   board[lastIndex].identifier = null;
@@ -329,7 +331,7 @@ const minimax = (
     if (board[i].identifier === null) {
       const score = evaluateMove(board, winCondition, depth, i, roles, cutBounds);
       bestScore = compareFn(score, bestScore);
-      updateCutBounds(cutBounds, bestScore, isMaximizing);
+      updateCutBounds(cutBounds, score, isMaximizing);
 
       if (cutBounds.alpha >= cutBounds.beta) break;
     }
@@ -353,27 +355,24 @@ export const findBestMoveIdxMiniMax = (
 ): number | null => {
   // 미니맥스 알고리즘은 일반적으로 최대화 단계부터 시작한다. 함수를 호출하면 최대화 단계가 시작된다
   // 최대화 단계에선 가장 큰 값을 찾기 위해 가장 작은 수(-Infinity)를 기본값으로 설정한다
-  let bestScore = -Infinity;
-  let bestMove = null;
-
+  const bestOutcome: BestOutcome = { score: -Infinity, move: null };
   const cutBounds = { alpha: -Infinity, beta: Infinity };
-  const roles = { player, opponent: getOpponent(player) };
 
-  const depth = 0;
+  const roles = { player, opponent: getOpponent(player) };
+  const depth = 0; // 최대화 단계부터 시작
 
   for (let i = 0; i < board.length; i++) {
-    // 빈 칸을 현재 플레이어 기호로 채운 후 계산된 점수 중 가장 큰 곳의 위치를 bestMove로 설정한다
     if (board[i].identifier === null) {
-      // 다음 호출은 최소화 단계
+      // 빈 칸을 현재 플레이어 기호로 채운 후 계산된 점수 중 가장 큰 칸의 위치를 bestMove 값으로 설정한다
       const score = evaluateMove(board, winCondition, depth, i, roles, cutBounds);
 
-      if (score > bestScore) {
-        bestScore = score;
-        bestMove = i;
-        updateCutBounds(cutBounds, bestScore, true);
+      if (score > bestOutcome.score) {
+        bestOutcome.score = score;
+        bestOutcome.move = i;
+        updateCutBounds(cutBounds, score, true);
       }
     }
   }
 
-  return bestMove;
+  return bestOutcome.move;
 };
