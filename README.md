@@ -41,6 +41,9 @@ Tic-Tac-Toe, the classic board game, involves two players taking turns to place 
 
 ### Minimax Algorithm
 
+> [!NOTE]  
+> A zero-sum game refers to a game where if one player gains, the other player loses an equal amount.
+
 The minimax algorithm is the most widely used algorithm in zero-sum games for two players, like tic-tac-toe or chess, where it's assumed that all players play their best move. It considers all possible moves to derive a winning strategy. The X player aims to score the highest points for a win, while the O player tries to score the least points to avoid losing, finding the optimal solution in this situation.
 
 <img width="3191" alt="minimax-01" src="https://github.com/romantech/tic-tac-toe/assets/8604840/9d51047c-b810-496e-82ed-2e6ebc0f74ec">
@@ -93,10 +96,10 @@ The minimax algorithm predicts the outcome by exploring every node of the game t
 
 <img width="2184" alt="alpha-beta-pruning-01" src="https://github.com/romantech/tic-tac-toe/assets/8604840/c75d6782-fc1b-4178-90c3-772da1524e27">
 
-1. If the C2 node scores less than C1 (-98), e.g., -100:
+1. If the C2 node scores (-100) less than C1 (-98):
    - The minimizing phase node C would choose the C2 (-100) node, making its score -100.
    - The maximizing phase root node would then select the child node B (99) with the highest score.
-2. If the C2 node scores more than C1 (-98), e.g., 100:
+2. If the C2 node scores (100) more than C1 (-98):
    - The minimizing phase node C would choose the C1 (-98) node, making its score -98.
    - The maximizing phase root node would then select the child node B (99) with the highest score.
 
@@ -128,13 +131,13 @@ Alpha and beta values are updated while exploring child nodes as follows:
 1. Root Node: Set initial alpha and beta values → $[-\infty, +\infty]$.
 2. Exploring Node A:
    - After exploring sub-nodes (omitted in the image) and returning a score of 97 (back to the root node).
-   - The root node, being a maximizer, updates the alpha value ($97 > -\infty$) from $[-\infty, +\infty]$ to $[97, +\infty]$.
+   - The root node, being a maximizer, updates the alpha value from $[-\infty, +\infty]$ to $[97, +\infty]$.
 3. Exploring Node B:
    - After exploring sub-nodes (omitted in the image) and returning a score of 99 (back to the root node).
-   - The root node, being a maximizer, updates the alpha value ($99 > 97$) from $[97, +\infty]$ to $[99, +\infty]$.
+   - The root node, being a maximizer, updates the alpha value from $[97, +\infty]$ to $[99, +\infty]$.
 4. Exploring Node C: Receives alpha and beta values $[99, +\infty]$ from its parent.
    - After exploring Node C1 and returning a score of -98 (back to node C).
-   - Node C, being a minimizer, updates the beta value ($-98 < +\infty$) from $[99, +\infty]$ to $[99, -98]$.
+   - Node C, being a minimizer, updates the beta value from $[99, +\infty]$ to $[99, -98]$.
    - Since the alpha value (99) is greater than the beta value (-98), it skips exploring the next node (C2) — ✂️ Pruning
 
 ### Memoization
