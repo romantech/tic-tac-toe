@@ -4,12 +4,12 @@ import { useGameHistory, useGameSound, useUndoCount } from '@/hooks';
 import {
   BasePlayer,
   BoardIdx,
-  checkWinIndexes,
   createHistory,
   createSquare,
-  defaultSquare,
   defaultWinner,
+  evaluateWinning,
   findBestMoveIdx,
+  findBestMoveIdxMiniMax,
   GameOption,
   getInitialBoard,
   getOpponent,
@@ -33,6 +33,7 @@ export const useGame = ({
   const currentPlayer = useRef<BasePlayer>(firstPlayer);
   const winner = useRef(defaultWinner);
   const sequence = useRef<Array<BoardIdx>>([]);
+  const findBestMoveFunc = useRef(size === 3 ? findBestMoveIdxMiniMax : findBestMoveIdx);
 
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
   const { undoCounts, isUndoUsed, undoControls } = useUndoCount(isSinglePlay);
@@ -61,8 +62,8 @@ export const useGame = ({
       setBoard(newBoard);
 
       const isDraw = updatedSequence.length === newBoard.length;
-      const winIndices = checkWinIndexes(newBoard, winCondition, boardIdx, identifier);
-      if (winIndices) winner.current = { identifier, indices: winIndices, mark };
+      const winIndices = evaluateWinning(newBoard, winCondition, boardIdx);
+      if (Array.isArray(winIndices)) winner.current = { identifier, indices: winIndices, mark };
 
       if (winIndices || isDraw) {
         addHistory(createHistory(newBoard, winner.current));
@@ -84,8 +85,8 @@ export const useGame = ({
     setBoard((prev) => {
       const newBoard = [...prev];
       const shouldSetSecondLast = isSinglePlay && isNumber(secondLastBoardIdx);
-      if (shouldSetSecondLast) newBoard[secondLastBoardIdx] = defaultSquare;
-      newBoard[lastBoardIdx] = defaultSquare;
+      if (shouldSetSecondLast) newBoard[secondLastBoardIdx] = createSquare();
+      newBoard[lastBoardIdx] = createSquare();
       return newBoard;
     });
   };
@@ -104,7 +105,7 @@ export const useGame = ({
     let timer: number;
 
     if (isBotTurn && gameNotEnded) {
-      const nextIndex = findBestMoveIdx(board, winCondition, currentPlayer.current);
+      const nextIndex = findBestMoveFunc.current(board, winCondition, currentPlayer.current);
       if (isNumber(nextIndex)) timer = setTimeout(() => onBoardClick(nextIndex, true), 300);
     }
 

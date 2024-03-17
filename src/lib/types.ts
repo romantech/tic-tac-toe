@@ -30,17 +30,15 @@ export type GameOption = {
   gameMode: GameMode;
 };
 
-export type PlayerConfig = {
-  identifier: BasePlayer;
-  mark: string;
-  color: string;
-};
+export type PlayerConfig = { identifier: BasePlayer; mark: string; color: string };
+export type PlayerConfigs = { [key in BasePlayer]: PlayerConfig };
 
-export type PlayerConfigs = {
-  [key in BasePlayer]: PlayerConfig;
-};
+export type Roles = { player: BasePlayer; opponent: BasePlayer };
+export type CutBounds = { alpha: number; beta: number };
+export type BestOutcome = { score: number; move: number | null };
 
 export type ISODateString = string;
 export type GenericRecord<T = unknown> = Record<string, T>;
+export type Memo = Map<string, number>;
 
 export type RowColPair<T extends string> = { [K in T]: number };

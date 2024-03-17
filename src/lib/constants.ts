@@ -1,4 +1,4 @@
-import { GameOption, PlayerConfigs, TSquare, Winner } from '@/lib/types';
+import { GameOption, PlayerConfigs, Winner } from '@/lib/types';
 
 export const MAX_UNDO_COUNT = 3;
 export const TIE_SYMBOL = '−';
@@ -67,10 +67,10 @@ export const defaultGameOption: GameOption = {
   gameMode: GameMode.SinglePlayer,
 };
 
-export const defaultSquare: TSquare = {
-  identifier: null,
-  sequence: null,
-  color: 'transparent',
-  mark: null,
-};
 export const defaultWinner: Winner = { identifier: null, indices: null, mark: null };
+
+export enum Score {
+  Win = 100,
+  Lose = -100,
+  Draw = 0,
+}
