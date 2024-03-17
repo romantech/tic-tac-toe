@@ -281,7 +281,7 @@ const getMinimaxContext = (depth: number) => {
   };
 };
 
-const getStateKey = (board: TBoard, depth: number) => {
+const generateBoardKey = (board: TBoard, depth: number) => {
   return `${board.map(({ identifier }) => identifier ?? '-').join('')}:${depth}`;
 };
 
@@ -324,8 +324,8 @@ const minimax = (
   cutBounds: CutBounds,
   memo: Memo,
 ): number => {
-  const key = getStateKey(board, depth);
-  if (memo.has(key)) return memo.get(key)!; // 이미 계산된 상태인지 확인}
+  const boardKey = generateBoardKey(board, depth); // 보드 상태와 depth를 기준으로 유니크 key 생성
+  if (memo.has(boardKey)) return memo.get(boardKey)!; // 이미 평가한 보드 상태라면 해당 점수 반환
 
   // Check if there is a winner
   const winner = evaluateWinning(board, winCondition, lastIndex, null, 'winner');
@@ -349,7 +349,7 @@ const minimax = (
     }
   }
 
-  memo.set(key, bestScore);
+  memo.set(boardKey, bestScore); // 현재 보드 상태의 bestScore 저장
   return bestScore;
 };
 

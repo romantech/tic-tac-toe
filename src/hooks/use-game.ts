@@ -9,6 +9,7 @@ import {
   defaultWinner,
   evaluateWinning,
   findBestMoveIdx,
+  findBestMoveIdxMiniMax,
   GameOption,
   getInitialBoard,
   getOpponent,
@@ -32,6 +33,7 @@ export const useGame = ({
   const currentPlayer = useRef<BasePlayer>(firstPlayer);
   const winner = useRef(defaultWinner);
   const sequence = useRef<Array<BoardIdx>>([]);
+  const findBestMoveFunc = useRef(size === 3 ? findBestMoveIdxMiniMax : findBestMoveIdx);
 
   const [board, setBoard] = useState<TBoard>(getInitialBoard(size));
   const { undoCounts, isUndoUsed, undoControls } = useUndoCount(isSinglePlay);
@@ -103,7 +105,7 @@ export const useGame = ({
     let timer: number;
 
     if (isBotTurn && gameNotEnded) {
-      const nextIndex = findBestMoveIdx(board, winCondition, currentPlayer.current);
+      const nextIndex = findBestMoveFunc.current(board, winCondition, currentPlayer.current);
       if (isNumber(nextIndex)) timer = setTimeout(() => onBoardClick(nextIndex, true), 300);
     }
 
