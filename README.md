@@ -7,8 +7,8 @@
 Tic-Tac-Toe, the classic board game, involves two players taking turns to place their symbols (X or O) on a 3x3 grid, with the goal of aligning three of their marks in a row, column, or diagonal. This project elevates the traditional Tic-Tac-Toe experience by introducing customizable features such as adjustable board sizes, customizable winning conditions, and the ability to undo the last move, thus offering a more tailored and engaging gaming experience.
 
 - [Play Game](https://tictactoe.romantech.net)
-- [Implementation Details Korean Ver.](https://colorfilter.notion.site/TIL-Tic-Tac-Toe-47f5b86f257e484983c08e2fab68d286?pvs=4)
-- [Game Theory Korean Ver.](https://colorfilter.notion.site/TIL-d22a8ba84b2443b8a3d36729a9ecaa19?pvs=4)
+- [Implementation Details Korean Ver.](https://romantech.net/1273)
+- [Game Theory Korean Ver.](https://romantech.net/1274)
 
 ## TOC
 
