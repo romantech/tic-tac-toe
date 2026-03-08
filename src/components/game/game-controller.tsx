@@ -5,8 +5,10 @@ import { useSetScreen } from '@/context';
 import { UseGameReturnType } from '@/hooks';
 import { BasePlayer, PlayerConfigs, ScreenType } from '@/lib';
 
-interface GameControllerProps
-  extends Pick<UseGameReturnType, 'controlStates' | 'handlers' | 'undoCounts'> {
+interface GameControllerProps extends Pick<
+  UseGameReturnType,
+  'controlStates' | 'handlers' | 'undoCounts'
+> {
   className?: string;
   playerConfigs: PlayerConfigs;
   isSinglePlay: boolean;
