@@ -11,10 +11,26 @@ latest 0.x release (and the default branch).
 | Latest 0.x release          | :white_check_mark: |
 | Older 0.x releases          | :x:                |
 
+
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Please report security vulnerabilities **privately**.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+- **Preferred channel:** GitHub Private Vulnerability Reporting (Security Advisories)  
+  https://github.com/<OWNER>/<REPO>/security/advisories/new
+- **Alternative:** Email: security@yourdomain.example
+
+**Please do not** open a public GitHub issue or post details publicly until we have released a fix.
+
+### What to include
+- A clear description of the issue and potential impact
+- Steps to reproduce (proof-of-concept if available)
+- Affected versions/commit and environment details
+- Any suggested mitigation or patch
+
+### Response timeline
+- **Acknowledgement:** within **72 hours**
+- **Status update:** within **7 days**, and regularly thereafter until resolved
+
+### Coordinated disclosure
+If the report is accepted, we will work with you on a coordinated disclosure timeline and will credit you in the advisory (unless you prefer to remain anonymous). If the report is declined, we will share our reasoning.
