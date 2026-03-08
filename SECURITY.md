@@ -2,15 +2,14 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This project is currently in pre-1.0 development (0.x). Security fixes are provided for the
+latest 0.x release (and the default branch).
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version                     | Supported          |
+| --------------------------- | ------------------ |
+| main (default branch)       | :white_check_mark: |
+| Latest 0.x release          | :white_check_mark: |
+| Older 0.x releases          | :x:                |
 
 ## Reporting a Vulnerability
 
