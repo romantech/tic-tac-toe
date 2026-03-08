@@ -1,23 +1,15 @@
-import { cloneElement, isValidElement, PropsWithChildren } from 'react';
+import { cloneElement, ReactElement, SVGProps } from 'react';
 
 import { clsx } from 'clsx';
 
 interface IconButtonProps {
   className?: string;
   size?: number;
+  children: ReactElement<SVGProps<SVGSVGElement>>;
   onClick: () => void;
 }
 
-export default function IconButton({
-  className,
-  size = 24,
-  children,
-  onClick,
-}: PropsWithChildren<IconButtonProps>) {
-  if (!isValidElement(children)) {
-    throw new Error('children must be a valid react element');
-  }
-
+export default function IconButton({ className, size = 24, children, onClick }: IconButtonProps) {
   return (
     <button
       type="button"
@@ -28,7 +20,6 @@ export default function IconButton({
       )}
     >
       {cloneElement(children, {
-        ...children.props,
         width: size,
         height: size,
       })}
