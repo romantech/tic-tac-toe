@@ -10,11 +10,15 @@ This is a personal, single-maintainer project.
 
 ## Reporting a Vulnerability
 
-Please report vulnerabilities privately through GitHub Security Advisories:
+Preferred channel: report vulnerabilities privately through GitHub Security Advisories:
 
 https://github.com/romantech/tic-tac-toe/security/advisories/new
 
-Please do not open a public issue with exploit details before a fix is available.
+Fallback (if you cannot use Security Advisories): open a public issue with only
+"Security report: private contact requested" in the title/body and no technical details.
+The maintainer will reply with a private channel for full disclosure.
+
+Do not post exploit details in public issues before a fix is available.
 
 Include the following when possible:
 - Impact and affected area
