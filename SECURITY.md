@@ -1,36 +1,30 @@
 # Security Policy
 
-## Supported Versions
+## Supported Scope
 
-This project is currently in pre-1.0 development (0.x). Security fixes are provided for the
-latest 0.x release (and the default branch).
+This is a personal, single-maintainer project.
 
-| Version                     | Supported          |
-| --------------------------- | ------------------ |
-| main (default branch)       | :white_check_mark: |
-| Latest 0.x release          | :white_check_mark: |
-| Older 0.x releases          | :x:                |
-
+- Security fixes are handled on a best-effort basis.
+- Only the latest code on `main` is in scope.
+- Older tags/commits are not supported.
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities **privately**.
+Preferred channel: report vulnerabilities privately through GitHub Security Advisories:
 
-- **Preferred channel:** GitHub Private Vulnerability Reporting (Security Advisories)  
-  https://github.com/<OWNER>/<REPO>/security/advisories/new
-- **Alternative:** Email: security@yourdomain.example
+https://github.com/romantech/tic-tac-toe/security/advisories/new
 
-**Please do not** open a public GitHub issue or post details publicly until we have released a fix.
+Fallback (if you cannot use Security Advisories): open a public issue with only
+"Security report: private contact requested" in the title/body and no technical details.
+The maintainer will reply with a private channel for full disclosure.
 
-### What to include
-- A clear description of the issue and potential impact
-- Steps to reproduce (proof-of-concept if available)
-- Affected versions/commit and environment details
-- Any suggested mitigation or patch
+Do not post exploit details in public issues before a fix is available.
 
-### Response timeline
-- **Acknowledgement:** within **72 hours**
-- **Status update:** within **7 days**, and regularly thereafter until resolved
+Include the following when possible:
+- Impact and affected area
+- Reproduction steps (or PoC)
+- Affected commit/tag and environment
 
-### Coordinated disclosure
-If the report is accepted, we will work with you on a coordinated disclosure timeline and will credit you in the advisory (unless you prefer to remain anonymous). If the report is declined, we will share our reasoning.
+## Response
+
+Reports are triaged and addressed by one maintainer on a best-effort basis, with no guaranteed SLA.
