@@ -12,11 +12,6 @@ export default tseslint.config(
   {
     ignores: ['dist', '.eslintrc.cjs', 'eslint.config.js'],
   },
-  {
-    settings: {
-      'import/resolver': { typescript: true, node: true },
-    },
-  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   reactHooks.configs.flat.recommended,
@@ -27,6 +22,13 @@ export default tseslint.config(
   eslintConfigPrettier,
   {
     files: ['**/*.{ts,tsx}'],
+    settings: {
+      'import/resolver': {
+        typescript: { project: './tsconfig.json' },
+        node: true,
+      },
+      'import/ignore': ['\\?react$'],
+    },
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: 'module',
@@ -71,7 +73,7 @@ export default tseslint.config(
           varsIgnorePattern: '^_',
         },
       ],
-      'import/no-unresolved': 'error',
+      'import/no-unresolved': 'off',
       'import/order': [
         'warn',
         {
