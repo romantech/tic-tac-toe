@@ -1,6 +1,3 @@
-import { BasePlayer, Score } from '@/lib/constants';
-import { selectRandomElement } from '@/lib/helpers';
-
 import {
   BestOutcome,
   CutBounds,
@@ -14,6 +11,9 @@ import {
   TSquareColor,
   Winner,
 } from './types';
+
+import { BasePlayer, Score } from '@/lib/constants';
+import { selectRandomElement } from '@/lib/helpers';
 
 /* ==========================================================================================
  * ============================= Winning Condition Verification =============================

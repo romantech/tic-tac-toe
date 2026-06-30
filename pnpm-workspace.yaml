@@ -1,0 +1,5 @@
+# pnpm v10.1 버전부터 설치 중 실행되는 의존성 빌드 스크립트를 명시적으로 승인해야됨
+# 승인된 패키지는 pnpm-workspace.yaml.allowBuilds에 기록됨
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
