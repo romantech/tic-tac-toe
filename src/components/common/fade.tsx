@@ -1,6 +1,5 @@
-import { PropsWithChildren, useLayoutEffect } from 'react';
-
 import { clsx } from 'clsx';
+import { type PropsWithChildren, useLayoutEffect } from 'react';
 
 import { Box, type BoxProps } from '@/components';
 import { useDisclosure } from '@/hooks';

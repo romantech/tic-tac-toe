@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { useFormContext } from 'react-hook-form';
 
-import { BasePlayer } from '@/lib';
+import type { BasePlayer } from '@/lib';
 
 interface FirstPlayerRadioProps {
   name: string;

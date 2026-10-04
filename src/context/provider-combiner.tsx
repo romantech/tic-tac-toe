@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 interface AppProviderProps {
   /**
@@ -11,6 +11,7 @@ interface AppProviderProps {
 
 export const ProviderCombiner = ({ children, providers }: PropsWithChildren<AppProviderProps>) => {
   return providers.reduceRight((wrappedChildren, Provider) => {
+    // biome-ignore lint/correctness/useJsxKeyInIterable: Providers are nested, not rendered as sibling elements.
     return <Provider>{wrappedChildren}</Provider>;
   }, children);
 };

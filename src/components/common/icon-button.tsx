@@ -1,6 +1,5 @@
-import { cloneElement, ReactElement, SVGProps } from 'react';
-
 import { clsx } from 'clsx';
+import { cloneElement, type ReactElement, type SVGProps } from 'react';
 
 interface IconButtonProps {
   className?: string;

@@ -1,6 +1,5 @@
-import { ComponentProps } from 'react';
-
 import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
 
 interface SectionTitleProps extends ComponentProps<'h2'> {
   className?: string;

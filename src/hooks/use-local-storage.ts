@@ -16,7 +16,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const [storedValue, setStoredValue] = useState<T>(readValue.current);
 
   const setValue: (value: T | ((val: T) => T)) => void = (value) => {
-    if (typeof window == 'undefined') {
+    if (typeof window === 'undefined') {
       console.warn(
         `Tried setting localStorage key “${key}” even though environment is not a client`,
       );

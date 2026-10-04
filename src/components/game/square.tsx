@@ -1,8 +1,7 @@
-import { ComponentProps } from 'react';
-
 import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
 
-import { BoardSize, TMark, TSequence } from '@/lib';
+import { BoardSize, type TMark, type TSequence } from '@/lib';
 
 interface SquareProps extends ComponentProps<'button'> {
   mark: TMark;

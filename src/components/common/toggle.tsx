@@ -1,6 +1,5 @@
-import { ComponentProps } from 'react';
-
 import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
 
 const sizeClasses = {
   sm: 'h-4 w-8 after:size-3.5',

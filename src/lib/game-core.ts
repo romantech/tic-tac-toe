@@ -1,4 +1,6 @@
-import {
+import { BasePlayer, Score } from '@/lib/constants';
+import { selectRandomElement } from '@/lib/helpers';
+import type {
   BestOutcome,
   CutBounds,
   Identifier,
@@ -11,9 +13,6 @@ import {
   TSquareColor,
   Winner,
 } from './types';
-
-import { BasePlayer, Score } from '@/lib/constants';
-import { selectRandomElement } from '@/lib/helpers';
 
 /* ==========================================================================================
  * ============================= Winning Condition Verification =============================
@@ -325,7 +324,8 @@ const minimax = (
   memo: Memo,
 ): number => {
   const boardKey = generateBoardKey(board, depth); // 보드 상태와 depth를 기준으로 유니크 key 생성
-  if (memo.has(boardKey)) return memo.get(boardKey)!; // 이미 평가한 보드 상태라면 해당 점수 반환
+  const memoizedScore = memo.get(boardKey);
+  if (memoizedScore !== undefined) return memoizedScore; // 이미 평가한 보드 상태라면 해당 점수 반환
 
   // Check if there is a winner
   const winner = evaluateWinning(board, winCondition, lastIndex, null, 'winner');
@@ -334,7 +334,6 @@ const minimax = (
   if (!hasAvailableMove(board)) return Score.Draw;
 
   // Initialize bestScore and compare function
-  // eslint-disable-next-line prefer-const
   let { isMaximizing, bestScore, compareFn } = getMinimaxContext(depth);
 
   // Iterate through available moves and calculate scores

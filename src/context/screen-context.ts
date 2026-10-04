@@ -1,6 +1,5 @@
-import { useCallback, useState } from 'react';
-
 import constate from 'constate';
+import { useCallback, useState } from 'react';
 
 import { ScreenType } from '@/lib';
 

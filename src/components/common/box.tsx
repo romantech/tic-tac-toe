@@ -1,4 +1,4 @@
-import { ElementType } from 'react';
+import type { ElementType } from 'react';
 
 export type BoxProps<C extends ElementType = ElementType> = {
   as?: C;

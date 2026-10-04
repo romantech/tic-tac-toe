@@ -1,8 +1,7 @@
+import constate from 'constate';
 import { useCallback, useState } from 'react';
 
-import constate from 'constate';
-
-import { defaultGameOption, GameMode, GameOption } from '@/lib';
+import { defaultGameOption, GameMode, type GameOption } from '@/lib';
 
 interface GameOptionProviderProps {
   defaultOption?: GameOption;

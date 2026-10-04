@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { BasePlayer, PlayerConfigs } from '@/lib';
+import { BasePlayer, type PlayerConfigs } from '@/lib';
 
 interface TurnProps {
   currentPlayer: BasePlayer;

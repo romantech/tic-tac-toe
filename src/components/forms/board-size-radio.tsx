@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { Title } from '@/components';
-import { BoardSize, boardSize } from '@/lib';
+import { type BoardSize, boardSize } from '@/lib';
 
 export default function BoardSizeRadio() {
   const { control, setValue } = useFormContext();

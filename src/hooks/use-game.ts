@@ -3,18 +3,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useGameHistory, useGameSound, useUndoCount } from '@/hooks';
 import {
   BasePlayer,
-  BoardIdx,
+  type BoardIdx,
   createHistory,
   createSquare,
   defaultWinner,
   evaluateWinning,
   findBestMoveIdx,
   findBestMoveIdxMiniMax,
-  GameOption,
+  type GameOption,
   getInitialBoard,
   getOpponent,
   isNumber,
-  TBoard,
+  type TBoard,
 } from '@/lib';
 
 export type UseGameReturnType = ReturnType<typeof useGame>;

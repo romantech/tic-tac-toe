@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { BasePlayer } from '@/lib';
+import type { BasePlayer } from '@/lib';
 
 interface WinnerLabelProps {
   target: BasePlayer;

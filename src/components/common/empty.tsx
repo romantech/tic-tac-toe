@@ -1,6 +1,5 @@
-import { ComponentProps, PropsWithChildren } from 'react';
-
 import { clsx } from 'clsx';
+import type { ComponentProps, PropsWithChildren } from 'react';
 
 interface EmptyProps extends ComponentProps<'h1'> {
   className?: string;

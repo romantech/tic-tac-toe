@@ -1,9 +1,8 @@
-import { PropsWithChildren } from 'react';
-
 import { clsx } from 'clsx';
+import type { PropsWithChildren } from 'react';
 
 import { GitHubSvg, HomeSvg, SpearOffSvg, SpearOnSvg } from '@/assets';
-import { Box, BoxProps, Header, IconButton } from '@/components';
+import { Box, type BoxProps, Header, IconButton } from '@/components';
 import { useAudio, useSetScreen } from '@/context';
 import { ScreenType } from '@/lib';
 
