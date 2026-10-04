@@ -1,4 +1,4 @@
-import { GameOption, PlayerConfigs, Winner } from '@/lib/types';
+import type { GameOption, PlayerConfigs, Winner } from '@/lib/types';
 
 export const MAX_UNDO_COUNT = 3;
 export const TIE_SYMBOL = '−';

@@ -1,10 +1,9 @@
-import { useCallback } from 'react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useSetGameOption, useSetScreen } from '@/context';
-import { defaultGameOption, GameOption, gameOptionSchema, ScreenType } from '@/lib';
+import { defaultGameOption, type GameOption, gameOptionSchema, ScreenType } from '@/lib';
 
 export const useSettingsForm = () => {
   const methods = useForm<GameOption>({

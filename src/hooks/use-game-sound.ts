@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
-
-import gameOverTie from '@/assets/sound/game-over-tie.mp3';
 import gameOver from '@/assets/sound/game-over.mp3';
+import gameOverTie from '@/assets/sound/game-over-tie.mp3';
 import soundO from '@/assets/sound/note-high.mp3';
 import soundX from '@/assets/sound/note-low.mp3';
 import { useIsMuted } from '@/context';

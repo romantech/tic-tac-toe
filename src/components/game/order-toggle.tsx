@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 
 import { Box, Toggle } from '@/components';
-import { ToggleProps } from '@/components/common/toggle';
+import type { ToggleProps } from '@/components/common/toggle';
 
 interface OrderToggleProps extends ToggleProps {
   className?: string;

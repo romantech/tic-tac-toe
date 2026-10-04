@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { GameHistory, TGameHistory } from '@/lib';
+import { GameHistory, type TGameHistory } from '@/lib';
 
 interface UseGameHistoryProps {
   historyKey?: string;

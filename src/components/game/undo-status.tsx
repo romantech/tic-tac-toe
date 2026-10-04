@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 
-import { UndoCounts } from '@/hooks';
-import { BasePlayer, PlayerConfigs } from '@/lib';
+import type { UndoCounts } from '@/hooks';
+import { BasePlayer, type PlayerConfigs } from '@/lib';
 
 interface UndoStatusProps {
   playerConfigs: PlayerConfigs;

@@ -1,6 +1,5 @@
-import { ComponentProps, PropsWithChildren } from 'react';
-
 import { clsx } from 'clsx';
+import type { ComponentProps, PropsWithChildren } from 'react';
 
 interface MenuHeaderProps extends ComponentProps<'header'> {
   className?: string;

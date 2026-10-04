@@ -1,5 +1,5 @@
 import { BasePlayer, GameMode } from '@/lib/constants';
-import { GenericRecord, ISODateString } from '@/lib/types';
+import type { GenericRecord, ISODateString } from '@/lib/types';
 
 export const isUniqueProperty = <T>(items: T[], propertyName: keyof T) => {
   const values = items.map((item) => item[propertyName]);
@@ -47,7 +47,7 @@ export const selectRandomElement = <T>(arr: T[]) => {
 };
 
 export const isNumber = (value: unknown): value is number => {
-  return typeof value === 'number' && !isNaN(value);
+  return typeof value === 'number' && !Number.isNaN(value);
 };
 
 export const getPlayerLabel = (gameMode: GameMode, player: BasePlayer) => {

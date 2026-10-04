@@ -1,6 +1,5 @@
-import { ComponentProps } from 'react';
-
 import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
 
 type ButtonVariant = 'solid' | 'outline';
 

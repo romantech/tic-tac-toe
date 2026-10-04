@@ -55,15 +55,18 @@ const RangeLabels = () => {
   return (
     <ul className="flex justify-between">
       {getRangeLabels(boardSize).map((label) => (
-        <li
-          key={label}
-          className={clsx('cursor-pointer rounded-full px-2 py-0.5 text-sm', {
-            'bg-primary text-slate-800 font-semibold': label === winCondition,
-            'bg-slate-600': label !== winCondition,
-          })}
-          onClick={() => setValue('winCondition', label)}
-        >
-          {label}
+        <li key={label}>
+          <button
+            type="button"
+            className={clsx('cursor-pointer rounded-full px-2 py-0.5 text-sm', {
+              'bg-primary text-slate-800 font-semibold': label === winCondition,
+              'bg-slate-600': label !== winCondition,
+            })}
+            aria-pressed={label === winCondition}
+            onClick={() => setValue('winCondition', label)}
+          >
+            {label}
+          </button>
         </li>
       ))}
     </ul>

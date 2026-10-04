@@ -1,7 +1,6 @@
-import { ComponentProps } from 'react';
-
 import { DevTool } from '@hookform/devtools';
-import { FieldValues } from 'react-hook-form';
+import type { ComponentProps } from 'react';
+import type { FieldValues } from 'react-hook-form';
 
 import { isDev } from '@/lib';
 

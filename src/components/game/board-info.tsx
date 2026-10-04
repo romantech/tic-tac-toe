@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 
 import { Divider } from '@/components';
-import { getDateText, ISODateString, TIE_SYMBOL, TMark } from '@/lib';
+import { getDateText, type ISODateString, TIE_SYMBOL, type TMark } from '@/lib';
 
 interface BoardInfoProps {
   createdAt: ISODateString;

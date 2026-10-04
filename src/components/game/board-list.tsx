@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import { Board, BoardInfo } from '@/components';
-import { BoardType, TGameHistory } from '@/lib';
+import { BoardType, type TGameHistory } from '@/lib';
 
 interface BoardListProps {
   boardList: TGameHistory[];

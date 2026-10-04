@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 
 import { Square } from '@/components';
-import { BoardSize, BoardType, TBoard, Winner } from '@/lib';
+import { BoardSize, BoardType, type TBoard, type Winner } from '@/lib';
 
 interface BoardProps {
   board: TBoard;
@@ -41,6 +41,7 @@ export default function Board({
 
         return (
           <Square
+            // biome-ignore lint/suspicious/noArrayIndexKey: Board positions are fixed and never reordered.
             key={i}
             className={squareClasses}
             highlight={shouldHighlight}

@@ -1,4 +1,4 @@
-import { BasePlayer, BoardSize, GameMode } from '@/lib/constants';
+import type { BasePlayer, BoardSize, GameMode } from '@/lib/constants';
 
 export type BoardIdx = number;
 
