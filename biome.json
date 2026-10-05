@@ -17,15 +17,12 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "preset": "recommended",
-      "suspicious": {
-        "noUnknownAtRules": {
-          "level": "error",
-          "options": {
-            "ignore": ["tailwind"]
-          }
-        }
-      }
+      "preset": "recommended"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "javascript": {

@@ -22,7 +22,7 @@ export default function MarkTextInput({
       <input
         className={clsx(
           className,
-          'w-7 rounded-sm bg-slate-200 px-1.5 text-center text-slate-800 outline-slate-400',
+          'w-7 rounded-xs bg-slate-200 px-1.5 text-center text-slate-800 outline-slate-400',
         )}
         type="text"
         id={id}
