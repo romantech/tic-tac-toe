@@ -3,6 +3,9 @@
 packages:
   - .
 
+# GitHub's dependency graph cannot read pnpm 12 environment documents yet.
+pmOnFail: ignore
+
 allowBuilds:
   esbuild: true
 
