@@ -20,7 +20,7 @@
     "@hookform/resolvers": "^5.9.1",
     "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
-    "constate": "^3.3.3",
+    "constate": "^4.0.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-hook-form": "^7.89.0",
