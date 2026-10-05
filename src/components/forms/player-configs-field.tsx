@@ -53,7 +53,7 @@ const PlayerLabel = ({ player, className }: PlayerLabelProps) => {
     <Box
       as="h3"
       className={clsx(
-        'min-w-[84px] whitespace-nowrap bg-gradient-to-r from-slate-700 to-slate-800 text-center font-medium leading-[46px]',
+        'min-w-[84px] whitespace-nowrap bg-linear-to-r/srgb from-slate-700 to-slate-800 text-center font-medium leading-[46px]',
         className,
       )}
     >

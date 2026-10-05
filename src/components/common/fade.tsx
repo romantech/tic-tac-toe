@@ -24,7 +24,7 @@ export default function Fade({
   children,
   className,
   trigger = true,
-  duration = 500,
+  duration = 300,
   ...boxProps
 }: PropsWithChildren<FadeProps>) {
   const { isOpen: triggerFade, open: activeFade, close: cancelFade } = useDisclosure(false);

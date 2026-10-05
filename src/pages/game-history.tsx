@@ -8,7 +8,7 @@ export default function GameHistory() {
   const isHistoryEmpty = historyList.length === 0;
 
   return (
-    <Fade className="m-auto grid size-full max-w-screen-xl grid-cols-[repeat(auto-fill,_minmax(288px,320px))] place-content-center gap-8">
+    <Fade className="m-auto grid size-full max-w-7xl grid-cols-[repeat(auto-fill,_minmax(288px,320px))] place-content-center gap-8">
       <div className="col-span-full flex gap-3">
         <Button className="border-none text-2xl" onClick={clearHistory} disabled={isHistoryEmpty}>
           <Broom />
