@@ -1,13 +1,13 @@
 import type { ComponentProps } from 'react';
 
-import { useFormContext } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 
 interface PlayerColorPickerProps extends ComponentProps<'input'> {
   name: string;
 }
 
 export default function ColorPicker({ name, id = name, ...inputProps }: PlayerColorPickerProps) {
-  const { register } = useFormContext();
+  const { field } = useController({ name });
 
   return (
     <div className="flex items-center gap-2">
@@ -19,7 +19,7 @@ export default function ColorPicker({ name, id = name, ...inputProps }: PlayerCo
           className="absolute inset-1/2 size-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer bg-slate-800"
           type="color"
           id={id}
-          {...register(name)}
+          {...field}
           {...inputProps}
         />
       </div>
