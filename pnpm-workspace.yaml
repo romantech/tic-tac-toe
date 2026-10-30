@@ -11,3 +11,7 @@ allowBuilds:
 
 overrides:
   uuid: 11.1.1
+
+# GHSA-gcqx-w48m-w2h4: remove this patch when an upstream fix is released.
+patchedDependencies:
+  deepmerge@4.3.1: patches/deepmerge@4.3.1.patch
